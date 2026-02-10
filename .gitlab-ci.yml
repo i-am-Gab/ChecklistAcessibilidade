@@ -24,9 +24,9 @@ build:
       if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
         export CONFIGURATION="development"
       elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
-        export CONFIGURATION="homolog"
+        export CONFIGURATION="development"
       elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
-        export CONFIGURATION="production"
+        export CONFIGURATION="development"
       fi
       echo "Building for environment: $CONFIGURATION"
       npm ci
