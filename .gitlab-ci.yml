@@ -122,5 +122,5 @@ update:
       git clean -fd
       git pull origin $CI_COMMIT_REF_NAME
       export CI_COMMIT_SHORT_SHA=${CI_COMMIT_SHORT_SHA}
-      docker compose up -d --build
+      docker compose -f docker-compose.yaml up -d --build
       cat compose.yaml"
