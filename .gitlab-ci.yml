@@ -30,7 +30,7 @@ build:
       fi
       echo "Building for environment: $CONFIGURATION"
       npm ci
-      npx ng build --configuration=$CONFIGURATION
+      npm run dev --configuration=$CONFIGURATION
   artifacts:
     paths:
       - dist/
