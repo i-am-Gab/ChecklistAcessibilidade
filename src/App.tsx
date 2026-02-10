@@ -16,7 +16,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/acessibilidade">
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
