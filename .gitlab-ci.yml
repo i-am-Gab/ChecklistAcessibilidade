@@ -7,7 +7,7 @@ stages:
   - update
 
 before_script:
-  - echo "NODE_ENV=development" > .env
+  - echo "NODE_ENV=production" > .env
   - echo ".env Criado com sucesso!"
 
 build:
@@ -21,10 +21,17 @@ build:
     - dgti-runner 
   script:
     - |
+      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        export CONFIGURATION="development"
+      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
+        export CONFIGURATION="development"
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+        export CONFIGURATION="development"
+      fi
       export CONFIGURATION="development"
       echo "Building for environment: $CONFIGURATION"
       npm ci
-      npm run build -- --configuration=$CONFIGURATION
+      npm run build --configuration=$CONFIGURATION
   artifacts:
     paths:
       - dist/
