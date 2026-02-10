@@ -121,8 +121,6 @@ update:
       git reset --hard origin/$CI_COMMIT_REF_NAME
       git clean -fd
       git pull origin $CI_COMMIT_REF_NAME
-      sed -i 's|FRONTEND_IMAGE=.*|FRONTEND_IMAGE='"$NEW_IMAGE_FRONTEND"'|' .env
       export CI_COMMIT_SHORT_SHA=${CI_COMMIT_SHORT_SHA}
-      cp Dockerfile.model Dockerfile
       docker compose -f docker-compose.yml up -d --build
       cat compose.yaml"
