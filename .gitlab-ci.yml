@@ -98,7 +98,7 @@ update:
     - mkdir -p /root/.ssh
     - |
       SERVER_IP="177.105.61.61"
-      PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
+      PROJECT_DIR="/home/durelli/ima-acessibilidade/acessibilidade"
       echo "Servidor selecionado: $SERVER_IP"
     - ssh-keyscan $SERVER_IP >> /root/.ssh/known_hosts
   script:
@@ -106,7 +106,7 @@ update:
     - echo "$NEW_IMAGE_FRONTEND"
     - |
       sshpass -p $SSH_PASS ssh durelli@$SERVER_IP "
-      cd /home/rdurelli/ima-acessibilidade || exit 1
+      cd /home/durelli/ima-acessibilidade || exit 1
       if [ ! -d \"acessibilidade/.git\" ]; then
         echo 'Repositório não encontrado. Clonando novamente...'
         rm -rf acessibilidade  # Remove qualquer pasta corrompida
