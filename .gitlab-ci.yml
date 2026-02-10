@@ -1,0 +1,138 @@
+image: gitlab/dind 
+
+stages:
+  - build
+  - linter
+  - dockerize
+  - update
+
+before_script:
+  - echo "NODE_ENV=production" > .env
+  - echo ".env Criado com sucesso!"
+
+build:
+  stage: build
+  image: node:22-alpine
+  only:
+    - develop
+    - homolog
+    - main
+  tags:
+    - dgti-runner 
+  script:
+    - |
+      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        export CONFIGURATION="development"
+      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
+        export CONFIGURATION="homolog"
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+        export CONFIGURATION="production"
+      fi
+      echo "Building for environment: $CONFIGURATION"
+      npm ci
+      npx ng build --configuration=$CONFIGURATION
+  artifacts:
+    paths:
+      - dist/
+
+sonarqube-check:
+  stage: linter
+  image: 
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Local do cache do SonarQube
+    GIT_DEPTH: "0"  # Busca todas as branches do projeto
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - echo "Testando conexão com o SonarQube..."
+    - curl -I https://ima-sonar.dac.ufla.br || exit 1
+    - sonar-scanner
+  allow_failure: true
+  only:
+    - develop
+
+dockerize:
+  stage: dockerize
+  image: docker:latest
+  tags:
+    - dgti-runner
+  only:
+    - develop
+    - homolog
+    - main
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_BUILDKIT: 1
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - |
+      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        export CONFIGURATION="development"
+      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
+        export CONFIGURATION="homolog"
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+        export CONFIGURATION="production"
+      fi
+      echo "Building Docker image with CONFIGURATION=$CONFIGURATION"
+      docker build --pull --build-arg CONFIGURATION=$CONFIGURATION -t "$CI_REGISTRY_IMAGE/web:latest" -t "$CI_REGISTRY_IMAGE/web:${TAG:-latest}" -t "$CI_REGISTRY_IMAGE/web:${CI_COMMIT_SHORT_SHA}" .
+    - docker push "$CI_REGISTRY_IMAGE/web:${TAG:-latest}"
+    - docker push "$CI_REGISTRY_IMAGE/web:${CI_COMMIT_SHORT_SHA}"
+  dependencies:
+    - build
+
+update:
+  stage: update
+  image: alpine:latest
+  services:
+    - docker:dind
+  tags:
+    - dgti-runner
+  only:
+    - develop
+    - homolog
+    - main
+  before_script:
+    - apk add --no-cache openssh-client sshpass
+    - mkdir -p /root/.ssh
+    - |
+      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        SERVER_IP="177.105.61.61"
+        PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
+      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
+        SERVER_IP="177.105.61.61"
+        PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+        SERVER_IP="177.105.61.61"
+        PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
+      fi
+      echo "Servidor selecionado: $SERVER_IP"
+    - ssh-keyscan $SERVER_IP >> /root/.ssh/known_hosts
+  script:
+    - NEW_IMAGE_FRONTEND="$CI_REGISTRY_IMAGE/web:${CI_COMMIT_SHORT_SHA}"
+    - echo "$NEW_IMAGE_FRONTEND"
+    - |
+      sshpass -p $SSH_PASS ssh $SSH_USER@$SERVER_IP "
+      cd /home/rdurelli/ima-acessibilidade || exit 1
+      if [ ! -d \"acessibilidade/.git\" ]; then
+        echo 'Repositório não encontrado. Clonando novamente...'
+        rm -rf acessibilidade  # Remove qualquer pasta corrompida
+        git clone https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@git.dac.ufla.br/geosidagro/acessibilidade.git acessibilidade
+      fi
+      cd acessibilidade
+      git fetch origin
+      git checkout $CI_COMMIT_REF_NAME
+      git reset --hard origin/$CI_COMMIT_REF_NAME
+      git clean -fd
+      git pull origin $CI_COMMIT_REF_NAME
+      sed -i 's|FRONTEND_IMAGE=.*|FRONTEND_IMAGE='"$NEW_IMAGE_FRONTEND"'|' .env
+      export CI_COMMIT_SHORT_SHA=${CI_COMMIT_SHORT_SHA}
+      cp Dockerfile.model Dockerfile
+      docker compose -f docker-compose.yml up -d --build
+      cat compose.yaml"
