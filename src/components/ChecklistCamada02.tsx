@@ -864,16 +864,14 @@ export default function ChecklistCamada02() {
               >
                 Continuar Aprendizado
               </button>
-              <button
-                onClick={() =>
-                  navigate(
-                    "https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?usp=sharing",
-                  )
-                }
+              <a
+                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?tab=t.0#heading=h.q7xvzn7l1ba"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors"
               >
                 Ver Recursos Extras
-              </button>
+              </a>
             </div>
           </div>
         )}

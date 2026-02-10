@@ -7,7 +7,7 @@ stages:
   - update
 
 before_script:
-  - echo "NODE_ENV=production" > .env
+  - echo "NODE_ENV=development" > .env
   - echo ".env Criado com sucesso!"
 
 build:
@@ -21,16 +21,10 @@ build:
     - dgti-runner 
   script:
     - |
-      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
-        export CONFIGURATION="development"
-      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
-        export CONFIGURATION="homolog"
-      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
-        export CONFIGURATION="production"
-      fi
+      export CONFIGURATION="development"
       echo "Building for environment: $CONFIGURATION"
       npm ci
-      npx ng build --configuration=$CONFIGURATION
+      npm run build -- --configuration=$CONFIGURATION
   artifacts:
     paths:
       - dist/
@@ -73,13 +67,7 @@ dockerize:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - |
-      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
-        export CONFIGURATION="development"
-      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
-        export CONFIGURATION="homolog"
-      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
-        export CONFIGURATION="production"
-      fi
+      export CONFIGURATION="development"
       echo "Building Docker image with CONFIGURATION=$CONFIGURATION"
       docker build --pull --build-arg CONFIGURATION=$CONFIGURATION -t "$CI_REGISTRY_IMAGE/web:latest" -t "$CI_REGISTRY_IMAGE/web:${TAG:-latest}" -t "$CI_REGISTRY_IMAGE/web:${CI_COMMIT_SHORT_SHA}" .
     - docker push "$CI_REGISTRY_IMAGE/web:${TAG:-latest}"
@@ -102,16 +90,8 @@ update:
     - apk add --no-cache openssh-client sshpass
     - mkdir -p /root/.ssh
     - |
-      if [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
-        SERVER_IP="177.105.61.61"
-        PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
-      elif [ "$CI_COMMIT_REF_NAME" = "homolog" ]; then
-        SERVER_IP="177.105.61.61"
-        PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
-      elif [ "$CI_COMMIT_REF_NAME" = "main" ]; then
-        SERVER_IP="177.105.61.61"
-        PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
-      fi
+      SERVER_IP="177.105.61.61"
+      PROJECT_DIR="/home/rdurelli/ima-acessibilidade/acessibilidade"
       echo "Servidor selecionado: $SERVER_IP"
     - ssh-keyscan $SERVER_IP >> /root/.ssh/known_hosts
   script:
