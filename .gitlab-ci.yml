@@ -105,7 +105,7 @@ update:
     - NEW_IMAGE_FRONTEND="$CI_REGISTRY_IMAGE/web:${CI_COMMIT_SHORT_SHA}"
     - echo "$NEW_IMAGE_FRONTEND"
     - |
-      sshpass -p $SSH_PASS ssh $SSH_USER@$SERVER_IP "
+      sshpass -p $SSH_PASS ssh durelli@$SERVER_IP "
       cd /home/rdurelli/ima-acessibilidade || exit 1
       if [ ! -d \"acessibilidade/.git\" ]; then
         echo 'Repositório não encontrado. Clonando novamente...'
