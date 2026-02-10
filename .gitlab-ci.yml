@@ -7,7 +7,7 @@ stages:
   - update
 
 before_script:
-  - echo "NODE_ENV=production" > .env
+  - echo "NODE_ENV=development" > .env
   - echo ".env Criado com sucesso!"
 
 build:
