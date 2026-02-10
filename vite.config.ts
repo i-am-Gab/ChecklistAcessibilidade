@@ -4,6 +4,7 @@
   import path from 'path';
 
   export default defineConfig({
+    base: '/acessibilidade/',
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -56,5 +57,6 @@
     server: {
       port: 3000,
       open: true,
+      allowedHosts: ['localhost', 'sidagro-dev.dac.ufla.br'],
     },
   });
