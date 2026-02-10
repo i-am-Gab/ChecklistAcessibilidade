@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    container_name: figma-react-dev
+    ports:
+      - "3005:3005"   # Vite
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port 3005

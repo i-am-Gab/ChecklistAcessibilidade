@@ -1,0 +1,14 @@
+/.angular/
+/dist/
+/node_modules/
+
+
+#IDEA IDE
+.idea
+.DS_store
+.idea/workspace.xml
+
+
+#QODANA
+/qodana.sarif.json
+/qodana.yaml
