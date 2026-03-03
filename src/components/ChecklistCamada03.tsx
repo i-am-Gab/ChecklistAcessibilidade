@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router";
 import {
+  AlertTriangle,
   ChevronDown,
   BookOpen,
   ArrowLeft,
@@ -44,14 +45,6 @@ interface ChecklistItem {
   imagemUrl?: string; // URL do print da tela
   colorIndicator?: string; // Cor indicadora para itens
 }
-
-const categoryIcons: Record<string, string> = {
-  "Requisitos Técnicos": "🎯",
-  "Tela Principal": "🏠",
-  "Tela de Notificações": "🔔",
-  "Tela de Busca/Listagem": "🔍",
-  "Tela de Cadastro Interno": "📝",
-};
 
 // Mapeamento de URLs de prints por ID de item e sub-item
 // Adicione aqui os links do Google Drive para cada seção e subseção
@@ -1114,6 +1107,8 @@ export default function ChecklistCamada03() {
       .replace(/\//g, "");
   };
 
+  const [isWarningCardExpanded, setIsWarningCardExpanded] = useState(false);
+
   /* =======================
      Render
   ======================= */
@@ -1221,6 +1216,52 @@ export default function ChecklistCamada03() {
           </div>
         </div>
 
+        {/* Card de Aviso sobre Foco Visível vs Foco Programático */}
+        <div className="bg-cyan-50 border-l-4 border-cyan-500 rounded-lg overflow-hidden mb-6">
+          <button
+            onClick={() => setIsWarningCardExpanded(!isWarningCardExpanded)}
+            className="w-full flex items-center gap-3 p-5 hover:bg-cyan-100/50 transition-colors"
+          >
+            <div className="flex-shrink-0 w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center text-white mt-0.5">
+              <AlertTriangle className="w-4 h-4" />
+            </div>
+            <div className="flex-1 text-left">
+              <p className="text-gray-800 text-sm font-semibold">
+                Foco visível x Foco programático:
+              </p>
+            </div>
+            <ChevronDown
+              className={`w-5 h-5 text-gray-600 transition-transform ${
+                isWarningCardExpanded ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+          
+          {isWarningCardExpanded && (
+            <div className="px-5 pb-5 pt-2">
+              <div className="text-gray-800 text-sm leading-relaxed space-y-3">
+                <div>
+                  <p className="font-bold mb-1">Foco visível:</p>
+                  <p>
+                    É o indicador visual <strong>percebido na tela</strong> (borda, realce, sublinhado, etc.).
+                    Ele é especialmente importante para pessoas que navegam por teclado sem utilizar leitor de tela, 
+                    pois permite identificar visualmente a posição atual dentro da página ou aplicação.
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="font-bold mb-1">Foco programático (ou foco acessível):</p>
+                  <p>
+                    É o foco anunciado pelo <strong>leitor de tela</strong> (NVDA, JAWS, VoiceOver, etc.)
+                    Refere-se ao elemento que está efetivamente em foco no código, ou seja, aquele identificado 
+                    pelo navegador como o elemento ativo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        
         {/* Checklist por categorias */}
         <div className="space-y-8">
           {Object.entries(categoriasParaExibir).map(

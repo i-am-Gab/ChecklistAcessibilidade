@@ -41,23 +41,6 @@ interface ChecklistItem {
   checked: boolean;
 }
 
-const categoryIcons: Record<string, string> = {
-  Linguagem: "🧩",
-  "Qualidade Textual": "✍️",
-  Tipografia: "🔤",
-  Links: "🔗",
-  Imagens: "🖼️",
-  "Tabelas e Gráficos": "📊",
-  Arquivos: "📁",
-  "Elementos Interativos": "🎯",
-  "Navegação por Teclado": "⌨️",
-  Modais: "🪟",
-  "Estrutura do Documento": "📄",
-  Formulários: "📋",
-  "Percepção Visual": "👁️",
-  "Uso em Dispositivos Móveis": "📱",
-};
-
 export default function ChecklistCamada01() {
   const navigate = useNavigate();
   const location = useLocation();
