@@ -22,7 +22,9 @@ type ChecklistCategory =
   | "Card de Informações"
   | "Estrutura em Árvore"
   | "Caixas de Diálogo — Conteúdo"
-  | "Caixas de Diálogo — Alerta/Erro";
+  | "Caixas de Diálogo — Alerta/Erro"
+  | "Menu de Abas"
+  | "Filtros Ativos";
 
 interface ChecklistItem {
   id: number;
@@ -117,7 +119,15 @@ export default function ChecklistCamada02() {
       text: "Rótulo do campo descreve claramente o conteúdo esperado",
       description:
         "Associar rótulo (ex: <label>) explícito via aria-labelledby descrevendo claramente o conteúdo esperado.",
-      category: "Campos Numéricos",
+      category: "Campos de Seleção",
+      checked: false,
+    },
+    {
+      id: 70,
+      text: "Validações e estados são comunicados claramente",
+      description:
+        "Utilizar aria-describedby para associar mensagens de erro ou ajuda, garantindo que sejam anunciadas por leitores de tela.",
+      category: "Campos de Seleção",
       checked: false,
     },
 
@@ -125,6 +135,8 @@ export default function ChecklistCamada02() {
     {
       id: 8,
       text: "Navegação por setas anuncia item em foco",
+      description:
+        "Ao navegar por itens em um combobox, o leitor de tela deve anunciar o item que está em foco.",
       category: "Seleção Pesquisável",
       checked: false,
     },
@@ -133,7 +145,7 @@ export default function ChecklistCamada02() {
       text: "Rótulo do campo descreve claramente o conteúdo esperado",
       description:
         "Associar rótulo (ex: <label>) explícito via aria-labelledby descrevendo claramente o conteúdo esperado.",
-      category: "Campos Numéricos",
+      category: "Seleção Pesquisável",
       checked: false,
     },
     {
@@ -141,6 +153,14 @@ export default function ChecklistCamada02() {
       text: "Navegação completa por teclado",
       description:
         "Utilizando as teclas Tab, Setas, Enter e Esc",
+      category: "Seleção Pesquisável",
+      checked: false,
+    },
+    {
+      id: 71,
+      text: "Validações e estados são comunicados claramente",
+      description:
+        "Utilizar aria-describedby para associar mensagens de erro ou ajuda, garantindo que sejam anunciadas por leitores de tela.",
       category: "Seleção Pesquisável",
       checked: false,
     },
@@ -165,6 +185,7 @@ export default function ChecklistCamada02() {
     {
       id: 13,
       text: "Placeholder não é a única instrução",
+      description:"Placeholder não deve ser usado como única forma de instrução, pois desaparece ao preencher o campo e pode não ser lido por leitores de tela.",
       category: "Campos de Data",
       checked: false,
     },
@@ -179,12 +200,14 @@ export default function ChecklistCamada02() {
     {
       id: 15,
       text: "Foco vai para o calendário ao abrir e retorna ao campo ao fechar",
+      description:"Ao abrir o calendário, o foco deve ir para o título ou primeiro elemento interativo. Ao fechar, o foco deve retornar ao campo de data.",
       category: "Campos de Data",
       checked: false,
     },
     {
       id: 16,
       text: "Totalmente navegável por teclado",
+      description:'Para mais infomações, consulte as orientações da Cartilha em "Mais informações"',
       category: "Campos de Data",
       checked: false,
     },
@@ -196,6 +219,14 @@ export default function ChecklistCamada02() {
       category: "Campos de Data",
       checked: false,
     },
+    {
+      id: 72,
+      text: "Validações e estados são comunicados claramente",
+      description:
+        "Utilizar aria-describedby para associar mensagens de erro ou ajuda, garantindo que sejam anunciadas por leitores de tela.",
+      category: "Campos de Data",
+      checked: false,
+    },
 
     // Upload de Arquivos
     {
@@ -203,18 +234,20 @@ export default function ChecklistCamada02() {
       text: "Navegação completa por teclado",
       description:
         "Utilizando as teclas Tab, Setas, Enter e Esc",
-      category: "Seleção Pesquisável",
+      category: "Upload de Arquivos",
       checked: false,
     },
     {
       id: 19,
       text: "Exibe nome do arquivo após upload",
+      description:"O nome do arquivo deve ser exibido visualmente e estar disponível para leitores de tela após o upload",
       category: "Upload de Arquivos",
       checked: false,
     },
     {
       id: 20,
       text: "Possui botões de baixar e remover",
+      description:"Após o upload, devem estar disponíveis opções para baixar ou remover o arquivo",
       category: "Upload de Arquivos",
       checked: false,
     },
@@ -226,41 +259,55 @@ export default function ChecklistCamada02() {
       category: "Upload de Arquivos",
       checked: false,
     },
+    {
+      id: 72,
+      text: "Validações e estados são comunicados claramente",
+      description:
+        "Utilizar aria-describedby para associar mensagens de erro ou ajuda, garantindo que sejam anunciadas por leitores de tela",
+      category: "Upload de Arquivos",
+      checked: false,
+    },
 
     // Grupos de Campos Dinâmicos
     {
       id: 22,
       text: "Utilizar <fieldset> e <legend> para agrupar elementos",
+      description:"Use <fieldset> para agrupar os campos relacionados e <legend> para fornecer um rótulo claro para o grupo, garantindo que leitores de tela possam identificar a relação entre os campos",
       category: "Grupos de Campos Dinâmicos",
       checked: false,
     },
     {
       id: 23,
       text: "Cada instância adicionada possui seu próprio grupo/faz parte de um grupo",
+      description:"Cada instância de campo dinâmico deve ser agrupada logicamente, utilizando <fieldset> e <legend> para melhorar a acessibilidade",
       category: "Grupos de Campos Dinâmicos",
       checked: false,
     },
     {
       id: 24,
       text: "Botões de adicionar/remover usam <button>",
+      description:"Os botões de adicionar e remover instâncias de campos dinâmicos devem utilizar a tag <button>",
       category: "Grupos de Campos Dinâmicos",
       checked: false,
     },
     {
       id: 25,
       text: "Rótulos dos botões são claros",
+      description:"Os rótulos dos botões devem descrever claramente a ação que serão executadas.",
       category: "Grupos de Campos Dinâmicos",
       checked: false,
     },
     {
       id: 26,
       text: "Alterações dinâmicas anunciadas (aria-live)",
+      description:"Utilizar aria-live para anunciar automaticamente alterações dinâmicas na página, garantindo que sejam comunicadas aos usuários de leitores de tela",
       category: "Grupos de Campos Dinâmicos",
       checked: false,
     },
     {
       id: 27,
       text: "Foco é movido de forma previsível",
+      description:"O foco deve ser movido de forma previsível ao navegar pela página, garantindo que os usuários consigam acompanhar a navegação com facilidade",
       category: "Grupos de Campos Dinâmicos",
       checked: false,
     },
@@ -340,6 +387,14 @@ export default function ChecklistCamada02() {
       category: "Seleção Múltipla",
       checked: false,
     },
+    {
+      id: 72,
+      text: "Validações e estados são comunicados claramente",
+      description:
+        "Utilizar aria-describedby para associar mensagens de erro ou ajuda, garantindo que sejam anunciadas por leitores de tela.",
+      category: "Seleção Múltipla",
+      checked: false,
+    },
 
     // Booleano
     {
@@ -362,7 +417,7 @@ export default function ChecklistCamada02() {
       id: 39,
       text: "Navegação por teclado segue o padrão esperado",
       description:
-        "Quando usar radio buttons, a navegação entre opções deve ocorrer pelas setas",
+        'Para mais infomações, consulte as orientações da Cartilha em "Mais informações",',
       category: "Booleano",
       checked: false,
     },
@@ -371,6 +426,14 @@ export default function ChecklistCamada02() {
       text: "Mudanças que impactam outros campos são tratadas corretamente",
       description:
         "Alterações de valor devem atualizar campos dependentes sem perda de foco ou contexto",
+      category: "Booleano",
+      checked: false,
+    },
+    {
+      id: 73,
+      text: "Validações e estados são comunicados claramente",
+      description:
+        "Utilizar aria-describedby para associar mensagens de erro ou ajuda, garantindo que sejam anunciadas por leitores de tela.",
       category: "Booleano",
       checked: false,
     },
@@ -436,7 +499,7 @@ export default function ChecklistCamada02() {
       id: 48,
       text: "Todo conteúdo interativo do card é acessível por teclado",
       description:
-        "Links, botões e controles internos devem ser navegáveis via TAB",
+        "Links, botões e controles internos devem ser navegáveis via teclado",
       category: "Card de Informações",
       checked: false,
     },
@@ -470,7 +533,7 @@ export default function ChecklistCamada02() {
       id: 52,
       text: "Implementa navegação por teclado",
       description:
-        "Setas para navegação, Enter/Espaço para seleção e expansão/retração dos nós",
+        'Para mais infomações, consulte as orientações da Cartilha em "Mais informações"',
       category: "Estrutura em Árvore",
       checked: false,
     },
@@ -486,8 +549,16 @@ export default function ChecklistCamada02() {
       id: 54,
       text: "Mudanças de estado são anunciadas corretamente",
       description:
-        "Expansão, colapso e seleção devem ser comunicados ao leitor de tela em tempo real",
+        "Expansão, colapso e seleção devem ser comunicados ao leitor de tela em tempo real com uso de aria-live",
       category: "Estrutura em Árvore",
+      checked: false,
+    },
+    {
+      id: 74,
+      text: "Navegação por teclado segue o padrão esperado",
+      description:
+        'Para mais infomações, consulte as orientações da Cartilha em "Mais informações",',
+      category: "Booleano",
       checked: false,
     },
 
@@ -555,6 +626,14 @@ export default function ChecklistCamada02() {
       category: "Caixas de Diálogo — Conteúdo",
       checked: false,
     },
+    {
+      id: 75,
+      text: "Navegação por teclado segue o padrão esperado",
+      description:
+        'Para mais infomações, consulte as orientações da Cartilha em "Mais informações",',
+      category: "Booleano",
+      checked: false,
+    },
 
     // Caixas de Diálogo Modais
     {
@@ -613,6 +692,226 @@ export default function ChecklistCamada02() {
       category: "Caixas de Diálogo — Alerta/Erro",
       checked: false,
     },
+    {
+      id: 76,
+      text: "Navegação por teclado segue o padrão esperado",
+      description:
+        'Para mais infomações, consulte as orientações da Cartilha em "Mais informações",',
+      category: "Booleano",
+      checked: false,
+    },
+
+    // Menu de abas
+    {
+      id: 77,
+      text: 'Usa role="tablist" no contêiner das abas',
+      description:
+        'O elemento que agrupa as abas (ex.: <ul> ou <nav>) deve possuir role="tablist" para indicar ao leitor de tela que se trata de um conjunto de abas relacionadas',
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 78,
+      text: 'Cada aba usa role="tab"',
+      description:
+        'Cada elemento interativo da aba (ex.: <button> ou <a>) deve possuir role="tab", representando uma opção selecionável dentro do conjunto de abas',
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 79,
+      text: 'Painéis de conteúdo usam role="tabpanel"',
+      description:
+        'O contêiner que apresenta o conteúdo relacionado à aba selecionada deve utilizar role="tabpanel" e estar associado à aba correspondente',
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 80,
+      text: 'Atributo aria-selected indica a aba ativa',
+      description:
+        'Utilize aria-selected="true" para a aba atualmente selecionada e aria-selected="false" para as demais abas',
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 81,
+      text: "Abas possuem id único associado ao painel",
+      description:
+        'Cada aba deve possuir um id único que seja referenciado pelo atributo aria-labelledby no elemento com role="tabpanel"',
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 82,
+      text: "Estrutura semântica do menu de abas é clara",
+      description:
+        "Recomenda-se estruturar o componente utilizando elementos semânticos como <nav>, <ul>, <li>, <button> ou <a> para as abas e <section> ou <div> para os painéis de conteúdo",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 83,
+      text: "Painel de conteúdo possui título semântico",
+      description:
+        "Quando <section> for utilizado como painel de conteúdo, recomenda-se incluir um título semântico (<h1>, <h2>, etc.) que represente o conteúdo da aba",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 84,
+      text: "Apenas uma aba pode estar selecionada",
+      description:
+        "Somente uma aba deve possuir aria-selected='true' por vez, garantindo que apenas um painel de conteúdo esteja ativo",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 85,
+      text: "Navegação por setas não altera o conteúdo automaticamente",
+      description:
+        "Ao navegar entre abas com as setas direcionais, o foco deve se mover entre as abas, mas o conteúdo não deve ser alterado automaticamente",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 86,
+      text: "Conteúdo muda apenas após ação do usuário",
+      description:
+        "O painel de conteúdo deve ser alterado apenas após ação explícita do usuário, como pressionar Enter ou Espaço na aba focada",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 87,
+      text: "Foco inicial vai para a aba selecionada",
+      description:
+        "Ao acessar o menu de abas via teclado, o foco deve ser posicionado na aba atualmente selecionada",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 88,
+      text: "Leitor de tela anuncia estado e posição da aba",
+      description:
+        "O leitor de tela deve anunciar o nome da aba, seu estado (selecionada ou não) e sua posição no conjunto de abas (ex.: “2 de 5”)",
+      category: "Menu de Abas",
+      checked: false,
+    },
+    {
+      id: 89,
+      text: "Navegação por teclado segue o padrão esperado",
+      description:"Para mais infomações, consulte as orientações da Cartilha em 'Mais informações'",
+      category: "Menu de Abas",
+      checked: false,
+    },
+
+    // Seção de Filtros Ativos
+    {
+      id: 90,
+      text: "Navegação por teclado segue o padrão esperado",
+      description:
+        'Para mais infomações, consulte as orientações da Cartilha em "Mais informações",',
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 91,
+      text: "Filtros ativos são apresentados em um contêiner semântico",
+      description:
+        "Utilize um contêiner semântico, como <ul>, para representar a lista de filtros atualmente aplicados, permitindo que tecnologias assistivas identifiquem o conjunto corretamente",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 92,
+      text: "Cada filtro possui texto visível e descritivo",
+      description:
+        "O texto do filtro deve indicar claramente o critério e o valor aplicado, como por exemplo: 'Zona: Rural' ou 'Situação: Ativo'",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 93,
+      text: "Cada filtro possui botão para remoção individual",
+      description:
+        "Cada filtro ativo deve possuir um botão explícito que permita sua remoção individual",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 94,
+      text: "Botão de remoção possui aria-label descritivo",
+      description:
+        "O botão de remoção deve possuir aria-label descrevendo qual filtro será removido, por exemplo: 'Remover filtro Zona Rural'",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 95,
+      text: "Texto do filtro pode ser associado via aria-labelledby",
+      description:
+        "Quando necessário, utilize aria-labelledby para associar o texto descritivo do filtro ao seu contêiner ou botão de remoção",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 96,
+      text: "Ícones decorativos usam aria-hidden",
+      description:
+        'Ícones utilizados apenas para fins visuais devem possuir aria-hidden="true" para que não sejam anunciados por leitores de tela',
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 97,
+      text: "Cada filtro ativo é compreensível isoladamente",
+      description:
+        "O texto de cada filtro deve ser compreensível mesmo quando lido fora de contexto, permitindo que usuários de leitores de tela entendam o critério aplicado",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 98,
+      text: "A ação de remoção é clara para leitores de tela",
+      description:
+        "O botão de remoção deve indicar claramente sua função e qual filtro será removido, garantindo compreensão para usuários de tecnologias assistivas",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 99,
+      text: "Componente é totalmente operável via teclado",
+      description:
+        "Usuários devem conseguir navegar entre os filtros e seus botões de remoção utilizando a tecla Tab e ativar a remoção com Enter ou Espaço",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 100,
+      text: "Lista de filtros ativos é anunciada corretamente",
+      description:
+        "Leitores de tela devem anunciar o conjunto como uma lista, indicando a quantidade de filtros ativos, por exemplo: 'Filtros ativos, lista com 3 itens'",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 101,
+      text: "Atualização da lista é percebida por leitores de tela",
+      description:
+        "Após a remoção de um filtro, a atualização da lista deve ser percebida pelas tecnologias assistivas",
+      category: "Filtros Ativos",
+      checked: false,
+    },
+    {
+      id: 102,
+      text: "Foco é reposicionado após remover um filtro",
+      description:
+        "Após a remoção de um filtro, o foco deve ser movido para o próximo filtro disponível, para o anterior ou para um elemento apropriado do contexto caso não existam mais filtros ativos",
+      category: "Filtros Ativos",
+      checked: false,
+    }
+
   ]);
 
   /* =======================
@@ -847,7 +1146,7 @@ export default function ChecklistCamada02() {
                   Ótimo progresso! 🎉
                 </h3>
                 <p className="text-gray-300 max-w-xl">
-                  Você está dominando os componentes interativos
+                  Você está dominando a criação de componentes
                   acessíveis. Continue assim para garantir uma
                   experiência inclusiva para todos os usuários!
                 </p>
@@ -862,15 +1161,15 @@ export default function ChecklistCamada02() {
                 }
                 className="bg-[#00b894] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#00a380] transition-colors"
               >
-                Continuar Aprendizado
+                Continuar aprendizado
               </button>
               <a
-                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?usp=sharing"
+                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?tab=t.0#heading=h.5a9f49obfuir"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors"
               >
-                Ver Recursos Extras
+                Ver orientações extras
               </a>
             </div>
           </div>

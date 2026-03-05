@@ -738,6 +738,10 @@
     align-items: center;
   }
 
+  .self-center {
+    align-self: center;
+  }
+
   .items-start {
     align-items: flex-start;
   }

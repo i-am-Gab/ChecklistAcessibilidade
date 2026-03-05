@@ -1059,7 +1059,7 @@ export default function ChecklistCamada01() {
                   Isso aí! 🎉
                 </h3>
                 <p className="text-gray-300 max-w-xl">
-                  Você está dominando a Base de Conhecimento.
+                  Você está dominando os Fundamentos Essenciais.
                   Continue assim para garantir uma experiência
                   inclusiva para todos os usuários!
                 </p>
@@ -1074,15 +1074,15 @@ export default function ChecklistCamada01() {
                 }
                 className="bg-[#00b894] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#00a380] transition-colors"
               >
-                Continuar Aprendizado
+                Continuar aprendizado
               </button>
               <a
-                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?usp=sharing"
+                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?tab=t.0#heading=h.q7xvzn7l1ba"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors"
               >
-                Ver Recursos Extras
+                Ver recursos extras
               </a>
             </div>
           </div>

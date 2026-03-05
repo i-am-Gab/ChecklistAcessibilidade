@@ -18,6 +18,8 @@ import {
   MessageSquare,
   Layers,
   ArrowLeft,
+  Square,
+  Filter
 } from "lucide-react";
 
 export default function PersonalizarCamada02() {
@@ -122,6 +124,20 @@ export default function PersonalizarCamada02() {
       icon: Layers,
       categoria: "Caixas de Diálogo — Alerta/Erro",
     },
+    {
+      id: "menu-abas",
+      nome: "Menu de Abas",
+      descricao: "Navegação tabular",
+      icon: Square,
+      categoria: "Menu de Abas",
+    },
+    {
+      id: "filtros-ativos",
+      nome: "Filtros Ativos",
+      descricao: "Gestão e acessibilidade",
+      icon: Filter,
+      categoria: "Filtros Ativos",
+    }
   ];
 
   const [selecionadas, setSelecionadas] = useState<string[]>(

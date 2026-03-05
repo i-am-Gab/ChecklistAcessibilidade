@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-white border-t border-gray-100 py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600 text-center sm:text-left">
-          <div className="flex items-center gap-2">
+          <div className="flex self-center gap-2">
             <svg
               className="w-4 h-4 flex-shrink-0"
               fill="currentColor"

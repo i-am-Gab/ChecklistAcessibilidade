@@ -517,7 +517,7 @@ export default function ChecklistCamada03() {
     },
     {
       id: 2,
-      text: "O indicador de foco possui espessura mínima de 2px CSS, conforme ABNT NBR 17225.",
+      text: "O indicador de foco possui espessura mínima de 2px CSS.",
       category: "Requisitos Técnicos",
       checked: false,
     },
@@ -1511,8 +1511,14 @@ export default function ChecklistCamada03() {
                 </h3>
                 <p className="text-gray-300 max-w-xl">
                   Você está dominando os conceitos avançados de
-                  navegação e acessibilidade. Continue assim
+                  navegação. Nunca deixe de continuar aprendendo
                   para garantir a conformidade completa!
+                  <p>
+                    <br></br>
+                    Queremos ouvir você! 
+                    Preencha o formulário de feedback e conte o que achou do conteúdo e da ferramenta. 
+                    Sua avaliação é fundamental para que possamos melhorar cada vez mais.
+                  </p>
                 </p>
               </div>
               <div className="text-6xl opacity-50">🚀</div>
@@ -1520,18 +1526,20 @@ export default function ChecklistCamada03() {
 
             <div className="flex gap-4 mt-6">
               <a
-                href="mailto:gabrielaguiar.ti@fundecc.org.br?subject=Avaliação Checklists Acessiblilidade"
+                href="https://forms.gle/qFjAMdoCH6x2tRkd8"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[#00b894] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#00a380] transition-colors"
               >
-                Avaliar Conteúdo
+                Formulário de Feedback
               </a>
               <a
-                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?usp=sharing"
+                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?tab=t.0#heading=h.im7nuipffw1q"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors"
               >
-                Ver Recursos Extras
+                Ver Informações Adicionais
               </a>
             </div>
           </div>
