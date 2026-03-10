@@ -1,0 +1,115 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primary {
+  background-color: #00c950;
+  color: white;
+}
+
+.primary:disabled {
+  background-color: #D0D4DA;
+  color: white;
+}
+
+.primary:hover:not(:disabled) {
+  background-color: #00a38038;
+}
+
+.secondary {
+  background-color: #ffffff;
+  color: #00c950;
+  border: 1px solid #00c950;
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+
+.iconLeft,
+.iconRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconLeft {
+  margin-right: -4px;
+}
+
+.iconRight {
+  margin-left: -4px;
+}
+
+/* Animações de ícone */
+@keyframes slideRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.button:hover .iconSlideRight {
+  animation: slideRight 0.3s ease forwards;
+}
+
+.button:hover .iconSlideLeft {
+  animation: slideLeft 0.3s ease forwards;
+}
+
+.button:hover .iconBounce {
+  animation: bounce 0.6s ease forwards;
+}
+
+.button:hover .iconRotate {
+  animation: rotate 0.6s ease forwards;
+}

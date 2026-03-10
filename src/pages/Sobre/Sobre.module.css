@@ -1,0 +1,372 @@
+.container {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  background-color: #f8f9fa;
+  flex: 1;
+  padding: 2rem 1rem;
+}
+
+.wrapper {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  width: 100%;
+}
+
+.breadcrumbSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-start;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.breadcrumbButton {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.breadcrumbButton:hover {
+  color: #00b894;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #666;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  color: #00b894;
+  background-color: #f3f4f6;
+}
+
+.backIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Title Section */
+.titleSection {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #0a0a0a;
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+}
+
+.titleUnderline {
+  width: 5rem;
+  height: 0.25rem;
+  background-color: #00b894;
+  border-radius: 9999px;
+}
+
+/* Card Sections */
+.section {
+  background-color: white;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0a0a0a;
+  margin-bottom: 1rem;
+  word-break: break-word;
+}
+
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #444;
+  line-height: 1.5;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.sectionContent p {
+  margin: 0;
+}
+
+/* Layers Section */
+.layersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.layerCard {
+  border-left: 4px solid;
+  padding-left: 1rem;
+}
+
+.layerCard.layer1 {
+  border-left-color: #f97316;
+}
+
+.layerCard.layer2 {
+  border-left-color: #3b82f6;
+}
+
+.layerCard.layer3 {
+  border-left-color: #22c55e;
+}
+
+.layerTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #0a0a0a;
+  margin-bottom: 0.5rem;
+}
+
+.layerDescription {
+  color: #444;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.imageCamadas {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.imageCamadasImg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Institutions Grid */
+.institutionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.institutionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 20rem;
+}
+
+.institutionLogoContainer {
+  width: 10rem;
+  height: 10rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.institutionLogo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.institutionLabel {
+  font-weight: 600;
+  color: #0a0a0a;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+/* CTA Section */
+.ctaSection {
+  background: linear-gradient(to bottom right, #1a3a3a, #2d5a5a);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  color: white;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+}
+
+.ctaDescription {
+  color: #d1d5db;
+  margin-bottom: 1rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.875rem;
+}
+
+.ctaButton {
+  background-color: #00b894;
+  color: white;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.ctaButton:hover {
+  background-color: #00a380;
+}
+
+/* Responsividade - SM (640px) */
+@media (min-width: 640px) {
+  .content {
+    padding: 3rem 1.5rem;
+  }
+
+  .breadcrumbSection {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .titleSection {
+    margin-bottom: 3rem;
+  }
+
+  .title {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .section {
+    padding: 1.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.875rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sectionContent {
+    gap: 1rem;
+  }
+
+  .layersContainer {
+    gap: 1.5rem;
+  }
+
+  .imageCamadas {
+    margin-top: 2rem;
+  }
+
+  .institutionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .institutionCard {
+    gap: 1rem;
+  }
+
+  .institutionLogoContainer {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .institutionLabel {
+    font-size: 1rem;
+  }
+
+  .ctaSection {
+    padding: 2rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .ctaDescription {
+    margin-bottom: 1.5rem;
+  }
+
+  .ctaButton {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Responsividade - LG (1024px) */
+@media (min-width: 1024px) {
+  .content {
+    padding: 4rem 2rem;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .section {
+    padding: 2rem;
+  }
+
+  .institutionsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .institutionLogoContainer {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.5rem;
+  }
+
+  .ctaDescription {
+    font-size: 1rem;
+  }
+}
