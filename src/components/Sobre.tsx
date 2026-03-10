@@ -104,7 +104,7 @@ export default function Sobre() {
               <div className="space-y-6 mt-6">
                 <div className="border-l-4 border-orange-500 pl-4 sm:pl-6">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                    Camada 1
+                    Camada 1: Fundamentos Essenciais do Desenvolvedor
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base text-justify">
                     Reúne os fundamentos essenciais que devem
@@ -115,7 +115,7 @@ export default function Sobre() {
                 </div>
                 <div className="border-l-4 border-blue-500 pl-4 sm:pl-6">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                    Camada 2
+                    Camada 2: Padronização e Componentização Acessível
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base text-justify">
                     Trata da padronização e componentização
@@ -126,7 +126,7 @@ export default function Sobre() {
                 </div>
                 <div className="border-l-4 border-green-500 pl-4 sm:pl-6">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                    Camada 3
+                    Camada 3: Navegação
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base text-justify">
                     Aborda a navegação e os fluxos do sistema,

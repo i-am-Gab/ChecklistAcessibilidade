@@ -318,7 +318,7 @@ export default function ChecklistCamada01() {
       id: 30,
       text: "Evitar elementos interativos muito próximos",
       description:
-        "Evita toques acidentais (fat finger error) em telas sensíveis ao toque",
+        "O recomendável é usar a proporção 48px x 48px para evitar cliques acidentais. Para mais informações, consulte a seção",
       category: "Elementos Interativos",
       checked: false,
     },
@@ -693,7 +693,7 @@ export default function ChecklistCamada01() {
     },
     {
       id: 77,
-      text: "Campo expõe nome do campo, opção selecionada e quantidade de opções",
+      text: "Campo expõe nome do campo, opção selecionada e quantidade de opções para o leitor de tela",
       description: "Ex.: Fazenda Rio Preto, opção 1 de 5",
       category: "Campos de Seleção",
       checked: false,
@@ -722,7 +722,7 @@ export default function ChecklistCamada01() {
     },
     {
       id: 81,
-      text: "Campo expõe nome do campo, opção selecionada e quantidade de opções",
+      text: "Campo expõe nome do campo, opção selecionada e quantidade de opções para o leitor de tela",
       description: "Fazenda Rio Preto, opção 1 de 5",
       category: "Seleção Pesquisável",
       checked: false,
@@ -736,7 +736,8 @@ export default function ChecklistCamada01() {
     // Campos de Data
     {
       id: 83,
-      text: "Permite digitação manual",
+      text: "Permite digitação manual da data",
+      description: "Evite componentes que exigem apenas seleção por calendário visual",
       category: "Campos de Data",
       checked: false,
     },

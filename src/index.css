@@ -871,7 +871,7 @@
   }
 
   .border-\[\#00b894\] {
-    border-color: #00b894;
+    border-color: #007A62;
   }
 
   .border-blue-500 {
@@ -903,7 +903,7 @@
   }
 
   .bg-\[\#00b894\] {
-    background-color: #00b894;
+    background-color: #007A62;
   }
 
   .bg-\[\#e8f8f5\] {
@@ -1196,7 +1196,7 @@
   }
 
   .text-\[\#00b894\] {
-    color: #00b894;
+    color: #007A62;
   }
 
   .text-\[rgb\(0\,0\,0\)\] {
@@ -1236,7 +1236,7 @@
   }
 
   .accent-\[\#00b894\] {
-    accent-color: #00b894;
+    accent-color: #007A62;
   }
 
   .opacity-50 {
@@ -1374,7 +1374,7 @@
 
   @media (hover: hover) {
     .hover\:text-\[\#00b894\]:hover {
-      color: #00b894;
+      color: #007A62;
     }
   }
 
@@ -1676,7 +1676,7 @@
   @media (width >= 40rem) {
     @media (hover: hover) {
       .sm\:hover\:text-\[\#00b894\]:hover {
-        color: #00b894;
+        color: #007A62;
       }
     }
   }
