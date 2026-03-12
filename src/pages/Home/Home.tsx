@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { ArrowRight } from "lucide-react";
-import { Button } from "../../components/button/button.component";
+import { Button } from "../../components/Button/button";
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
           onClick={() => navigate("/camadas")}
           variant="primary"
           customColor="#00b894"
-          icon={<ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />}
+          icon={<ArrowRight />}
           iconPosition="right"
           iconAnimation="slideRight"
         />

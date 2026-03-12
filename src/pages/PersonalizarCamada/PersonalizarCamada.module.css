@@ -1,4 +1,3 @@
-/* Container */
 .wrapper {
   background-color: white;
   flex: 1;
@@ -17,66 +16,6 @@
   margin: 0 auto;
 }
 
-/* Breadcrumb */
-.breadcrumbSection {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: #4b5563;
-  flex-wrap: wrap;
-}
-
-.breadcrumb button {
-  background: none;
-  border: none;
-  color: #4b5563;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.breadcrumb button:hover {
-  color: #00b894;
-}
-
-.breadcrumb span {
-  color: #0a0a0a;
-}
-
-.backButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  color: #4b5563;
-  background: none;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.backButton:hover {
-  color: #00b894;
-  background-color: #f3f4f6;
-}
-
-.backIcon {
-  width: 1rem;
-  height: 1rem;
-}
-
-/* Title Section */
 .titleSection {
   margin-bottom: 2rem;
 }
@@ -95,7 +34,6 @@
   max-width: 48rem;
 }
 
-/* Cards Grid */
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -103,91 +41,6 @@
   margin-bottom: 1.5rem;
 }
 
-.card {
-  position: relative;
-  background-color: white;
-  border-radius: 0.75rem;
-  border: 2px solid #e5e7eb;
-  padding: 1.25rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border-color: #d1d5db;
-}
-
-.card.selected {
-  border-color: #00b894;
-  background-color: #e8f8f5;
-}
-
-.cardCheckmark {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: #00b894;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.checkmarkIcon {
-  width: 1rem;
-  height: 1rem;
-  color: white;
-}
-
-.cardIconContainer {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.cardIconContainer.selected {
-  background-color: #00b894;
-}
-
-.cardIconContainer:not(.selected) {
-  background-color: #e8f8f5;
-}
-
-.cardIcon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.cardIcon.selected {
-  color: white;
-}
-
-.cardIcon:not(.selected) {
-  color: #00b894;
-}
-
-.cardTitle {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #0a0a0a;
-  margin-bottom: 0.5rem;
-  word-break: break-word;
-}
-
-.cardDescription {
-  font-size: 0.875rem;
-  color: #4b5563;
-}
-
-/* Action Buttons */
 .actionsSection {
   display: flex;
   flex-direction: column;
@@ -196,65 +49,6 @@
   gap: 0.75rem;
 }
 
-.selectAllButton {
-  padding: 0.75rem 1.25rem;
-  border: 2px solid #00b894;
-  background-color: white;
-  color: #00b894;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.selectAllButton:hover {
-  background-color: #e8f8f5;
-}
-
-.generateButton {
-  padding: 0.75rem 1.5rem;
-  background-color: #00b894;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.generateButton:hover:not(:disabled) {
-  background-color: #00a380;
-}
-
-.generateButton:disabled {
-  background-color: #d1d5db;
-  cursor: not-allowed;
-}
-
-.buttonIcon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.generateButtonText {
-  display: block;
-}
-
-.generateButtonTextMobile {
-  display: none;
-}
-
-/* Info Footer */
 .infoFooter {
   margin-top: 1.5rem;
   background-color: white;
@@ -274,16 +68,9 @@
   color: #00b894;
 }
 
-/* Responsive */
 @media (min-width: 640px) {
   .mainContent {
     padding: 3rem 1.5rem;
-  }
-
-  .breadcrumbSection {
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 2rem;
   }
 
   .cardsGrid {
@@ -293,14 +80,6 @@
   .actionsSection {
     flex-direction: row;
     align-items: center;
-  }
-
-  .generateButtonTextMobile {
-    display: none;
-  }
-
-  .generateButtonText {
-    display: inline;
   }
 
   .infoFooter {

@@ -1,0 +1,72 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+/* linha dos itens */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  flex-wrap: wrap;
+}
+
+/* wrapper de cada item */
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* link clicável */
+.link {
+  background: none;
+  border: none;
+  color: #4b5563;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: inherit;
+}
+
+.link:hover {
+  color: #00b894;
+}
+
+/* item atual */
+.current {
+  color: #0a0a0a;
+}
+
+/* separador › */
+.separator {
+  color: #0a0a0a;
+}
+
+/* botão voltar */
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #4b5563;
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.backButton:hover {
+  color: #00b894;
+  background-color: #f3f4f6;
+}
+
+.backIcon {
+  width: 1rem;
+  height: 1rem;
+}
