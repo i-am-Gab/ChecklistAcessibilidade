@@ -147,9 +147,9 @@ export default function ChecklistCamada01() {
     },
     {
       id: 10,
-      text: "Garantir espaçamento adequado entre linhas e parágrafos",
+      text: "Garantir espaçamento adequado entre palavras, linhas e parágrafos",
       description:
-        "Use um line-height de pelo menos 1.5 para evitar que as linhas se misturem",
+        "Palavras: 0,16x do tamanho da fonte; Linhas: 1,5x o tamanho da fonte; Parágrafos: 2x o tamanho da fonte",
       category: "Tipografia",
       checked: false,
     },
@@ -250,7 +250,7 @@ export default function ChecklistCamada01() {
       id: 22,
       text: "Utilizar tabelas apenas para dados tabulares",
       description:
-        "Não use tabelas para controlar o layout visual da página",
+        "Não use tabelas para controlar o layout visual da página, ou para organizar conteúdo que não seja tabular",
       category: "Tabelas e Gráficos",
       checked: false,
     },
@@ -258,7 +258,7 @@ export default function ChecklistCamada01() {
       id: 23,
       text: "Associar corretamente cabeçalhos em tabelas",
       description:
-        "Utilize as tags <th> e atributos scope para definir colunas e linhas",
+        "Utilize as tags <th> para cabeçalhos e atributos scope para definir colunas e linhas, quando não visíveis",
       category: "Tabelas e Gráficos",
       checked: false,
     },
@@ -292,7 +292,7 @@ export default function ChecklistCamada01() {
       id: 27,
       text: "Informar formato e tamanho de arquivos para download",
       description:
-        "Permite ao usuário decidir se tem dados/banda suficientes para baixar",
+        "Ex: Baixar Manual do W3C (.PDF, tamanho 2.5MB) para que o usuário saiba o que esperar e consiga acessa-lo posteriomente",
       category: "Arquivos",
       checked: false,
     },
@@ -324,9 +324,9 @@ export default function ChecklistCamada01() {
     },
     {
       id: 31,
-      text: "Utilizar <button> para ações e <a> apenas para navegação",
+      text: "Utilizar botões para ações",
       description:
-        "Botões executam scripts/ações na página; Links mudam a URL",
+        "Botões executam submissões/ações na página e devem ser implementados com o elemento nativo <button>",
       category: "Elementos Interativos",
       checked: false,
     },
@@ -342,7 +342,7 @@ export default function ChecklistCamada01() {
       id: 33,
       text: "Informar quando um link abre em nova aba ou janela",
       description:
-        "Avise o usuário para evitar quebra inesperada no fluxo de navegação",
+        "Informe ao usuário para evitar quebra inesperada no fluxo de navegação e para localização de usuários que fazem uso de tecnologias assistivas",
       category: "Elementos Interativos",
       checked: false,
     },
@@ -350,7 +350,22 @@ export default function ChecklistCamada01() {
       id: 34,
       text: "Disponibilizar link 'Pular para o conteúdo principal'",
       description:
-        "Permite que usuários de teclado pulem menus repetitivos",
+        "Permite que usuários de teclado e leitores de tela acessem rapidamente o conteúdo principal, ignorando navegação repetitiva",
+      category: "Elementos Interativos",
+      checked: false,
+    },
+    {
+      id: 96,
+      text: "Utilizar links para navegação",
+      description:
+        "Links devem ser utilizados para navegação entre páginas e devem ser implementados com o elemento nativo <a>",
+      category: "Elementos Interativos",
+      checked: false,
+    },
+    {
+      id: 97,
+      text: "Controles devem possuir estado de foco visível",
+      description: "Elementos interativos (links e botões) devem possuir um indicador de foco visível",
       category: "Elementos Interativos",
       checked: false,
     },
@@ -360,23 +375,23 @@ export default function ChecklistCamada01() {
       id: 35,
       text: "Garantir navegação completa por teclado",
       description:
-        "Todas as funcionalidades devem ser acessíveis via Tab, Enter e Espaço",
+        "Todas as funcionalidades devem ser acessíveis via Tab, e acionáveis com Enter e/ou Espaço",
       category: "Navegação por Teclado",
       checked: false,
     },
     {
       id: 36,
-      text: "Evitar funcionalidades dependentes apenas de mouseover",
+      text: "Evitar funcionalidades dependentes apenas de mouseover (posicionamento de cursor)",
       description:
-        "Usuários de teclado não conseguem ativar eventos exclusivos de hover",
+        "Interações acionadas por mouseover (posicionamento de cursor) devem possuir alternativa equivalente",
       category: "Navegação por Teclado",
       checked: false,
     },
     {
       id: 37,
-      text: "Garantir foco visível e previsível",
+      text: "Garantir que haja foco visível e previsível",
       description:
-        "O indicador de foco (outline) deve ser claramente visível ao navegar",
+        "O indicador de foco deve ser claramente visível e seguir ordem lógica ao navegar",
       category: "Navegação por Teclado",
       checked: false,
     },
@@ -384,7 +399,7 @@ export default function ChecklistCamada01() {
       id: 38,
       text: "Evitar armadilhas de teclado",
       description:
-        "Usuário deve conseguir entrar e sair de qualquer elemento usando apenas o teclado",
+        "Usuário deve conseguir entrar e sair de qualquer elemento usando apenas o teclado. Ex: tecla Esc realiza o fechamento do elemento ou componente",
       category: "Navegação por Teclado",
       checked: false,
     },
@@ -392,7 +407,7 @@ export default function ChecklistCamada01() {
     // Estrutura do Documento
     {
       id: 39,
-      text: "Garantir um único h1 por página",
+      text: "Garantir um único título de nível 1 por página (<h1>)",
       description:
         "O <h1> deve descrever claramente o assunto principal da página",
       category: "Estrutura do Documento",
@@ -402,7 +417,7 @@ export default function ChecklistCamada01() {
       id: 40,
       text: "Utilizar corretamente a hierarquia de cabeçalhos",
       description:
-        "Não pule níveis (h1 → h2 → h3) e evite saltos bruscos",
+        "Siga sempre a sequência correta das tags h (h1 → h2 → h3) para estruturar o conteúdo de forma lógica",
       category: "Estrutura do Documento",
       checked: false,
     },
@@ -424,7 +439,7 @@ export default function ChecklistCamada01() {
     },
     {
       id: 43,
-      text: "Utilizar landmarks semânticos (header, nav, main, footer)",
+      text: "Utilizar marcadores de regiões semânticos (header, nav, main, footer)",
       description:
         "Use regiões funcionais para facilitar a navegação por leitores de tela",
       category: "Estrutura do Documento",
@@ -440,9 +455,9 @@ export default function ChecklistCamada01() {
     },
     {
       id: 45,
-      text: "Garantir a página siga uma estrutura semântica correta",
+      text: "Cada seção principal da página deve conter um título de nível 2 (<h2>)",
       description:
-        "Utilizar corretamente tags HTML5 para dar significado ao conteúdo",
+        "Utilizar h2 para dividir o conteúdo em seções claras e facilitar a navegação por leitores de tela",
       category: "Estrutura do Documento",
       checked: false,
     },
@@ -450,7 +465,7 @@ export default function ChecklistCamada01() {
       id: 46,
       text: "Validar o HTML para evitar erros semânticos estruturais",
       description:
-        "Erros de marcação podem comprometer a interpretação por leitores de tela",
+        "Erros de marcação ou estruturais podem comprometer a interpretação por leitores de tela",
       category: "Estrutura do Documento",
       checked: false,
     },
@@ -458,7 +473,7 @@ export default function ChecklistCamada01() {
       id: 47,
       text: "Garantir fluxo linear lógico do conteúdo",
       description:
-        "O conteúdo deve manter sentido quando navegado por teclado ou sem CSS",
+        "O conteúdo deve estar organizado logicamente para compreensão adequada estilização CSS estiver desativada",
       category: "Estrutura do Documento",
       checked: false,
     },
@@ -474,7 +489,7 @@ export default function ChecklistCamada01() {
       id: 49,
       text: "Permitir extensão de tempo quando houver limite de sessão",
       description:
-        "Evita encerramento inesperado que prejudica usuários com deficiência",
+        "Evitando encerramento inesperado ou interrupção na navegação, prejudicando o usuario",
       category: "Estrutura do Documento",
       checked: false,
     },
@@ -500,7 +515,7 @@ export default function ChecklistCamada01() {
       id: 52,
       text: "Mover foco para dentro do modal ao abrir",
       description:
-        "O foco deve ir automaticamente para o modal quando ele é ativado",
+        "O foco deve ir automaticamente para o modal quando ele for aberto",
       category: "Modais",
       checked: false,
     },
@@ -508,7 +523,7 @@ export default function ChecklistCamada01() {
       id: 53,
       text: "Manter foco contido no modal enquanto ativo",
       description:
-        "Implemente 'focus trap' para impedir navegação fora do modal aberto",
+        "Não deve ser permitda navegação por elementos fora do modal enquanto o mesmo estiver aberto",
       category: "Modais",
       checked: false,
     },
@@ -516,7 +531,21 @@ export default function ChecklistCamada01() {
       id: 54,
       text: "Retornar foco ao elemento acionador ao fechar",
       description:
-        "Ao fechar o modal, retorne o foco ao botão que o abriu para manter o fluxo",
+        "Ao fechar o modal, o foco deve ser retornado ao botão que o abriu para manter o fluxo",
+      category: "Modais",
+      checked: false,
+    },
+    {
+      id: 94,
+      text: "Deve possuir mecanismo de fechamento",
+      description: "O modal deve possuir um botão de 'Fechar' ou 'Cancelar' e permitir fechamento via teclado. Ex: tecla Esc",
+      category: "Modais",
+      checked: false,
+    },
+    {
+      id: 95,
+      text: "Possuir identificação adequada",
+      description: "O modal deve possuir uma identificação semântica adequada para que seja anunciado corretamente por leitores de tela. Ex: role='dialog' ou role='alertdialog'",
       category: "Modais",
       checked: false,
     },
@@ -550,7 +579,7 @@ export default function ChecklistCamada01() {
       id: 58,
       text: "Não comunicar erros ou estados apenas por cor",
       description:
-        "Use ícones ou texto explicativo junto com a cor (ex: borda vermelha)",
+        "Use texto explicativo junto com a cor (ex: borda vermelha no campo, com mensagem 'Campo obrigatório')",
       category: "Formulários",
       checked: false,
     },
@@ -558,7 +587,7 @@ export default function ChecklistCamada01() {
       id: 59,
       text: "Garantir feedback claro e acionável após submissão",
       description:
-        "Confirme visualmente e via leitor de tela que a ação foi concluída com sucesso",
+        "Confirme visualmente e via leitor de tela que a ação foi concluída com sucesso, ou informe o erro ao usuário",
       category: "Formulários",
       checked: false,
     },
@@ -592,7 +621,7 @@ export default function ChecklistCamada01() {
       id: 63,
       text: "Manter legibilidade de texto sobre imagens ou vídeos",
       description:
-        "Use overlays escuros ou sombras no texto para garantir contraste",
+        "Use sobreposição de elementos ou contorno no texto para garantir contraste",
       category: "Percepção Visual",
       checked: false,
     },
@@ -618,7 +647,7 @@ export default function ChecklistCamada01() {
       id: 66,
       text: "Garantir espaçamento adequado entre elementos interativos",
       description:
-        "Garanta margens seguras para evitar cliques incorretos em telas touch",
+        "Garanta margens seguras para evitar cliques incorretos em telas menores. Consultar orientações em 'Elementos Interativos'.",
       category: "Uso em Dispositivos Móveis",
       checked: false,
     },
@@ -1061,7 +1090,7 @@ export default function ChecklistCamada01() {
                 </h3>
                 <p className="text-gray-300 max-w-xl">
                   Você está dominando os Fundamentos Essenciais.
-                  Continue assim para garantir uma experiência
+                  Continue assim para proporcionar uma experiência
                   inclusiva para todos os usuários!
                 </p>
               </div>

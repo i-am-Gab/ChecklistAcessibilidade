@@ -16,7 +16,7 @@ export default function Footer() {
               />
             </svg>
             <span className="break-words">
-              Baseado nas diretrizes WCAG 2.1 e ABNT NBR 17225
+              © 2026 Desenvolvido por Gabriel Aguiar Alves e Silva . Todos os direitos reservados.
             </span>
           </div>
         </div>

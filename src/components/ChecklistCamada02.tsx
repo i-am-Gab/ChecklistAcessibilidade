@@ -24,7 +24,8 @@ type ChecklistCategory =
   | "Caixas de Diálogo — Conteúdo"
   | "Caixas de Diálogo — Alerta/Erro"
   | "Menu de Abas"
-  | "Filtros Ativos";
+  | "Filtros Ativos"
+  | "Menu de Navegação Oculto";
 
 interface ChecklistItem {
   id: number;
@@ -910,7 +911,103 @@ export default function ChecklistCamada02() {
         "Após a remoção de um filtro, o foco deve ser movido para o próximo filtro disponível, para o anterior ou para um elemento apropriado do contexto caso não existam mais filtros ativos",
       category: "Filtros Ativos",
       checked: false,
-    }
+    },
+    // Menu de Navegação Oculto
+    {
+      id: 103,
+      text: "Menu de navegação oculta utiliza contêiner semântico",
+      description:
+        "Utilize o elemento <nav> para identificar a região de navegação oculta, permitindo que tecnologias assistivas reconheçam corretamente o propósito do componente",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 104,
+      text: "Menu de navegação oculta possui rótulo acessível",
+      description:
+        "O elemento <nav> deve possuir um rótulo acessível por meio de aria-label ou aria-labelledby, permitindo que leitores de tela identifiquem corretamente a função da região",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 105,
+      text: "Lista de links é representada por estrutura semântica",
+      description:
+        "Os links da navegação oculta devem ser organizados utilizando elementos <ul> e <li>, garantindo que tecnologias assistivas identifiquem corretamente o conjunto como uma lista de opções de navegação",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 106,
+      text: "Links possuem texto descritivo e compreensível",
+      description:
+        "Cada link deve possuir um texto que identifique claramente o destino da navegação, como por exemplo: 'Ir para conteúdo principal' ou 'Ir para seção Animal'",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 107,
+      text: "Texto dos links é compreensível fora de contexto",
+      description:
+        "O texto de cada link deve fazer sentido mesmo quando lido isoladamente por leitores de tela ou em listas de links",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 108,
+      text: "Links tornam-se visíveis ao receber foco",
+      description:
+        "Quando um link da navegação oculta recebe foco, ele deve tornar-se visível na interface, permitindo que o usuário identifique claramente sua localização",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 109,
+      text: "Destino dos links possui identificador único",
+      description:
+        "Cada link deve apontar para uma região da página identificada por um id único, garantindo que o navegador consiga mover corretamente o foco para o destino",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 110,
+      text: "Menu de navegação oculta é acessível por teclado",
+      description:
+        "Usuários devem conseguir acessar o menu utilizando a tecla Tab e navegar entre seus links utilizando a ordem natural de tabulação",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 111,
+      text: "Links podem ser ativados por Enter ou Espaço",
+      description:
+        "A ativação dos links deve ocorrer ao pressionar Enter ou Espaço, movendo o foco diretamente para a região correspondente da página",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 112,
+      text: "Foco é movido corretamente para o destino",
+      description:
+        "Após a ativação de um link, o foco deve ser movido para a região correspondente da página, permitindo que o usuário continue a navegação de forma natural",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 113,
+      text: "Tecnologias assistivas anunciam os links do menu",
+      description:
+        "Leitores de tela devem conseguir identificar a região de navegação oculta e anunciar corretamente os links disponíveis para navegação",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
+    {
+      id: 114,
+      text: "Navegação por teclado segue o padrão esperado",
+      description: "A navegação entre os links deve seguir a ordem natural de tabulação, sem saltos inesperados ou loops infinitos. Para mais orientações, verificar o item 2.17 Menu de Navegação Oculto",
+      category: "Menu de Navegação Oculto",
+      checked: false,
+    },
 
   ]);
 

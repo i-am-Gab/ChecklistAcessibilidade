@@ -19,7 +19,8 @@ import {
   Layers,
   ArrowLeft,
   Square,
-  Filter
+  Filter,
+  Menu
 } from "lucide-react";
 
 export default function PersonalizarCamada02() {
@@ -137,6 +138,13 @@ export default function PersonalizarCamada02() {
       descricao: "Gestão e acessibilidade",
       icon: Filter,
       categoria: "Filtros Ativos",
+    },
+    {
+      id: "menu-oculto",
+      nome: "Menu de Navegação Oculto",
+      descricao: "Navegação facilitada para teclado",
+      icon: Menu,
+      categoria: "Menu de Navegação Oculto",
     }
   ];
 
