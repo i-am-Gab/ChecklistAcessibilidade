@@ -10,8 +10,8 @@ import {
 
 import { iconMap, camadaInfo } from "../../mocks/categoriasComIcons";
 
-import { Button } from "../../components/Button/button";
-import { Breadcrumb } from "../../components/Breadcrumb/Breadcrumb";
+import { Button } from "../../components/ui/Button/button";
+import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
 
 import { CategoriaCard } from "./Components/CategoriaCard/CategoriaCard";
 

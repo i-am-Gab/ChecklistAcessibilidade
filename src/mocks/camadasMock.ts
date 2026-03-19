@@ -1,9 +1,7 @@
   import {
-    ArrowRight,
     Home,
     Grid3x3,
     Zap,
-    BarChart2,
   } from "lucide-react";
   
   export const camadas = [

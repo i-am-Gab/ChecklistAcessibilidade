@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import CamadasSVG from "./Components/camadas";
-import { ImageWithFallback } from "../../components/ui/ImageWithFallback";
+import { ImageWithFallback } from "../../components/ui/ImageWithFallback/ImageWithFallback";
 import styles from "./Sobre.module.css";
 
 const imaLogo = "https://www.ima.mg.gov.br/images/header/logo-ima.png";

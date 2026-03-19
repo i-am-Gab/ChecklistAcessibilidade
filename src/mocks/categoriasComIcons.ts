@@ -83,18 +83,18 @@ export const camadaInfo = {
     titulo: "Personalizar Checklist Camada 1",
     descricao:
       "Selecione os pontos que deseja adicionar checklist de acessibilidade básico. Personalize sua jornada de desenvolvimento de acordo com as particularidades da sua tarefa atual.",
-    href: "/checklist/camada-01",
+    href: "/checklists/1",
   },
   2: {
     titulo: "Personalizar Checklist Camada 2",
     descricao:
       "Selecione os campos e/ou elementos personalizados que deseja incluir em seu checklist. Garanta a acessibilidade técnica em cada elemento e campo da interface.",
-    href: "/checklist/camada-02",
+    href: "/checklists/2",
   },
   3: {
     titulo: "Personalizar Checklist Camada 3",
     descricao:  
       "Selecione as telas e fluxos de navegação que deseja incluir em seu checklist. Garanta uma experiência de navegação acessível em todo o sistema.",
-    href: "/checklist/camada-03",
+    href: "/checklists/3",
   },
 };

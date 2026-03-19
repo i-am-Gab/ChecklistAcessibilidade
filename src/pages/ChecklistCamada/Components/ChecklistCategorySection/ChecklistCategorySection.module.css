@@ -1,0 +1,280 @@
+.categoryCard {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.categorySummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  user-select: none;
+}
+
+.categorySummary:hover {
+  background-color: #f9fafb;
+}
+
+.categorySummaryContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: #00b894;
+  cursor: pointer;
+  margin: 0;
+}
+
+.categoryTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.categoryCounter {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.categoryPrintButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #00b894;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.categoryPrintButton:hover {
+  background-color: #00a380;
+}
+
+.categoryPrintIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.variationButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.variationButton:hover {
+  background-color: #1d4ed8;
+}
+
+.variationIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6b7280;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.categoryCard[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.itemsWrapper {
+  padding: 1.25rem;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.itemCard {
+  border: 1px solid;
+  border-radius: 0.5rem;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.itemCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.itemCardChecked {
+  background-color: #e8f8f5;
+  border-color: #00b894;
+}
+
+.itemCardUnchecked {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.itemCardUnchecked:hover {
+  border-color: #d1d5db;
+}
+
+.itemLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  cursor: pointer;
+}
+
+.itemContent {
+  flex: 1;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.itemTitle {
+  font-weight: 500;
+  color: #111827;
+}
+
+.itemTitleChecked {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.itemPrintButton {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background-color: #00b894;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.itemPrintButton:hover {
+  background-color: #00a380;
+}
+
+.itemPrintIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.itemDescription {
+  font-size: 0.875rem;
+  color: #4b5563;
+  white-space: pre-line;
+}
+
+.subItemsWrapper {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subItemCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.subItemCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.subItemCardChecked {
+  background-color: #e8f8f5;
+  border-color: #00b894;
+}
+
+.subItemCardUnchecked {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.subItemCardUnchecked:hover {
+  border-color: #d1d5db;
+}
+
+.subItemLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+  cursor: pointer;
+}
+
+.subItemContent {
+  flex: 1;
+}
+
+.subItemTitle {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.subItemTitleChecked {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.subItemDescription {
+  font-size: 0.875rem;
+  color: #4b5563;
+  white-space: pre-line;
+}
+
+.desktopOnly {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .desktopOnly {
+    display: inline;
+  }
+
+  .categoryPrintButton {
+    margin-left: auto;
+  }
+}

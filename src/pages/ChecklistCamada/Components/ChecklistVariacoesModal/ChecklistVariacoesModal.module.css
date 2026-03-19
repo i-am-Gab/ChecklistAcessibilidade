@@ -1,0 +1,129 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.modal {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  max-width: 42rem;
+  width: 100%;
+  padding: 1.5rem;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.optionButton {
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+  background: none;
+  cursor: pointer;
+}
+
+.optionButtonDefault {
+  border-color: #e5e7eb;
+}
+
+.optionButtonDefault:hover {
+  border-color: #d1d5db;
+}
+
+.optionButtonSelected {
+  border-color: #00b894;
+  background-color: #e8f8f5;
+}
+
+.optionContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.radioIndicator {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.radioIndicatorDefault {
+  border-color: #d1d5db;
+}
+
+.radioIndicatorSelected {
+  border-color: #00b894;
+  background-color: #00b894;
+}
+
+.radioIndicatorInner {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #ffffff;
+  border-radius: 9999px;
+}
+
+.optionText {
+  flex: 1;
+}
+
+.optionTitle {
+  font-weight: 700;
+  color: #111827;
+}
+
+.optionDescription {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.25rem;
+}
+
+.closeButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #e5e7eb;
+  color: #374151;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: #d1d5db;
+}

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { ArrowRight } from "lucide-react";
-import { Button } from "../../components/Button/button";
+import { Button } from "../../components/ui/Button/button";
 import styles from "./Home.module.css";
 
 export default function Home() {
