@@ -1,0 +1,95 @@
+.container {
+  background-color: white;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.content {
+  background-color: #f8f9fa;
+  flex: 1;
+  padding: 2rem 1rem;
+}
+
+.wrapper {
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.titleSection {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #0a0a0a;
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+}
+
+.subtitle {
+  color: #00b894;
+  font-size: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+
+
+/* Responsividade - SM (640px) */
+@media (min-width: 640px) {
+  .content {
+    padding: 3rem 1.5rem;
+  }
+
+  .titleSection {
+    margin-bottom: 3rem;
+  }
+
+  .title {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+
+  .iconContainer {
+    margin-bottom: 1.5rem;
+  }
+
+  .cardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Responsividade - LG (1024px) */
+@media (min-width: 1024px) {
+  .content {
+    padding: 4rem 2rem;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

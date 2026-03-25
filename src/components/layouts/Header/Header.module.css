@@ -1,0 +1,225 @@
+.header {
+  background-color: white;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.headerContent {
+  padding: 1rem 0;
+}
+
+.wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo Button */
+.logoButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.logoButton:hover {
+  opacity: 0.8;
+}
+
+.logoBadge {
+  width: 2rem;
+  height: 2rem;
+  background-color: #00b894;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  color: white;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.logoLabel {
+  font-weight: 600;
+  color: #0a0a0a;
+  font-size: 0.875rem;
+}
+
+/* Desktop Navigation */
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.navButton.inactive {
+  color: #666;
+}
+
+.navButton.inactive:hover {
+  color: #0a0a0a;
+}
+
+.navButton.active {
+  color: #00b894;
+  font-weight: 500;
+  border-bottom: 2px solid #00b894;
+  padding-bottom: 0.25rem;
+}
+
+.navLink {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: bold;
+  font-size: 0.9375rem;
+}
+
+.navLink:hover {
+  color: #0a0a0a;
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.mobileMenuButton:hover {
+  color: #0a0a0a;
+}
+
+.menuIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile Menu Dropdown */
+.mobileMenu {
+  display: none;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 1rem;
+  gap: 0.75rem;
+  flex-direction: column;
+}
+
+.mobileMenu.open {
+  display: flex;
+}
+
+.mobileMenuButton {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  background: none;
+  font-size: 1rem;
+}
+
+.mobileMenuButton.inactive {
+  color: #666;
+  background-color: transparent;
+}
+
+.mobileMenuButton.inactive:hover {
+  background-color: #f9fafb;
+}
+
+.mobileMenuButton.active {
+  background-color: #e8f8f5;
+  color: #00b894;
+  font-weight: 500;
+}
+
+.mobileMenuLink {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: #0a0a0a;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobileMenuLink:hover {
+  background-color: #f9fafb;
+}
+
+/* Responsividade - MD (768px) */
+@media (min-width: 768px) {
+  .headerContent {
+    padding: 1rem 1.5rem;
+  }
+
+  .wrapper {
+    padding: 0 1.5rem;
+  }
+
+  .desktopNav {
+    display: flex;
+  }
+
+  .mobileMenuButton {
+    display: none;
+  }
+
+  .logoLabel {
+    font-size: 1rem;
+  }
+}
+
+/* Responsividade - LG (1024px) */
+@media (min-width: 1024px) {
+  .headerContent {
+    padding: 1rem 2rem;
+  }
+
+  .wrapper {
+    padding: 0 2rem;
+  }
+
+  .desktopNav {
+    gap: 2rem;
+  }
+}
