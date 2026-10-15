@@ -34,7 +34,7 @@ npm install
 npm run dev
 ```
 
-Acesse [http://localhost:3000/acessibilidade/](http://localhost:3000/acessibilidade/). Se a porta estiver ocupada, consulte o endereço informado pelo Vite no terminal.
+Acesse [http://localhost:3000/ChecklistAcessibilidade/](http://localhost:3000/ChecklistAcessibilidade/). Se a porta estiver ocupada, consulte o endereço informado pelo Vite no terminal.
 
 ## Executar com Docker
 
@@ -44,7 +44,7 @@ Com Docker e Docker Compose disponíveis:
 docker compose up --build
 ```
 
-Acesse [http://localhost:3005/acessibilidade/](http://localhost:3005/acessibilidade/). O Compose monta o código local no contêiner para desenvolvimento.
+Acesse [http://localhost:3005/ChecklistAcessibilidade/](http://localhost:3005/ChecklistAcessibilidade/). O Compose monta o código local no contêiner para desenvolvimento.
 
 Para encerrar:
 
@@ -60,7 +60,15 @@ npm run build
 
 Os arquivos gerados ficam em `build/`.
 
-A aplicação está configurada para o caminho base `/acessibilidade/`, tanto no Vite (`vite.config.ts`) quanto no roteador (`src/App.tsx`). Para publicar em outro caminho, ajuste os dois locais. A hospedagem deve servir o `index.html` da aplicação ao acessar diretamente suas rotas.
+A aplicação está configurada para o caminho base `/ChecklistAcessibilidade/`, no Vite (`vite.config.ts`). O roteador utiliza automaticamente esse mesmo caminho. Para publicar em outro caminho, ajuste o `base` no Vite. A hospedagem deve servir o `index.html` da aplicação ao acessar diretamente suas rotas.
+
+## Publicar no GitHub Pages
+
+Em **Settings → Pages → Build and deployment**, selecione **GitHub Actions** como origem. Depois de enviar as alterações para `main`, o workflow `.github/workflows/deploy-pages.yml` instala as dependências, gera o build e publica a pasta `build/`.
+
+O endereço esperado é [https://i-am-gab.github.io/ChecklistAcessibilidade/](https://i-am-gab.github.io/ChecklistAcessibilidade/).
+
+O workflow também gera `404.html` a partir da entrada da aplicação para permitir abrir e recarregar rotas internas no Pages. Nessas visitas diretas, o servidor responde com status HTTP 404, mas o React carrega a tela correspondente.
 
 ## Estrutura do projeto
 

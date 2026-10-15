@@ -4,7 +4,7 @@
   import path from 'path';
 
   export default defineConfig({
-    base: '/acessibilidade/',
+    base: '/ChecklistAcessibilidade/',
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.module.css'],
