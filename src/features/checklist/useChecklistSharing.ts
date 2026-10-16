@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 interface LinkFeedback {
+  id: number;
   url: string;
   action: "copy" | "share";
   status: "pending" | "success" | "error" | "cancelled";
@@ -22,7 +23,7 @@ export function useChecklistSharing(checklistUrl: string, title: string, announc
 
   const finish = (attempt: number, action: LinkFeedback["action"], status: LinkFeedback["status"], message: string, copied = false) => {
     if (attempt !== request.current) return;
-    setResult({ url: checklistUrl, action, status, message, copied });
+    setResult({ id: attempt, url: checklistUrl, action, status, message, copied });
     announce(message);
   };
 
@@ -39,14 +40,14 @@ export function useChecklistSharing(checklistUrl: string, title: string, announc
 
   const copyLink = async () => {
     const attempt = ++request.current;
-    setResult({ url: checklistUrl, action: "copy", status: "pending", message: "Copiando o link…", copied: false });
+    setResult({ id: attempt, url: checklistUrl, action: "copy", status: "pending", message: "Copiando o link…", copied: false });
     await copy(attempt, "copy");
   };
 
   const shareLink = async () => {
     if (sharing.current) return;
     const attempt = ++request.current;
-    setResult({ url: checklistUrl, action: "share", status: "pending", message: "Abrindo as opções de compartilhamento…", copied: false });
+    setResult({ id: attempt, url: checklistUrl, action: "share", status: "pending", message: "Abrindo as opções de compartilhamento…", copied: false });
     const data = { title, url: absoluteUrl() };
     if (typeof navigator.share !== "function") {
       await copy(attempt, "share", "O compartilhamento direto não está disponível neste navegador.");
@@ -69,5 +70,11 @@ export function useChecklistSharing(checklistUrl: string, title: string, announc
     }
   };
 
-  return { feedback, copyLink, shareLink };
+  const dismissFeedback = (id: number) => {
+    if (id !== request.current) return;
+    request.current += 1;
+    setResult(current => current?.id === id ? null : current);
+  };
+
+  return { feedback, copyLink, shareLink, dismissFeedback };
 }

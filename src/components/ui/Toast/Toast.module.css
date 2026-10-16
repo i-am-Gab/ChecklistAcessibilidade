@@ -1,0 +1,147 @@
+.toast {
+  --toast-accent: var(--color-primary, #006c49);
+  position: fixed;
+  inset-inline-end: max(1rem, env(safe-area-inset-right));
+  inset-block-end: max(1rem, env(safe-area-inset-bottom));
+  z-index: 90;
+  width: min(26rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  color: #152d24;
+  background: #fff;
+  border: 1px solid #a9c4b8;
+  border-inline-start: 4px solid var(--toast-accent);
+  border-radius: .75rem;
+  box-shadow: 0 .5rem 2rem rgb(21 45 36 / 18%);
+  padding: .75rem;
+}
+
+.success {
+  --toast-accent: var(--color-primary, #006c49);
+}
+
+.error {
+  --toast-accent: #a32222;
+  border-color: #d6a4a4;
+  border-inline-start-color: var(--toast-accent);
+}
+
+.info {
+  --toast-accent: #0057a8;
+  border-color: #9ebcda;
+  border-inline-start-color: var(--toast-accent);
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: .625rem;
+}
+
+.icon {
+  flex: 0 0 auto;
+  color: var(--toast-accent);
+  margin-top: .625rem;
+}
+
+.message {
+  flex: 1;
+  min-width: 0;
+  margin: .5rem 0;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.closeButton {
+  flex: 0 0 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  min-height: 2.75rem;
+  padding: .5rem;
+  background: #fff;
+  border: 1px solid #b8c9c1;
+  border-radius: .5rem;
+  color: #304d40;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background: #edf5f1;
+  border-color: var(--toast-accent);
+}
+
+.closeButton:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+
+.track {
+  flex: 1;
+  min-width: 0;
+  height: .25rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #e2ebe6;
+}
+
+.progress {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--toast-accent);
+}
+
+.countdown {
+  min-width: 2.25rem;
+  color: #40594d;
+  font-size: .75rem;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress {
+    visibility: hidden;
+  }
+}
+
+@media (forced-colors: active) {
+  .toast,
+  .closeButton {
+    border-color: CanvasText;
+    color: CanvasText;
+    background: Canvas;
+  }
+
+  .toast {
+    box-shadow: none;
+  }
+
+  .icon,
+  .countdown {
+    color: CanvasText;
+  }
+
+  .track {
+    border: 1px solid CanvasText;
+  }
+
+  .progress {
+    background: Highlight;
+    forced-color-adjust: none;
+  }
+
+  .closeButton:hover {
+    border-color: Highlight;
+  }
+}

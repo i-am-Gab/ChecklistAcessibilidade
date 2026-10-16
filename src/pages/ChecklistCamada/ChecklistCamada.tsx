@@ -37,6 +37,7 @@ import { getChecklistUrl, getPersonalizationUrl, readChecklistSelection, type Ch
 import modalStyles from "./Components/ChecklistVariacoesModal/ChecklistVariacoesModal.module.css";
 import { getCategoriesForLayer } from "../../data/categories";
 import { useChecklistSharing } from "../../features/checklist/useChecklistSharing";
+import { Toast } from "../../components/ui/Toast/Toast";
 
 export default function ChecklistCamada() {
   const { camadaId } = useParams<{ camadaId: string }>();
@@ -67,11 +68,12 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
   const variacaoTelaVisualizacao = selection.viewVariation;
   const variacaoTelaBusca = selection.searchVariation;
   const checklistUrl = getChecklistUrl(selection);
-  const { feedback: linkFeedback, copyLink, shareLink } = useChecklistSharing(
+  const { feedback: linkFeedback, copyLink, shareLink, dismissFeedback } = useChecklistSharing(
     checklistUrl,
     `Checklist de acessibilidade — ${currentConfig.label}${tipoTela ? ` — ${tipoTela.cenario}` : ""}`,
     announce,
   );
+  const toastFeedback = linkFeedback?.status !== "pending" ? linkFeedback : null;
   useEffect(() => {
     if (`${location.pathname}${location.search}` !== checklistUrl) {
       navigate(checklistUrl, { replace: true, state: null });
@@ -90,6 +92,7 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
   const [showReset, setShowReset] = useState(false);
   const resetDialog = useModalDialog(showReset);
   const copyLinkButton = useRef<HTMLButtonElement>(null);
+  const shareLinkButton = useRef<HTMLButtonElement>(null);
   const didReset = useRef(false);
   const [items, setItems] = useState(() => {
     const fresh = getChecklistItemsByLayer(
@@ -327,18 +330,15 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
               {completedItems} DE {totalItems} ITENS CONCLUÍDOS
             </span>
             <div className={styles.draftActions}>
-              <button type="button" onClick={shareLink} aria-busy={linkFeedback?.action === "share" && linkFeedback.status === "pending"} aria-describedby={linkFeedback?.action === "share" ? "feedback-link" : undefined}>
+              <button type="button" ref={shareLinkButton} onClick={shareLink} aria-busy={linkFeedback?.action === "share" && linkFeedback.status === "pending"} aria-describedby={toastFeedback?.action === "share" ? "feedback-link" : undefined}>
                 <Share2 size={18} aria-hidden="true" />Compartilhar
               </button>
-              <button type="button" ref={copyLinkButton} onClick={copyLink} aria-busy={linkFeedback?.action === "copy" && linkFeedback.status === "pending"} aria-describedby={linkFeedback?.action === "copy" || linkFeedback?.copied ? "feedback-link" : undefined}>
+              <button type="button" ref={copyLinkButton} onClick={copyLink} aria-busy={linkFeedback?.action === "copy" && linkFeedback.status === "pending"} aria-describedby={toastFeedback?.action === "copy" || toastFeedback?.copied ? "feedback-link" : undefined}>
                 {linkFeedback?.copied ? "Link copiado!" : linkFeedback?.action === "copy" && linkFeedback.status === "pending" ? "Copiando…" : "Copiar link"}
               </button>
               <button type="button" className={styles.restartButton} onClick={() => setShowReset(true)} disabled={!canResetProgress} aria-describedby={!canResetProgress ? "ajuda-reiniciar" : undefined}>Reiniciar progresso</button>
             </div>
           </div>
-          <p id="feedback-link" hidden={!linkFeedback} className={`${styles.copyFeedback} ${linkFeedback?.status === "error" ? styles.copyError : linkFeedback?.status !== "success" ? styles.copyNeutral : ""}`}>
-            {linkFeedback?.message}
-          </p>
           {!canResetProgress && <p id="ajuda-reiniciar" className={styles.resetHelp}>Marque pelo menos um item para habilitar o reinício do progresso.</p>}
           <p className={styles.draftHelp}>
             {storageAvailable
@@ -428,6 +428,19 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
       </div>
 
       <p className="sr-only" role="status" aria-atomic="true">{message}</p>
+
+      {toastFeedback && <Toast
+        key={toastFeedback.id}
+        id="feedback-link"
+        message={toastFeedback.message}
+        variant={toastFeedback.status === "error" ? "error" : toastFeedback.status === "success" ? "success" : "info"}
+        onDismiss={(reason) => {
+          dismissFeedback(toastFeedback.id);
+          if (reason === "manual") {
+            (toastFeedback.action === "share" ? shareLinkButton : copyLinkButton).current?.focus({ preventScroll: true });
+          }
+        }}
+      />}
 
       <dialog ref={resetDialog} className={modalStyles.modal} aria-labelledby="reiniciar-titulo" aria-describedby="reiniciar-descricao" onCancel={(event) => { event.preventDefault(); setShowReset(false); }}>
         <h2 id="reiniciar-titulo" className={modalStyles.title}>Reiniciar progresso?</h2>
