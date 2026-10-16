@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { ArrowRight, CheckSquare } from "lucide-react";
 
 import {
@@ -17,15 +17,20 @@ import { CategoriaCard } from "./Components/CategoriaCard/CategoriaCard";
 
 import styles from "./PersonalizarCamada.module.css";
 import { SelecionarTipoTela } from "./FluxoCamadaUm";
+import NaoEncontrada from "../NaoEncontrada/NaoEncontrada";
+import { useAnnouncement } from "../../hooks/useAnnouncement";
 
 export default function PersonalizarCamada() {
   const { camada } = useParams<{ camada: string }>();
   if (camada === "1") return <SelecionarTipoTela />;
+  if (camada !== "2" && camada !== "3") return <NaoEncontrada message="Essa camada não existe. Escolha uma das três camadas disponíveis." />;
   return <PersonalizarCategorias key={camada} />;
 }
 
 function PersonalizarCategorias() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { message, announce } = useAnnouncement();
   const { camada } = useParams<{ camada: string }>();
 
   const camadaNum = parseInt(camada || "1");
@@ -41,9 +46,12 @@ function PersonalizarCategorias() {
 
   const info = camadaInfo[camadaNum as 1 | 2 | 3];
 
-  const [selecionadas, setSelecionadas] = useState<string[]>(() =>
-    camadaNum === 3 ? ["requisitos-tecnicos"] : [],
-  );
+  const [selecionadas, setSelecionadas] = useState<string[]>(() => {
+    const anteriores: unknown = location.state?.categoriasSelecionadas;
+    return Array.isArray(anteriores)
+      ? categorias.filter((item) => anteriores.includes(item.categoria)).map((item) => item.id)
+      : camadaNum === 3 ? ["requisitos-tecnicos"] : [];
+  });
 
   const toggleCategoria = (id: string) => {
     if (selecionadas.includes(id)) {
@@ -56,14 +64,16 @@ function PersonalizarCategorias() {
   const selecionarTodas = () => {
     if (selecionadas.length === categorias.length) {
       setSelecionadas([]);
+      announce("Todas as categorias foram desmarcadas. Selecione pelo menos uma para gerar o checklist.");
     } else {
       setSelecionadas(categorias.map((cat) => cat.id));
+      announce(`Todas as ${categorias.length} categorias foram selecionadas.`);
     }
   };
 
   const gerarChecklist = () => {
     if (selecionadas.length === 0) {
-      alert("Por favor, selecione pelo menos uma categoria");
+      announce("Selecione pelo menos uma categoria para gerar o checklist.");
       return;
     }
 
@@ -83,8 +93,8 @@ function PersonalizarCategorias() {
 
           <Breadcrumb
             items={[
-              { label: "Home", onClick: () => navigate("/camadas") },
-              { label: "Camadas", onClick: () => navigate("/camadas") },
+              { label: "Home", to: "/" },
+              { label: "Camadas", to: "/camadas" },
               { label: "Personalizar" },
             ]}
             onBack={() => navigate("/camadas")}
@@ -103,7 +113,8 @@ function PersonalizarCategorias() {
           </div>
 
           {/* Cards */}
-          <div className={styles.cardsGrid}>
+          <fieldset className={styles.cardsGrid} aria-describedby="ajuda-categorias">
+            <legend className="sr-only">Categorias do checklist da camada {camadaNum}</legend>
             {categorias.map((categoria) => {
               const IconComponent = iconMap[categoria.id];
               const isSelecionada = selecionadas.includes(categoria.id);
@@ -114,12 +125,13 @@ function PersonalizarCategorias() {
                   nome={categoria.nome}
                   descricao={categoria.descricao}
                   selecionada={isSelecionada}
-                  onClick={() => toggleCategoria(categoria.id)}
+                  onChange={() => toggleCategoria(categoria.id)}
                   IconComponent={IconComponent}
                 />
               );
             })}
-          </div>
+          </fieldset>
+          <p id="ajuda-categorias">Selecione pelo menos uma categoria para habilitar a geração do checklist.</p>
 
           {/* Actions */}
           <div className={styles.actionsSection}>
@@ -139,6 +151,7 @@ function PersonalizarCategorias() {
               text="Gerar Checklist Personalizado"
               onClick={gerarChecklist}
               disabled={selecionadas.length === 0}
+              describedBy="ajuda-categorias"
               variant="primary"
               icon={<ArrowRight size={18} />}
               iconPosition="right"
@@ -147,6 +160,7 @@ function PersonalizarCategorias() {
           </div>
 
           {/* Footer info */}
+          <p className="sr-only" role="status" aria-atomic="true">{message}</p>
           {selecionadas.length > 0 && (
             <div className={styles.infoFooter}>
               <p className={styles.infoFooterText}>

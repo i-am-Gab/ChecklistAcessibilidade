@@ -10,6 +10,7 @@
 .breadcrumb ol { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0; }
 .breadcrumb [aria-current] { color: #151c27; font-weight: 600; }
 .backLink { display: inline-flex; align-items: center; gap: 6px; }
+.breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; }
 .heading { margin-bottom: 48px; max-width: 780px; }
 .heading h1 { font-size: 32px; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0 16px; font-weight: 700; }
 .heading p { font-size: 14px; line-height: 1.7; color: #3c4a42; margin: 0; }
@@ -25,8 +26,8 @@
 .screenActions { display: flex; justify-content: center; gap: 14px; margin-top: 60px; }
 .primaryButton, .secondaryButton { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 46px; border-radius: 7px; padding: 12px 24px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; }
 .primaryButton { border: 1px solid #006c49; background: #006c49; color: #fff; }
-.primaryButton:hover:not(:disabled) { background: #005236; }
-.primaryButton:disabled { background: #b4bdb9; border-color: #b4bdb9; color: #fff; cursor: not-allowed; }
+.primaryButton:hover:not(:disabled):not([aria-disabled="true"]) { background: #005236; }
+.primaryButton:disabled, .primaryButton[aria-disabled="true"] { background: #b4bdb9; border-color: #b4bdb9; color: #151c27; cursor: not-allowed; }
 .secondaryButton { border: 1px solid #006c49; background: transparent; color: #006c49; }
 .secondaryButton:hover { background: #e6f7f1; }
 .page button:focus-visible, .page a:focus-visible, .item:has(input:focus-visible) { outline: 3px solid #006c49; outline-offset: 4px; }
@@ -59,6 +60,7 @@
 .summaryLabel { text-transform: uppercase; font-size: 11px; color: #53635a; font-weight: 600; letter-spacing: .04em; }
 .scenario { color: #006c49; }
 .summaryActions { display: flex; gap: 14px; }
+.actionHelp { max-width: var(--inner-width); margin: .5rem auto 0; font-size: .875rem; color: #3c4a42; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 900px) {
   .screenGrid, .itemGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

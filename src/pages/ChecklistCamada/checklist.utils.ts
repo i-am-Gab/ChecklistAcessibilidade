@@ -46,7 +46,7 @@ export function filterCategories(
   groupedItems: Record<ChecklistCategory, ChecklistItem[]>,
   categoriasSelecionadas?: ChecklistCategory[],
 ) {
-  if (!categoriasSelecionadas?.length) return groupedItems;
+  if (!categoriasSelecionadas) return groupedItems;
 
   return Object.fromEntries(
     Object.entries(groupedItems).filter(([category]) =>
@@ -171,4 +171,21 @@ export function normalizeCategoryKey(category: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/\s+/g, "-")
     .replace(/\//g, "");
+}
+
+// IDs podem ser reutilizados entre variações. Só preservamos o estado quando
+// a categoria e o conteúdo também identificam o mesmo requisito.
+export function reconcileChecklistItems(previous: ChecklistItem[], next: ChecklistItem[]): ChecklistItem[] {
+  return next.map((item) => {
+    const existing = previous.find((candidate) => candidate.id === item.id && candidate.category === item.category && candidate.text === item.text);
+    if (!existing) return item;
+    if (item.subItems?.length) {
+      const subItems = item.subItems.map((subItem) => ({
+        ...subItem,
+        checked: existing.subItems?.find((candidate) => candidate.id === subItem.id && candidate.text === subItem.text)?.checked ?? false,
+      }));
+      return { ...item, subItems, checked: subItems.every((subItem) => subItem.checked) };
+    }
+    return { ...item, checked: existing.subItems?.length ? false : existing.checked };
+  });
 }

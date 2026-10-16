@@ -2,6 +2,7 @@
 /dist/
 /build/
 /node_modules/
+/.local-a11y/
 
 
 #IDEA IDE

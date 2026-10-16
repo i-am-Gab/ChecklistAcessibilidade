@@ -37,6 +37,10 @@
 }
 
 .cardsGrid {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin-inline: 0;
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: 1rem;

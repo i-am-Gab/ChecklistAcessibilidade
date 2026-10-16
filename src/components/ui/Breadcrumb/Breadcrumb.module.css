@@ -9,6 +9,9 @@
 
 /* linha dos itens */
 .breadcrumb {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -26,6 +29,8 @@
 
 /* link clicável */
 .link {
+  display: inline-flex;
+  align-items: center;
   min-height: 44px;
   background: none;
   border: none;

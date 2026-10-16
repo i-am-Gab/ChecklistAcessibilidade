@@ -13,6 +13,7 @@ export interface ButtonProps {
   iconPosition?: IconPosition
   customColor?: string
   iconAnimation?: IconAnimation
+  describedBy?: string
 }
 
 export function Button({
@@ -23,7 +24,8 @@ export function Button({
   icon,
   iconPosition = 'left',
   customColor,
-  iconAnimation = 'none'
+  iconAnimation = 'none',
+  describedBy
 }: ButtonProps) {
   const buttonClass = `${styles.button} ${styles[variant]}`
   const style = customColor ? { backgroundColor: customColor } : {}
@@ -37,6 +39,7 @@ export function Button({
       disabled={disabled}
       style={style}
       aria-label={text}
+      aria-describedby={describedBy}
     >
       {icon && iconPosition === 'left' && (
         <span className={`${styles.iconLeft} ${iconClass}`}>{icon}</span>

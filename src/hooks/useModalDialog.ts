@@ -14,7 +14,14 @@ export function useModalDialog(isOpen: boolean) {
       if (event.key !== "Tab") return;
       const controls = [...dialog.querySelectorAll<HTMLElement>(
         'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      )].filter((element) => element.getClientRects().length > 0);
+      )].filter((element) => {
+        if (element.tabIndex < 0 || !element.getClientRects().length) return false;
+        if (element instanceof HTMLInputElement && element.type === "radio" && element.name) {
+          const group = [...dialog.querySelectorAll<HTMLInputElement>('input[type="radio"]')].filter((input) => input.name === element.name && !input.disabled);
+          return (group.find((input) => input.checked) ?? group[0]) === element;
+        }
+        return true;
+      });
       const first = controls[0];
       const last = controls[controls.length - 1];
       if (event.shiftKey && document.activeElement === first) {

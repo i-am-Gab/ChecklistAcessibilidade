@@ -1,9 +1,11 @@
 import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router";
 import styles from "./Breadcrumb.module.css";
 
 export interface BreadcrumbItem {
   label: string;
-  onClick?: () => void;
+  to?: string;
+  state?: unknown;
 }
 
 interface BreadcrumbProps {
@@ -19,17 +21,17 @@ export function Breadcrumb({
 }: BreadcrumbProps) {
   return (
     <nav className={styles.wrapper} aria-label="Caminho de navegação">
-      <div className={styles.breadcrumb}>
+      <ol className={styles.breadcrumb}>
         {items.map((item, index) => (
-          <span key={index} className={styles.itemWrapper}>
-            {item.onClick ? (
-              <button
-                type="button"
-                onClick={item.onClick}
+          <li key={index} className={styles.itemWrapper}>
+            {item.to ? (
+              <Link
+                to={item.to}
+                state={item.state}
                 className={styles.link}
               >
                 {item.label}
-              </button>
+              </Link>
             ) : (
               <span className={styles.current} aria-current={index === items.length - 1 ? "page" : undefined}>
                 {item.label}
@@ -39,9 +41,9 @@ export function Breadcrumb({
             {index < items.length - 1 && (
               <span className={styles.separator} aria-hidden="true">›</span>
             )}
-          </span>
+          </li>
         ))}
-      </div>
+      </ol>
 
       {onBack && (
         <button

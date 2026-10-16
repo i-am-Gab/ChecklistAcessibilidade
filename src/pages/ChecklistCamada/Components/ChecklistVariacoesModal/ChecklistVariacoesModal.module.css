@@ -30,6 +30,9 @@
 }
 
 .optionsList {
+  border: 0;
+  padding: 0;
+  margin-inline: 0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -37,6 +40,7 @@
 }
 
 .optionButton {
+  display: block;
   width: 100%;
   text-align: left;
   padding: 1rem;
@@ -101,19 +105,19 @@
 }
 
 .optionTitle {
+  display: block;
   font-weight: 700;
   color: #111827;
 }
 
 .optionDescription {
+  display: block;
   font-size: 0.875rem;
   color: #4b5563;
   margin-top: 0.25rem;
 }
 
 .closeButton {
-  position: sticky;
-  bottom: 0;
   min-height: 44px;
   width: 100%;
   padding: 0.75rem 1rem;
@@ -125,6 +129,11 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
+.optionContent input { width: 1.5rem; height: 1.5rem; margin: 0; flex-shrink: 0; accent-color: var(--color-primary); }
+.optionButton:has(input:focus-visible) { outline: 3px solid #005fcc; outline-offset: 3px; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; position: sticky; bottom: 0; padding-block: .5rem; background: #fff; }
+.actions button { flex: 1 1 10rem; }
+.applyButton { padding: .75rem 1rem; min-height: 44px; border: 1px solid var(--color-primary); border-radius: .5rem; color: #fff; background: var(--color-primary); cursor: pointer; }
 
 .closeButton:hover {
   background-color: #d1d5db;

@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
-import { Button } from "../../components/ui/Button/button";
+import buttonStyles from "../../components/ui/Button/button.module.css";
 import styles from "./Home.module.css";
 
 export default function Home() {
-  const navigate = useNavigate();
 
   return (
     <main id="conteudo-principal" tabIndex={-1} className={styles.container}>
@@ -26,14 +25,9 @@ export default function Home() {
         </p>
 
         {/* CTA Button */}
-        <Button
-          text="Acessar Checklists"
-          onClick={() => navigate("/camadas")}
-          variant="primary"
-          icon={<ArrowRight />}
-          iconPosition="right"
-          iconAnimation="slideRight"
-        />
+        <Link to="/camadas" className={`${buttonStyles.button} ${buttonStyles.primary}`}>
+          Acessar Checklists <ArrowRight aria-hidden="true" />
+        </Link>
       </div>
     </main>
   );

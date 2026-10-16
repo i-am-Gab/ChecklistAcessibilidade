@@ -55,10 +55,11 @@
   margin-bottom: 1.5rem;
   flex: 1;
   word-break: break-word;
-  text-align: justify;
+  text-align: left;
 }
 
 .button {
+  min-height: 44px;
   color: var(--color-primary);
   font-weight: 500;
   display: flex;

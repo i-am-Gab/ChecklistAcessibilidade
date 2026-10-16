@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   useLocation,
   useNavigate,
   useParams,
+  Link,
 } from "react-router";
 import { BookOpen, Image } from "lucide-react";
 import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
@@ -22,6 +23,7 @@ import {
   getChecklistItemsByLayer,
   groupItemsByCategory,
   normalizeCategoryKey,
+  reconcileChecklistItems,
   toggleChecklistCategory,
   toggleChecklistItem,
   toggleChecklistSubItem,
@@ -30,19 +32,21 @@ import ChecklistCategorySection from "./Components/ChecklistCategorySection/Chec
 import ChecklistVariacoesModal from "./Components/ChecklistVariacoesModal/ChecklistVariacoesModal";
 import styles from "./ChecklistCamada.module.css";
 import { tiposTela } from "../PersonalizarCamada/tiposTela.config";
+import NaoEncontrada from "../NaoEncontrada/NaoEncontrada";
+import { useAnnouncement } from "../../hooks/useAnnouncement";
 
 export default function ChecklistCamada() {
+  const { camadaId } = useParams<{ camadaId: string }>();
+  if (camadaId !== "1" && camadaId !== "2" && camadaId !== "3") {
+    return <NaoEncontrada message="Esse checklist não existe. Escolha uma das três camadas disponíveis." />;
+  }
+  return <ChecklistConteudo key={camadaId} currentLayer={Number(camadaId) as CamadaId} />;
+}
+
+function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { camadaId } = useParams<{ camadaId: string }>();
-
-  const parsedCamadaId = Number(camadaId) as CamadaId;
-  const currentLayer: CamadaId =
-    parsedCamadaId === 1 ||
-    parsedCamadaId === 2 ||
-    parsedCamadaId === 3
-      ? parsedCamadaId
-      : 1;
+  const { message, announce } = useAnnouncement();
 
   const currentConfig = checklistConfig[currentLayer];
   const tipoTela = currentLayer === 1
@@ -53,8 +57,8 @@ export default function ChecklistCamada() {
     { state: { categoriasSelecionadas: location.state?.categoriasSelecionadas } },
   );
 
-  const categoriasPreservadas = location.state?.categoriasSelecionadas as
-    ChecklistCategory[] | undefined;
+  const categoriasPreservadas = Array.isArray(location.state?.categoriasSelecionadas)
+    ? location.state.categoriasSelecionadas as ChecklistCategory[] : undefined;
 
   const [
     variacaoTelaVisualizacao,
@@ -81,20 +85,6 @@ export default function ChecklistCamada() {
     ),
   );
 
-  useEffect(() => {
-    setItems(
-      getChecklistItemsByLayer(
-        currentLayer,
-        variacaoTelaBusca,
-        variacaoTelaVisualizacao,
-      ),
-    );
-  }, [
-    currentLayer,
-    variacaoTelaBusca,
-    variacaoTelaVisualizacao,
-  ]);
-
   const groupedItems = useMemo(
     () => groupItemsByCategory(items),
     [items],
@@ -113,27 +103,51 @@ export default function ChecklistCamada() {
 
   const imageUrls = getChecklistImageUrlsByLayer(currentLayer);
 
+  const updateProgress = (next: typeof items) => {
+    setItems(next);
+    const visible = Object.values(filterCategories(groupItemsByCategory(next), categoriasPreservadas)).flat();
+    const result = calculateProgress(visible);
+    announce(`${result.completedItems} de ${result.totalItems} itens concluídos. ${result.progress === 100 ? "Checklist concluído." : `${result.progress}% concluído.`}`);
+  };
+
+  const previewVariation = (type: "Busca" | "Visualização", value: string) => {
+    const next = reconcileChecklistItems(items, getChecklistItemsByLayer(
+      currentLayer,
+      type === "Busca" ? value as VariacaoTelaBusca : variacaoTelaBusca,
+      type === "Visualização" ? value as VariacaoTelaVisualizacao : variacaoTelaVisualizacao,
+    ));
+    const lost = calculateProgress(items).completedItems - calculateProgress(next).completedItems;
+    return { next, lost };
+  };
+  const describeVariation = (type: "Busca" | "Visualização", value: string) => {
+    const { lost } = previewVariation(type, value);
+    return lost > 0
+      ? `${lost === 1 ? "Uma marcação será removida porque o requisito não existe" : `${lost} marcações serão removidas porque os requisitos não existem`} nesta variação. As demais marcações serão preservadas.`
+      : "As marcações dos requisitos que continuarem na tela serão preservadas. Requisitos novos começam desmarcados.";
+  };
+  const applyVariation = (type: "Busca" | "Visualização", value: string) => {
+    const { next, lost } = previewVariation(type, value);
+    if (type === "Busca") setVariacaoTelaBusca(value as VariacaoTelaBusca);
+    else setVariacaoTelaVisualizacao(value as VariacaoTelaVisualizacao);
+    setItems(next);
+    announce(`Variação aplicada: ${value}. ${lost > 0 ? `${lost} marcações removidas de requisitos que saíram do checklist.` : "Marcações preservadas."}`);
+  };
+
   const handleToggleItem = (itemId: number) => {
-    setItems((prevItems) =>
-      toggleChecklistItem(prevItems, itemId),
-    );
+    updateProgress(toggleChecklistItem(items, itemId));
   };
 
   const handleToggleSubItem = (
     itemId: number,
     subItemId: string,
   ) => {
-    setItems((prevItems) =>
-      toggleChecklistSubItem(prevItems, itemId, subItemId),
-    );
+    updateProgress(toggleChecklistSubItem(items, itemId, subItemId));
   };
 
   const handleToggleCategory = (
     category: ChecklistCategory,
   ) => {
-    setItems((prevItems) =>
-      toggleChecklistCategory(prevItems, category),
-    );
+    updateProgress(toggleChecklistCategory(items, category));
   };
 
   const handleOpenVariations = (
@@ -190,12 +204,12 @@ export default function ChecklistCamada() {
 
     if (action.type === "navigate") {
       return (
-        <button
-          onClick={() => navigate(action.value)}
+        <Link
+          to={action.value}
           className={className}
         >
           {action.label}
-        </button>
+        </Link>
       );
     }
 
@@ -209,6 +223,7 @@ export default function ChecklistCamada() {
             : undefined
         }
         className={className}
+        aria-label={action.type === "link" ? `${action.label} (abre em nova aba)` : undefined}
       >
         {action.label}
       </a>
@@ -221,8 +236,8 @@ export default function ChecklistCamada() {
       <div className={styles.container}>
         <Breadcrumb
           items={[
-            { label: "Home", onClick: () => navigate("/camadas") },
-            { label: currentConfig.label, onClick: voltarParaPersonalizacao },
+            { label: "Home", to: "/" },
+            { label: currentConfig.label, to: tipoTela ? `/personalizar/1/${tipoTela.id}` : currentConfig.backRoute, state: { categoriasSelecionadas: location.state?.categoriasSelecionadas } },
             { label: "Checklist" },
           ]}
           onBack={voltarParaPersonalizacao}
@@ -235,6 +250,7 @@ export default function ChecklistCamada() {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.infoButton}
+          aria-label={`Mais informações sobre a ${currentConfig.label} (abre em nova aba)`}
         >
           <BookOpen className={styles.infoButtonIcon} />
           Mais Informações
@@ -281,13 +297,7 @@ export default function ChecklistCamada() {
                   className={`${styles.infoBoxText} ${styles.infoBoxTextRow}`}
                 >
                   <span>Para acessar a imagem, utilize o</span>
-                  <button
-                    className={styles.infoPrintButton}
-                    disabled
-                  >
-                    <Image className={styles.infoPrintIcon} />
-                    <span>Ver Print</span>
-                  </button>
+                  <span className={styles.infoPrintButton}><Image className={styles.infoPrintIcon} aria-hidden="true" /><span>Ver Print</span></span>
                   <span>
                     presente na seção da tela desejada.
                   </span>
@@ -298,6 +308,11 @@ export default function ChecklistCamada() {
         )}
 
         <div className={styles.categoriesWrapper}>
+          {!itemsExibidos.length && <section>
+            <h2>Nenhuma categoria selecionada</h2>
+            <p>Volte à personalização e selecione pelo menos uma categoria para montar o checklist.</p>
+            <Link to={tipoTela ? `/personalizar/1/${tipoTela.id}` : currentConfig.backRoute} className={styles.primaryActionButton}>Personalizar checklist</Link>
+          </section>}
           {Object.entries(categoriasParaExibir).map(
             ([category, categoryItems]) => (
               <ChecklistCategorySection
@@ -323,9 +338,9 @@ export default function ChecklistCamada() {
           <div className={styles.completionCard}>
             <div className={styles.completionHeader}>
               <div>
-                <h3 className={styles.completionTitle}>
+                <h2 className={styles.completionTitle}>
                   {currentConfig.completion.title}
-                </h3>
+                </h2>
                 <p className={styles.completionDescription}>
                   {currentConfig.completion.description}
                 </p>
@@ -349,6 +364,8 @@ export default function ChecklistCamada() {
         )}
       </div>
 
+      <p className="sr-only" role="status" aria-atomic="true">{message}</p>
+
       <ChecklistVariacoesModal
         isOpen={
           showModalVariacoes &&
@@ -369,11 +386,8 @@ export default function ChecklistCamada() {
           },
         ]}
         selectedOption={variacaoTelaVisualizacao}
-        onSelect={(value) =>
-          setVariacaoTelaVisualizacao(
-            value as VariacaoTelaVisualizacao,
-          )
-        }
+        describeChange={(value) => describeVariation("Visualização", value)}
+        onSelect={(value) => applyVariation("Visualização", value)}
         onClose={() => {
           setShowModalVariacoes(false);
           setTelaParaConfigurar(null);
@@ -399,9 +413,8 @@ export default function ChecklistCamada() {
           },
         ]}
         selectedOption={variacaoTelaBusca}
-        onSelect={(value) =>
-          setVariacaoTelaBusca(value as VariacaoTelaBusca)
-        }
+        describeChange={(value) => describeVariation("Busca", value)}
+        onSelect={(value) => applyVariation("Busca", value)}
         onClose={() => {
           setShowModalVariacoes(false);
           setTelaParaConfigurar(null);

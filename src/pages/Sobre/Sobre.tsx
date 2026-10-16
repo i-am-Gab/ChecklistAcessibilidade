@@ -1,17 +1,17 @@
-import { useNavigate } from "react-router";
-import { ArrowLeft, X } from "lucide-react";
+import { Link } from "react-router";
+import { X } from "lucide-react";
 import { useState } from "react";
 import { useModalDialog } from "../../hooks/useModalDialog";
 import CamadasSVG from "./Components/camadas";
 import { ImageWithFallback } from "../../components/ui/ImageWithFallback/ImageWithFallback";
 import styles from "./Sobre.module.css";
+import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
 
 const imaLogo = "https://www.ima.mg.gov.br/images/header/logo-ima.png";
 const uflaLogo = "https://ufla.br/dcom/wp-content/uploads/2014/06/logo-ufla.jpg";
 const fundeccLogo = "https://fundecc.org.br/wp-content/uploads/2024/10/Logo_fundecc-cor-1-1.png";
 
 export default function Sobre() {
-  const navigate = useNavigate();
   const [imageOpen, setImageOpen] = useState(false);
   const imageDialog = useModalDialog(imageOpen);
 
@@ -19,20 +19,7 @@ export default function Sobre() {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.wrapper}>
-          <div className={styles.breadcrumbSection}>
-            <div className={styles.breadcrumb}>
-              <button onClick={() => navigate("/")} className={styles.breadcrumbButton}>
-                Home
-              </button>
-              <span>›</span>
-              <span>Sobre</span>
-            </div>
-
-            <button onClick={() => navigate("/camadas")} className={styles.backButton}>
-              <ArrowLeft className={styles.backIcon} />
-              Voltar
-            </button>
-          </div>
+          <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "Sobre" }]} />
 
           <div className={styles.titleSection}>
             <h1 className={styles.title}>Sobre o Projeto</h1>
@@ -118,13 +105,13 @@ export default function Sobre() {
           </section>
 
           <div className={styles.ctaSection}>
-            <h3 className={styles.ctaTitle}>Pronto para começar sua jornada de acessibilidade?</h3>
+            <h2 className={styles.ctaTitle}>Pronto para começar sua jornada de acessibilidade?</h2>
             <p className={styles.ctaDescription}>
               Explore nossas trilhas de desenvolvimento e transforme seus projetos em experiências verdadeiramente inclusivas.
             </p>
-            <button onClick={() => navigate("/camadas")} className={styles.ctaButton}>
+            <Link to="/camadas" className={styles.ctaButton}>
               Explorar Trilhas
-            </button>
+            </Link>
           </div>
         </div>
       </div>

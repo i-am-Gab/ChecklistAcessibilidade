@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { ArrowLeft, ArrowRight, BadgeCheck, ChevronDown, Copy, Eye, Layers, ListFilter, MoreHorizontal, Search, SquarePlus } from "lucide-react";
 import { categoriasCAMADA01 } from "../../mocks/itensCamadaMock";
 import { tiposTela, type TipoTela } from "./tiposTela.config";
 import styles from "./FluxoCamadaUm.module.css";
+import { useAnnouncement } from "../../hooks/useAnnouncement";
+import NaoEncontrada from "../NaoEncontrada/NaoEncontrada";
 
 const iconesTela = { busca: Search, cadastro: SquarePlus, edicao: ListFilter, visualizacao: Eye, outras: Layers };
 
@@ -25,7 +27,6 @@ function Caminho({ tela }: { tela?: TipoTela }) {
 }
 
 export function SelecionarTipoTela() {
-  const navigate = useNavigate();
   const [selecionada, setSelecionada] = useState("");
 
   return (
@@ -36,25 +37,26 @@ export function SelecionarTipoTela() {
           <h1>Selecione o Tipo de Tela</h1>
           <p>Escolha o cenário de desenvolvimento para iniciarmos a personalização do seu checklist de acessibilidade. Cada tipo de tela possui requisitos específicos de conformidade.</p>
         </header>
-        <fieldset className={styles.screenGrid}>
+        <fieldset className={styles.screenGrid} aria-describedby="ajuda-tipo-tela">
           <legend className={styles.srOnly}>Tipo de tela</legend>
           {tiposTela.map((tela) => {
             const Icon = iconesTela[tela.id as keyof typeof iconesTela];
             return (
               <label key={tela.id} className={`${styles.screenCard} ${selecionada === tela.id ? styles.selected : ""}`}>
-                <input type="radio" name="tipo-tela" value={tela.id} checked={selecionada === tela.id} onChange={() => setSelecionada(tela.id)} />
+                <input type="radio" name="tipo-tela" value={tela.id} checked={selecionada === tela.id} onChange={() => setSelecionada(tela.id)} aria-labelledby={`nome-${tela.id}`} aria-describedby={`descricao-${tela.id}`} />
                 <span className={styles.screenIcon}><Icon size={23} aria-hidden="true" /></span>
-                <span className={styles.screenName}>{tela.nome}</span>
-                <span className={styles.screenDescription}>{tela.descricao}</span>
+                <span id={`nome-${tela.id}`} className={styles.screenName}>{tela.nome}</span>
+                <span id={`descricao-${tela.id}`} className={styles.screenDescription}>{tela.descricao}</span>
               </label>
             );
           })}
         </fieldset>
+        <p id="ajuda-tipo-tela">Selecione um tipo de tela para habilitar a continuação.</p>
         <div className={styles.screenActions}>
           <Link className={styles.secondaryButton} to="/camadas"><ArrowLeft size={18} aria-hidden="true" />Voltar</Link>
-          <button className={styles.primaryButton} disabled={!selecionada} onClick={() => navigate(`/personalizar/1/${selecionada}`)}>
+          <Link className={styles.primaryButton} to={selecionada ? `/personalizar/1/${selecionada}` : "#"} aria-disabled={!selecionada} aria-describedby="ajuda-tipo-tela" onClick={(event) => { if (!selecionada) event.preventDefault(); }}>
             Continuar para Personalização<ArrowRight size={18} aria-hidden="true" />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -64,13 +66,14 @@ export function SelecionarTipoTela() {
 export function PersonalizarTipoTela() {
   const { tipoTela } = useParams();
   const tela = tiposTela.find((item) => item.id === tipoTela);
-  if (!tela) return <Navigate to="/personalizar/1" replace />;
+  if (!tela) return <NaoEncontrada message="Esse tipo de tela não existe. Escolha uma camada para continuar." />;
   return <Personalizacao key={tela.id} tela={tela} />;
 }
 
 function Personalizacao({ tela }: { tela: TipoTela }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { message, announce } = useAnnouncement();
   const categorias = categoriasCAMADA01;
   const [selecionadas, setSelecionadas] = useState<string[]>(() => {
     const anteriores: unknown = location.state?.categoriasSelecionadas;
@@ -104,6 +107,7 @@ function Personalizacao({ tela }: { tela: TipoTela }) {
         <header className={styles.heading}>
           <h1>Personalizar Checklist: {tela.nome}</h1>
           <p>Revise os itens pré-selecionados para o cenário de {tela.cenario}. Você pode ajustar conforme as particularidades da sua tarefa de desenvolvimento ou design.</p>
+          <p>Os itens obrigatórios vêm selecionados por padrão. Você pode desmarcá-los se não quiser incluí-los.</p>
         </header>
         <div className={styles.groups}>
           {grupos.map(({ id, titulo, Icon, itens }) => {
@@ -122,8 +126,8 @@ function Personalizacao({ tela }: { tela: TipoTela }) {
                   {itens.length > 0 ? <div className={styles.itemGrid}>
                     {itens.map((item) => (
                       <label key={item.id} className={`${styles.item} ${selecionadas.includes(item.id) ? styles.checked : ""}`}>
-                        <input type="checkbox" checked={selecionadas.includes(item.id)} onChange={() => toggleItem(item.id)} />
-                        <span><span className={styles.itemName}>{item.nome}</span><span className={styles.itemDescription}>{item.descricao}</span></span>
+                        <input type="checkbox" checked={selecionadas.includes(item.id)} onChange={() => toggleItem(item.id)} aria-labelledby={`nome-${item.id}`} aria-describedby={`descricao-${item.id}`} />
+                        <span><span id={`nome-${item.id}`} className={styles.itemName}>{item.nome}</span><span id={`descricao-${item.id}`} className={styles.itemDescription}>{item.descricao}</span></span>
                       </label>
                     ))}
                   </div> : <p className={styles.empty}>Nenhum item definido neste grupo para esta tela.</p>}
@@ -137,14 +141,16 @@ function Personalizacao({ tela }: { tela: TipoTela }) {
         <div className={styles.summaryInner}>
           <div className={styles.summary}>
             <span><span className={styles.summaryLabel}>Cenário:</span><strong className={styles.scenario}>{tela.cenario}</strong></span>
-            <span aria-live="polite" aria-atomic="true"><span className={styles.summaryLabel}>Itens:</span><strong>{selecionadas.length} {selecionadas.length === 1 ? "selecionado" : "selecionados"}</strong></span>
+            <span><span className={styles.summaryLabel}>Itens:</span><strong>{selecionadas.length} {selecionadas.length === 1 ? "selecionado" : "selecionados"}</strong></span>
           </div>
           <div className={styles.summaryActions}>
-            <button className={styles.secondaryButton} onClick={() => setSelecionadas([...tela.obrigatorios])}>Resetar Filtros</button>
-            <button className={styles.primaryButton} disabled={!selecionadas.length} onClick={gerarChecklist}>Gerar Checklist<ArrowRight size={18} aria-hidden="true" /></button>
+            <button type="button" className={styles.secondaryButton} onClick={() => { setSelecionadas([...tela.obrigatorios]); announce(`Seleção restaurada: ${tela.obrigatorios.length} itens obrigatórios selecionados.`); }}>Resetar Filtros</button>
+            <button type="button" className={styles.primaryButton} disabled={!selecionadas.length} aria-describedby="ajuda-gerar" onClick={gerarChecklist}>Gerar Checklist<ArrowRight size={18} aria-hidden="true" /></button>
           </div>
         </div>
+        <p id="ajuda-gerar" className={styles.actionHelp}>Selecione pelo menos um item para habilitar a geração do checklist.</p>
       </div>
+      <p className="sr-only" role="status" aria-atomic="true">{message}</p>
     </div>
   );
 }

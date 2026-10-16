@@ -1,11 +1,11 @@
-import { CircleCheck } from "lucide-react";
+import { useId } from "react";
 import styles from "./CategoriaCard.module.css";
 
 interface CategoriaCardProps {
   nome: string;
   descricao: string;
   selecionada: boolean;
-  onClick: () => void;
+  onChange: () => void;
   IconComponent?: React.ElementType;
 }
 
@@ -13,21 +13,15 @@ export function CategoriaCard({
   nome,
   descricao,
   selecionada,
-  onClick,
+  onChange,
   IconComponent,
 }: CategoriaCardProps) {
+  const id = useId();
   return (
-    <button
-      type="button"
-      aria-pressed={selecionada}
-      onClick={onClick}
+    <label
       className={`${styles.card} ${selecionada ? styles.selected : ""}`}
     >
-      {selecionada && (
-        <div className={styles.cardCheckmark}>
-          <CircleCheck size={24} fill="#006c49" color="white" aria-hidden="true" />
-        </div>
-      )}
+      <input type="checkbox" className={styles.checkbox} checked={selecionada} onChange={onChange} aria-labelledby={`${id}-nome`} aria-describedby={`${id}-descricao`} />
 
       {IconComponent && (
         <div
@@ -36,6 +30,7 @@ export function CategoriaCard({
           }`}
         >
           <IconComponent
+            aria-hidden="true"
             className={`${styles.cardIcon} ${
               selecionada ? styles.selected : ""
             }`}
@@ -43,9 +38,9 @@ export function CategoriaCard({
         </div>
       )}
 
-      <h3 className={styles.cardTitle}>{nome}</h3>
+      <span id={`${id}-nome`} className={styles.cardTitle}>{nome}</span>
 
-      <p className={styles.cardDescription}>{descricao}</p>
-    </button>
+      <span id={`${id}-descricao`} className={styles.cardDescription}>{descricao}</span>
+    </label>
   );
 }

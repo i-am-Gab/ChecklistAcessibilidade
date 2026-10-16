@@ -9,6 +9,7 @@ import PersonalizarCamada from "./pages/PersonalizarCamada/PersonalizarCamada";
 import { PersonalizarTipoTela } from "./pages/PersonalizarCamada/FluxoCamadaUm";
 import ChecklistCamada from "./pages/ChecklistCamada/ChecklistCamada";
 import Sobre from "./pages/Sobre/Sobre";
+import NaoEncontrada from "./pages/NaoEncontrada/NaoEncontrada";
 import ScrollToTop from "./hooks/ScrollToTop";
 import { DefaultLayout } from "./components/layouts/DefaultLayout/DefaultLayout";
 
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/personalizar/:camada" element={<PersonalizarCamada />} />
           <Route path="/personalizar/1/:tipoTela" element={<PersonalizarTipoTela />} />
           <Route path="/checklists/:camadaId" element={<ChecklistCamada />} />
+          <Route path="*" element={<NaoEncontrada />} />
         </Route>
       </Routes>
     </Router>

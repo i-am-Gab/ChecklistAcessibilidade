@@ -281,6 +281,9 @@
 }
 
 .ctaButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   min-height: 44px;
   background-color: var(--color-primary);
   color: white;

@@ -13,22 +13,25 @@ export function ImageWithFallback({
   className = '',
   ...rest
 }: ImageWithFallbackProps) {
-  const [didError, setDidError] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
   const handleError = () => {
-    setDidError(true);
+    setFailedSrc(src ?? "");
   };
 
-  if (didError) {
+  if (failedSrc === src) {
     return (
       <div
         className={`${styles.fallbackContainer} ${className}`}
         style={style}
+        role={alt === "" ? undefined : "img"}
+        aria-label={alt === "" ? undefined : `${alt || "Imagem"} — imagem indisponível`}
       >
         <div className={styles.fallbackContent}>
           <img
             src={ERROR_IMG_SRC}
-            alt="Erro ao carregar imagem"
+            alt=""
+            aria-hidden="true"
             data-original-url={src}
             {...rest}
           />

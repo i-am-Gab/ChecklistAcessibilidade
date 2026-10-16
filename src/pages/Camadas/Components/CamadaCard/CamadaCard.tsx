@@ -1,9 +1,9 @@
 import styles from "./CamadaCard.module.css";
 import { ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
+import type { camadas } from "../../../../mocks/camadasMock";
 
-export function CamadaCard({ camada }: { camada: any }) {
-    const navigate = useNavigate();
+export function CamadaCard({ camada }: { camada: (typeof camadas)[number] }) {
     const IconComponent = camada.icon;
     return (
         <div
@@ -12,7 +12,7 @@ export function CamadaCard({ camada }: { camada: any }) {
         >
             {/* Icon */}
             <div className={styles.iconContainer}>
-                <IconComponent className={styles.icon} />
+                <IconComponent className={styles.icon} aria-hidden="true" />
             </div>
 
             {/* Nivel Label */}
@@ -31,13 +31,13 @@ export function CamadaCard({ camada }: { camada: any }) {
             </p>
 
             {/* Button */}
-            <button
-                onClick={() => navigate(camada.path)}
+            <Link
+                to={camada.path}
                 className={styles.button}
             >
-                Acesse
-                <ArrowRight className={styles.buttonIcon} />
-            </button>
+                Acessar Camada {camada.nivel}
+                <ArrowRight className={styles.buttonIcon} aria-hidden="true" />
+            </Link>
         </div>
     );
 }

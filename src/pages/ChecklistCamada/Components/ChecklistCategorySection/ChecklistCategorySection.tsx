@@ -6,6 +6,7 @@ import type {
 } from "../../../../mocks/checklists.mock";
 import type { CamadaId } from "../../checklist.config";
 import styles from "./ChecklistCategorySection.module.css";
+import { calculateProgress } from "../../checklist.utils";
 
 type ChecklistCategorySectionProps = {
   category: ChecklistCategory;
@@ -44,6 +45,7 @@ export default function ChecklistCategorySection({
   ).length;
 
   const categoryTotal = categoryItems.length;
+  const leafProgress = calculateProgress(categoryItems);
 
   const categoryImageKey = `categoria-${normalizeCategoryKey(
     category,
@@ -55,8 +57,8 @@ export default function ChecklistCategorySection({
         <div className={styles.categorySummaryContent}>
           <input
             type="checkbox"
-            checked={categoryCompleted === categoryTotal}
-            ref={(input) => { if (input) input.indeterminate = categoryCompleted > 0 && categoryCompleted < categoryTotal; }}
+            checked={leafProgress.totalItems > 0 && leafProgress.completedItems === leafProgress.totalItems}
+            ref={(input) => { if (input) input.indeterminate = leafProgress.completedItems > 0 && leafProgress.completedItems < leafProgress.totalItems; }}
             aria-label={`Marcar todos os itens de ${category}`}
             onChange={() => onToggleCategory(category)}
             onClick={(e) => e.stopPropagation()}
@@ -197,6 +199,8 @@ export default function ChecklistCategorySection({
                         <label className={styles.subItemLabel}>
                           <input
                             type="checkbox"
+                            aria-labelledby={`${sectionId}-subitem-${subItem.id}`}
+                            aria-describedby={subItem.description ? `${sectionId}-subdescricao-${subItem.id}` : undefined}
                             checked={subItem.checked}
                             onChange={() =>
                               onToggleSubItem(item.id, subItem.id)
@@ -206,6 +210,7 @@ export default function ChecklistCategorySection({
 
                           <div className={styles.subItemContent}>
                             <div
+                              id={`${sectionId}-subitem-${subItem.id}`}
                               className={`${styles.subItemTitle} ${
                                 subItem.checked
                                   ? styles.subItemTitleChecked
@@ -219,7 +224,7 @@ export default function ChecklistCategorySection({
                             </div>
 
                             {subItem.description && (
-                              <div className={styles.subItemDescription}>
+                              <div id={`${sectionId}-subdescricao-${subItem.id}`} className={styles.subItemDescription}>
                                 {subItem.description}
                               </div>
                             )}
