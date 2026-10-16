@@ -5,7 +5,7 @@ import {
   useParams,
   Link,
 } from "react-router";
-import { BookOpen, Image } from "lucide-react";
+import { BookOpen, Image, Share2 } from "lucide-react";
 import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
 import type {
   ChecklistCategory,
@@ -36,6 +36,7 @@ import { readChecklistDraft, saveChecklistDraft } from "../../features/checklist
 import { getChecklistUrl, getPersonalizationUrl, readChecklistSelection, type ChecklistSelection } from "../../features/checklist/checklistUrl";
 import modalStyles from "./Components/ChecklistVariacoesModal/ChecklistVariacoesModal.module.css";
 import { getCategoriesForLayer } from "../../data/categories";
+import { useChecklistSharing } from "../../features/checklist/useChecklistSharing";
 
 export default function ChecklistCamada() {
   const { camadaId } = useParams<{ camadaId: string }>();
@@ -66,6 +67,11 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
   const variacaoTelaVisualizacao = selection.viewVariation;
   const variacaoTelaBusca = selection.searchVariation;
   const checklistUrl = getChecklistUrl(selection);
+  const { feedback: linkFeedback, copyLink, shareLink } = useChecklistSharing(
+    checklistUrl,
+    `Checklist de acessibilidade — ${currentConfig.label}${tipoTela ? ` — ${tipoTela.cenario}` : ""}`,
+    announce,
+  );
   useEffect(() => {
     if (`${location.pathname}${location.search}` !== checklistUrl) {
       navigate(checklistUrl, { replace: true, state: null });
@@ -120,17 +126,6 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
     announce(`Progresso reiniciado. ${saved ? "Rascunho atualizado neste navegador." : "Não foi possível salvar o rascunho neste navegador."}`);
   };
 
-  const copyChecklistLink = async () => {
-    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-    const url = new URL(`${base}${checklistUrl}`, window.location.origin).href;
-    try {
-      await navigator.clipboard.writeText(url);
-      announce("Link copiado. Ele inclui a personalização e as variações, sem suas marcações.");
-    } catch {
-      announce("Não foi possível copiar automaticamente. Você pode copiar o endereço da página na barra do navegador.");
-    }
-  };
-
   const groupedItems = useMemo(
     () => groupItemsByCategory(items),
     [items],
@@ -146,6 +141,7 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
 
   const { totalItems, completedItems, progress } =
     calculateProgress(itemsExibidos);
+  const canResetProgress = calculateProgress(items).completedItems > 0;
 
   const imageUrls = getChecklistImageUrlsByLayer(currentLayer);
 
@@ -331,10 +327,19 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
               {completedItems} DE {totalItems} ITENS CONCLUÍDOS
             </span>
             <div className={styles.draftActions}>
-              <button type="button" ref={copyLinkButton} onClick={copyChecklistLink}>Copiar link</button>
-              <button type="button" onClick={() => setShowReset(true)} disabled={!calculateProgress(items).completedItems}>Reiniciar progresso</button>
+              <button type="button" onClick={shareLink} aria-busy={linkFeedback?.action === "share" && linkFeedback.status === "pending"} aria-describedby={linkFeedback?.action === "share" ? "feedback-link" : undefined}>
+                <Share2 size={18} aria-hidden="true" />Compartilhar
+              </button>
+              <button type="button" ref={copyLinkButton} onClick={copyLink} aria-busy={linkFeedback?.action === "copy" && linkFeedback.status === "pending"} aria-describedby={linkFeedback?.action === "copy" || linkFeedback?.copied ? "feedback-link" : undefined}>
+                {linkFeedback?.copied ? "Link copiado!" : linkFeedback?.action === "copy" && linkFeedback.status === "pending" ? "Copiando…" : "Copiar link"}
+              </button>
+              <button type="button" className={styles.restartButton} onClick={() => setShowReset(true)} disabled={!canResetProgress} aria-describedby={!canResetProgress ? "ajuda-reiniciar" : undefined}>Reiniciar progresso</button>
             </div>
           </div>
+          <p id="feedback-link" hidden={!linkFeedback} className={`${styles.copyFeedback} ${linkFeedback?.status === "error" ? styles.copyError : linkFeedback?.status !== "success" ? styles.copyNeutral : ""}`}>
+            {linkFeedback?.message}
+          </p>
+          {!canResetProgress && <p id="ajuda-reiniciar" className={styles.resetHelp}>Marque pelo menos um item para habilitar o reinício do progresso.</p>}
           <p className={styles.draftHelp}>
             {storageAvailable
               ? "Seu progresso fica salvo neste navegador para esta camada e cenário. O link compartilha a personalização e as variações, sem suas marcações."
