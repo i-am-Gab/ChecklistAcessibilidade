@@ -7,7 +7,7 @@ export default function Footer() {
       <div className={styles.wrapper}>
         <div className={styles.content}>
           <div className={styles.creditsContainer}>
-            <ShieldCheck fill="#666" color="#fff" size={18}/>
+            <ShieldCheck fill="#666" color="#fff" size={18} aria-hidden="true" />
             <span className={styles.creditsText}>
               © 2026 Desenvolvido por Gabriel Aguiar Alves e Silva. Todos os direitos reservados.
             </span>

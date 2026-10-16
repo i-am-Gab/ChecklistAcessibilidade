@@ -66,9 +66,9 @@ export default function Header() {
               aria-controls="menu-mobile"
             >
               {isMenuOpen ? (
-                <X className={styles.menuIcon} />
+                <X className={styles.menuIcon} aria-hidden="true" />
               ) : (
-                <Menu className={styles.menuIcon} />
+                <Menu className={styles.menuIcon} aria-hidden="true" />
               )}
             </button>
           </div>

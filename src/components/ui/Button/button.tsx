@@ -42,11 +42,11 @@ export function Button({
       aria-describedby={describedBy}
     >
       {icon && iconPosition === 'left' && (
-        <span className={`${styles.iconLeft} ${iconClass}`}>{icon}</span>
+        <span className={`${styles.iconLeft} ${iconClass}`} aria-hidden="true">{icon}</span>
       )}
       {text}
       {icon && iconPosition === 'right' && (
-        <span className={`${styles.iconRight} ${iconClass}`}>{icon}</span>
+        <span className={`${styles.iconRight} ${iconClass}`} aria-hidden="true">{icon}</span>
       )}
     </button>
   )

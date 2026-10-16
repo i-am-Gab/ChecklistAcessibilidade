@@ -51,7 +51,7 @@ export function Breadcrumb({
           onClick={onBack}
           className={styles.backButton}
         >
-          <ArrowLeft className={styles.backIcon} />
+          <ArrowLeft className={styles.backIcon} aria-hidden="true" />
           {backLabel}
         </button>
       )}

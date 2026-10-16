@@ -79,7 +79,7 @@ export default function ChecklistCategorySection({
               className={styles.categoryPrintButton}
               aria-label={`Ver imagem de ${categoryName} (abre em nova aba)`}
             >
-              <Image className={styles.categoryPrintIcon} />
+              <Image className={styles.categoryPrintIcon} aria-hidden="true" />
               <span className={styles.desktopOnly}>Ver Print</span>
             </a>
           )}
@@ -96,7 +96,7 @@ export default function ChecklistCategorySection({
                 }}
                 className={styles.variationButton}
               >
-                <Settings className={styles.variationIcon} />
+                <Settings className={styles.variationIcon} aria-hidden="true" />
                 <span className={styles.desktopOnly}>
                   Configurar Variação
                 </span>
@@ -115,7 +115,7 @@ export default function ChecklistCategorySection({
                 }}
                 className={styles.variationButton}
               >
-                <Settings className={styles.variationIcon} />
+                <Settings className={styles.variationIcon} aria-hidden="true" />
                 <span className={styles.desktopOnly}>
                   Configurar Variação
                 </span>
@@ -169,7 +169,7 @@ export default function ChecklistCategorySection({
                       className={styles.itemPrintButton}
                       aria-label={`Ver imagem de ${item.text} (abre em nova aba)`}
                     >
-                      <Image className={styles.itemPrintIcon} />
+                      <Image className={styles.itemPrintIcon} aria-hidden="true" />
                       <span className={styles.desktopOnly}>
                         Ver Print
                       </span>

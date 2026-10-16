@@ -302,7 +302,7 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
           className={styles.infoButton}
           aria-label={`Mais informações sobre a ${currentConfig.label} (abre em nova aba)`}
         >
-          <BookOpen className={styles.infoButtonIcon} />
+          <BookOpen className={styles.infoButtonIcon} aria-hidden="true" />
           Mais Informações
         </a>
 
@@ -403,7 +403,7 @@ function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
                   {currentConfig.completion.description}
                 </p>
               </div>
-              <div className={styles.completionIcon}>
+              <div className={styles.completionIcon} aria-hidden="true">
                 {currentConfig.completion.icon}
               </div>
             </div>
