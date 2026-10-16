@@ -848,6 +848,8 @@ export const getChecklistCamada03Items = (
 ];
 
 export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
+  // Camada 1 revisada com base na cartilha "Orientações para Desenvolvimento
+  // Acessível", seções 1.1 a 1.23 (PDF fornecido, páginas 1 a 31).
   1: {
     categoryIcons: {
       Linguagem: "🧩",
@@ -878,7 +880,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 2,
         text: "Evitar uso excessivo de jargões técnicos ou termos pouco conhecidos",
         description:
-          "Use linguagem acessível sempre que possível ou ofereça explicações",
+          "Evite também expressões regionais e termos excessivamente especializados. Prefira vocabulário comum, adequado ao público-alvo, ou ofereça explicações.",
         category: "Linguagem",
         checked: false,
       },
@@ -911,7 +913,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 6,
         text: "Garantir que o conteúdo esteja livre de erros ortográficos e gramaticais",
         description:
-          "Erros prejudicam a credibilidade e podem confundir leitores de tela",
+          "Revise também digitação e pontuação: erros podem tornar o conteúdo incompreensível quando lido por tecnologias assistivas.",
         category: "Qualidade Textual",
         checked: false,
       },
@@ -936,7 +938,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 9,
         text: "Utilizar tamanho de texto adequado (≥ 16px)",
         description:
-          "Fontes muito pequenas dificultam a leitura para pessoas com baixa visão",
+          "A cartilha recomenda preferencialmente fontes a partir de 16px para textos corridos, favorecendo pessoas com baixa visão.",
         category: "Tipografia",
         checked: false,
       },
@@ -944,7 +946,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 10,
         text: "Garantir espaçamento adequado entre linhas e parágrafos",
         description:
-          "Use um line-height de pelo menos 1.5 para evitar que as linhas se misturem",
+          "Use entrelinhas de pelo menos 1,5 vez o tamanho da fonte e espaçamento entre parágrafos de pelo menos 2 vezes o tamanho da fonte.",
         category: "Tipografia",
         checked: false,
       },
@@ -968,7 +970,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 13,
         text: "Permitir redimensionamento do texto em até 200%",
         description:
-          "O layout não deve quebrar ou sobrepor conteúdo ao aumentar o zoom",
+          "Teste manualmente o zoom em 200% e diferentes larguras: nenhum texto essencial deve desaparecer, ficar cortado ou se sobrepor. Preserve rótulos, campos, botões, mensagens, hierarquia e ordem de leitura, sem rolagem horizontal para textos corridos.",
         category: "Tipografia",
         checked: false,
       },
@@ -1001,7 +1003,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 17,
         text: "Manter descrições iguais para links com o mesmo destino",
         description:
-          "A consistência ajuda o usuário a prever para onde o link o levará",
+          "Use a mesma descrição para o mesmo destino e descrições distintas para destinos diferentes, permitindo antecipar o resultado da navegação.",
         category: "Links",
         checked: false,
       },
@@ -1033,7 +1035,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 21,
         text: "Garantir que o texto alternativo seja objetivo e contextual",
         description:
-          "Descreva a função ou conteúdo da imagem, não sua aparência visual irrelevante",
+          "Descreva a informação transmitida conforme o contexto e o propósito. Evite juízos de valor, metáforas, interpretações subjetivas, redundâncias e descrições excessivamente longas.",
         category: "Imagens",
         checked: false,
       },
@@ -1050,7 +1052,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 23,
         text: "Associar corretamente cabeçalhos em tabelas",
         description:
-          "Utilize as tags <th> e atributos scope para definir colunas e linhas",
+          "Marque cabeçalhos com <th> e use scope='col' ou scope='row'. Prefira cabeçalhos visíveis; quando não forem visíveis, mantenha a associação disponível programaticamente.",
         category: "Tabelas e Gráficos",
         checked: false,
       },
@@ -1058,7 +1060,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 24,
         text: "Garantir que gráficos não dependam apenas de cores",
         description:
-          "Use padrões, texturas ou rótulos adicionais para diferenciar dados",
+          "Use padrões, texturas ou rótulos para diferenciar dados e verifique se o gráfico continua compreensível em escala de cinza.",
         category: "Tabelas e Gráficos",
         checked: false,
       },
@@ -1091,7 +1093,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 28,
         text: "Garantir que arquivos sejam acessíveis ou possuam alternativa",
         description:
-          "PDFs devem ter tags estruturais, ou deve-se fornecer versão HTML",
+          "Verifique a acessibilidade conforme as especificações de cada formato, incluindo a estrutura de PDFs. Quando possível, ofereça versões alternativas de visualização, como HTML.",
         category: "Arquivos",
         checked: false,
       },
@@ -1100,7 +1102,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 29,
         text: "Garantir área mínima de acionamento de 24×24 px",
         description:
-          "Alvos de toque devem ter tamanho adequado para facilitar a interação",
+          "Verifique altura e largura mínimas de 24 pixels CSS em botões, ícones, links isolados e ações em listas, tabelas e cards.",
         category: "Elementos Interativos",
         checked: false,
       },
@@ -1108,7 +1110,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 30,
         text: "Evitar elementos interativos muito próximos",
         description:
-          "Evita toques acidentais (fat finger error) em telas sensíveis ao toque",
+          "Confira tamanho e espaçamento para atingir pelo menos 24 pixels CSS em todas as direções em relação a alvos adjacentes. A cartilha recomenda espaçamento inicial de 8px.",
         category: "Elementos Interativos",
         checked: false,
       },
@@ -1140,7 +1142,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 34,
         text: "Disponibilizar link 'Pular para o conteúdo principal'",
         description:
-          "Permite que usuários de teclado pulem menus repetitivos",
+          "O link deve ficar visível ao receber foco e levar ao conteúdo principal, permitindo pular menus e blocos repetitivos.",
         category: "Elementos Interativos",
         checked: false,
       },
@@ -1149,7 +1151,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 35,
         text: "Garantir navegação completa por teclado",
         description:
-          "Todas as funcionalidades devem ser acessíveis via Tab, Enter e Espaço",
+          "Teste sem mouse: Tab para avançar, Shift + Tab para voltar e Enter e/ou Espaço para acionar controles.",
         category: "Navegação por Teclado",
         checked: false,
       },
@@ -1157,7 +1159,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 36,
         text: "Evitar funcionalidades dependentes apenas de mouseover",
         description:
-          "Usuários de teclado não conseguem ativar eventos exclusivos de hover",
+          "Disponibilize alternativa equivalente por foco, clique ou tecla para todo conteúdo e ação apresentados por mouseover.",
         category: "Navegação por Teclado",
         checked: false,
       },
@@ -1165,7 +1167,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 37,
         text: "Garantir foco visível e previsível",
         description:
-          "O indicador de foco (outline) deve ser claramente visível ao navegar",
+          "O indicador deve permanecer visível, seguindo uma ordem lógica e consistente durante toda a navegação.",
         category: "Navegação por Teclado",
         checked: false,
       },
@@ -1190,7 +1192,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 40,
         text: "Utilizar corretamente a hierarquia de cabeçalhos",
         description:
-          "Não pule níveis (h1 → h2 → h3) e evite saltos bruscos",
+          "Use h2 para seções principais e níveis subsequentes para subseções, sem saltos como h2 seguido de h4.",
         category: "Estrutura do Documento",
         checked: false,
       },
@@ -1336,7 +1338,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 58,
         text: "Não comunicar erros ou estados apenas por cor",
         description:
-          "Use ícones ou texto explicativo junto com a cor (ex: borda vermelha)",
+          "Comunique erros, sucesso e alertas com texto e informação programática, sem depender exclusivamente de cores, posição visual ou ícones sem alternativa textual.",
         category: "Formulários",
         checked: false,
       },
@@ -1344,7 +1346,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 59,
         text: "Garantir feedback claro e acionável após submissão",
         description:
-          "Confirme visualmente e via leitor de tela que a ação foi concluída com sucesso",
+          "Informe textualmente e de forma programática o sucesso ou a falha no envio. Em caso de erro, explique como corrigir e prosseguir.",
         category: "Formulários",
         checked: false,
       },
@@ -1402,7 +1404,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 66,
         text: "Garantir espaçamento adequado entre elementos interativos",
         description:
-          "Garanta margens seguras para evitar cliques incorretos em telas touch",
+          "Botões e ícones devem ser facilmente acionáveis, com espaço suficiente para rolar a página sem ativar controles por acidente.",
         category: "Uso em Dispositivos Móveis",
         checked: false,
       },
@@ -1415,8 +1417,8 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
       },
       {
         id: 68,
-        text: "Limites de caracteres informados no campo",
-        description: 'Ex: "Máx. 255 caracteres"',
+        text: "Informar limites de caracteres no rótulo ou texto de ajuda",
+        description: 'Ex.: "Máx. 255 caracteres". A instrução deve estar disponível antes do preenchimento.',
         category: "Campos de Texto",
         checked: false,
       },
@@ -1429,7 +1431,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
       },
       {
         id: 70,
-        text: "Campos apenas para transmitir informação informa que são apenas informativos",
+        text: "Identificar campos somente leitura como informativos no rótulo ou ajuda",
         category: "Campos de Texto",
         checked: false,
       },
@@ -1437,7 +1439,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
       {
         id: 71,
         text: 'Implementados preferencialmente como <input type="text">',
-        description: "Isso evita problemas com leitores de tela",
+        description: "Associe validação controlada ao campo de texto, conforme a orientação da cartilha, para evitar conflitos com leitores de tela.",
         category: "Campos Numéricos",
         checked: false,
       },
@@ -1445,7 +1447,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 72,
         text: "Formato esperado informado claramente",
         description:
-          "Possui informações sobre formatação de casas decimais",
+          "Explique a formatação, por exemplo: 'Use vírgula para casas decimais'.",
         category: "Campos Numéricos",
         checked: false,
       },
@@ -1457,7 +1459,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
       },
       {
         id: 74,
-        text: "Campos apenas para transmitir informação informa que são apenas informativos",
+        text: "Identificar campos numéricos somente leitura como informativos no rótulo ou ajuda",
         category: "Campos Numéricos",
         checked: false,
       },
@@ -1492,7 +1494,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 79,
         text: "Usa corretamente aria-expanded, aria-controls e aria-activedescendant",
         description:
-          "Para mais informações consultar a documentação",
+          "aria-expanded reflete a abertura da lista, aria-controls aponta para os resultados e aria-activedescendant referencia o ID da opção ativa enquanto o foco permanece no campo.",
         category: "Seleção Pesquisável",
         checked: false,
       },
@@ -1525,7 +1527,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
 
       {
         id: 84,
-        text: 'Implementado com <input type="file">',
+        text: 'Implementar upload com <input type="file"> e rótulo claro e descritivo',
         category: "Upload de Arquivos",
         checked: false,
       },
@@ -1555,7 +1557,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 88,
         text: "Estado desabilitado é implementado corretamente",
         description:
-          "Use o atributo disabled para que o estado seja anunciado e o botão não receba foco",
+          "Apresente indicação visual clara e exponha o estado com disabled ou aria-disabled='true'. Ao usar aria-disabled, impeça também a execução da ação.",
         category: "Botões",
         checked: false,
       },
@@ -1598,6 +1600,244 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Estado selecionado é gerenciado corretamente",
         description:
           "Apenas uma opção pode estar selecionada por vez e o estado deve refletir o valor real",
+        category: "Booleano",
+        checked: false,
+      },
+      {
+        id: 94,
+        text: "Preferir frases curtas, ordem direta e linguagem inclusiva",
+        description: "Organize as frases em sujeito, verbo e complemento, com palavras comuns e adequadas ao público-alvo.",
+        category: "Linguagem",
+        checked: false,
+      },
+      {
+        id: 95,
+        text: "Oferecer apoio para conteúdos que exigem conhecimento avançado",
+        description: "Inclua informações complementares, exemplos explicativos ou uma versão simplificada quando a complexidade do assunto exigir.",
+        category: "Qualidade Textual",
+        checked: false,
+      },
+      {
+        id: 96,
+        text: "Limitar a largura das linhas para favorecer a leitura",
+        description: "A cartilha recomenda aproximadamente 60 caracteres ou 11 a 13 palavras por linha em textos corridos.",
+        category: "Tipografia",
+        checked: false,
+      },
+      {
+        id: 97,
+        text: "Garantir espaçamento entre palavras de pelo menos 0,16 vez o tamanho da fonte",
+        description: "Verifique a separação entre palavras para facilitar o acompanhamento do texto.",
+        category: "Tipografia",
+        checked: false,
+      },
+      {
+        id: 98,
+        text: "Informar quando o link leva a um site externo",
+        description: "Quando aplicável, indique o destino externo de forma compreensível e acessível antes do acionamento.",
+        category: "Links",
+        checked: false,
+      },
+      {
+        id: 99,
+        text: "Considerar a estrutura FSPA na descrição de imagens",
+        description: "Quando apropriado, descreva Formato, Sujeito, Contexto/Paisagem e Ação. Prefira verbos no presente e evite gerundismo, sem incluir detalhes irrelevantes ao propósito da imagem.",
+        category: "Imagens",
+        checked: false,
+      },
+      {
+        id: 100,
+        text: "Simplificar tabelas complexas sempre que possível",
+        description: "Considere dividir informações extensas em tabelas menores, preservando a relação e a compreensão dos dados.",
+        category: "Tabelas e Gráficos",
+        checked: false,
+      },
+      {
+        id: 101,
+        text: "Associar explicitamente células e cabeçalhos em tabelas complexas",
+        description: "Utilize headers referenciando os IDs dos cabeçalhos para que o leitor de tela identifique as relações entre linha, coluna e célula.",
+        category: "Tabelas e Gráficos",
+        checked: false,
+      },
+      {
+        id: 102,
+        text: "Verificar a leitura do valor, da linha e da coluna em cada célula",
+        description: "Teste com leitor de tela se o usuário compreende o dado e seus cabeçalhos correspondentes ao navegar pela tabela.",
+        category: "Tabelas e Gráficos",
+        checked: false,
+      },
+      {
+        id: 103,
+        text: "Contextualizar o nome acessível das ações com o registro da linha",
+        description: "Botões, links, checkboxes, seleções e menus de ações devem identificar sobre qual registro atuam. Ex.: 'Visualizar Ana Paula', em vez de apenas 'Visualizar'.",
+        category: "Tabelas e Gráficos",
+        checked: false,
+      },
+      {
+        id: 104,
+        text: "Garantir foco visível em todos os controles interativos",
+        description: "Verifique botões, links, ícones acionáveis e controles personalizados durante a navegação por teclado.",
+        category: "Elementos Interativos",
+        checked: false,
+      },
+      {
+        id: 105,
+        text: "Permitir abrir, percorrer e fechar menus e componentes expansíveis por teclado",
+        description: "Garanta navegação interna sem mouse e gestão de foco ao ativar componentes ou exibir elementos dinamicamente.",
+        category: "Navegação por Teclado",
+        checked: false,
+      },
+      {
+        id: 106,
+        text: "Avaliar alternativas antes de utilizar um modal",
+        description: "Prefira, quando possível, conteúdo na própria página, acordeons, seções expansíveis ou navegação para outra tela.",
+        category: "Modais",
+        checked: false,
+      },
+      {
+        id: 107,
+        text: "Disponibilizar botão de fechamento visível e acessível no modal",
+        description: "Use um controle fácil de localizar, com nome claro como 'Fechar' ou 'Cancelar', operável por teclado e reconhecido por leitores de tela.",
+        category: "Modais",
+        checked: false,
+      },
+      {
+        id: 108,
+        text: "Permitir fechar o modal com a tecla Escape",
+        description: "O usuário deve conseguir encerrar o diálogo sem depender do mouse.",
+        category: "Modais",
+        checked: false,
+      },
+      {
+        id: 109,
+        text: "Impedir acesso ao conteúdo em segundo plano enquanto o modal estiver aberto",
+        description: "O fundo deve ficar inacessível ao teclado e, quando aplicável, oculto programaticamente das tecnologias assistivas.",
+        category: "Modais",
+        checked: false,
+      },
+      {
+        id: 110,
+        text: "Identificar semanticamente o modal e fornecer um rótulo acessível",
+        description: "Use role='dialog' ou role='alertdialog', conforme o propósito, com um nome que identifique o conteúdo do diálogo.",
+        category: "Modais",
+        checked: false,
+      },
+      {
+        id: 111,
+        text: "Informar a unidade de medida dos campos numéricos",
+        description: "Apresente a unidade associada ao valor, como hectares, metros ou quilogramas, para evitar interpretações ambíguas.",
+        category: "Campos Numéricos",
+        checked: false,
+      },
+      {
+        id: 112,
+        text: "Usar readonly em campos numéricos somente leitura, em vez de disabled",
+        description: "Preserve a leitura por tecnologias assistivas quando o valor for apenas informativo.",
+        category: "Campos Numéricos",
+        checked: false,
+      },
+      {
+        id: 113,
+        text: "Identificar seleções personalizadas com papel e nome acessível",
+        description: "Quando houver um listbox personalizado, use role='listbox' e aria-label ou aria-labelledby. Prefira o select nativo sem substituir sua semântica por ARIA desnecessária.",
+        category: "Campos de Seleção",
+        checked: false,
+      },
+      {
+        id: 114,
+        text: "Atualizar a opção ativa ao navegar por um listbox personalizado",
+        description: "Ao usar aria-activedescendant, mantenha o foco no listbox e atualize o ID da opção ativa durante a navegação por setas, permitindo seu anúncio pelo leitor de tela.",
+        category: "Campos de Seleção",
+        checked: false,
+      },
+      {
+        id: 115,
+        text: "Relacionar opções externas ao listbox quando necessário",
+        description: "Use aria-owns quando as opções não forem filhas do listbox no DOM e a relação programática precisar ser estabelecida.",
+        category: "Campos de Seleção",
+        checked: false,
+      },
+      {
+        id: 116,
+        text: "Expor seleção múltipla e estado das opções no listbox personalizado",
+        description: "Quando aplicável, defina aria-multiselectable='true' e informe aria-selected='true' ou 'false' em cada opção selecionável.",
+        category: "Campos de Seleção",
+        checked: false,
+      },
+      {
+        id: 117,
+        text: "Comunicar obrigatoriedade e somente leitura nas seleções",
+        description: "Em listboxes personalizados, use aria-required e aria-readonly quando aplicáveis. No estado somente leitura, permita navegar sem alterar a seleção.",
+        category: "Campos de Seleção",
+        checked: false,
+      },
+      {
+        id: 118,
+        text: "Permitir acessar e percorrer todas as opções do combobox por teclado",
+        description: "As opções devem ser alcançáveis sem mouse e a opção ativa deve ser anunciada durante a navegação por setas.",
+        category: "Seleção Pesquisável",
+        checked: false,
+      },
+      {
+        id: 119,
+        text: "Confirmar a opção do combobox com Enter sem perder o foco do campo",
+        description: "Selecione o item ativo, feche a lista atualizando aria-expanded para false e anuncie o valor escolhido, mantendo o foco na entrada.",
+        category: "Seleção Pesquisável",
+        checked: false,
+      },
+      {
+        id: 120,
+        text: "Explicar o motivo quando a data for somente leitura",
+        description: "Se uma regra de negócio impedir a edição, informe a razão no texto de ajuda do campo.",
+        category: "Campos de Data",
+        checked: false,
+      },
+      {
+        id: 121,
+        text: "Informar previamente se o envio de arquivos é obrigatório ou opcional",
+        description: "Apresente essa condição junto às instruções antes de o usuário interagir com o upload.",
+        category: "Upload de Arquivos",
+        checked: false,
+      },
+      {
+        id: 122,
+        text: "Não depender apenas de ícones ou placeholders nas instruções de upload",
+        description: "Use rótulos e textos de ajuda claros para comunicar as regras de envio.",
+        category: "Upload de Arquivos",
+        checked: false,
+      },
+      {
+        id: 123,
+        text: "Dar aos botões nomes que descrevam claramente a ação",
+        description: "Use rótulos como 'Salvar', 'Cancelar' ou 'Adicionar', evitando nomes genéricos como 'botão'.",
+        category: "Botões",
+        checked: false,
+      },
+      {
+        id: 124,
+        text: "Usar type='submit' nos botões que enviam formulários",
+        description: "Preserve o comportamento esperado de envio, inclusive ao pressionar Enter nos campos do formulário.",
+        category: "Botões",
+        checked: false,
+      },
+      {
+        id: 125,
+        text: "Usar type='button' nas ações que não devem enviar o formulário",
+        description: "Abrir modais, adicionar itens ou limpar campos não deve provocar submissões acidentais.",
+        category: "Botões",
+        checked: false,
+      },
+      {
+        id: 126,
+        text: "Verificar seleção múltipla por teclado e leitor de tela",
+        description: "Confirme que todas as opções de checkbox ou select multiple são operáveis por teclado e corretamente anunciadas.",
+        category: "Seleção Múltipla",
+        checked: false,
+      },
+      {
+        id: 127,
+        text: "Identificar semanticamente o conjunto da escolha booleana",
+        description: "Agrupe radio buttons em fieldset e legend ou use um switch com semântica acessível equivalente. O leitor de tela deve compreender a decisão de sim/não ou verdadeiro/falso e o estado atual.",
         category: "Booleano",
         checked: false,
       },

@@ -18,6 +18,8 @@ export function CategoriaCard({
 }: CategoriaCardProps) {
   return (
     <button
+      type="button"
+      aria-pressed={selecionada}
       onClick={onClick}
       className={`${styles.card} ${selecionada ? styles.selected : ""}`}
     >

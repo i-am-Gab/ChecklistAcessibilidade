@@ -38,7 +38,7 @@ export default function Header() {
                 Sobre
               </NavLink>
               <a
-                href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?usp=sharing"
+                href="https://docs.google.com/document/d/1VdlJtriZKQ5HoATTMbj4lq2AdkP0FQzLm3HczXgvxvk/edit?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.navLink}

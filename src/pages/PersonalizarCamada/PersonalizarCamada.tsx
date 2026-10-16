@@ -16,8 +16,15 @@ import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
 import { CategoriaCard } from "./Components/CategoriaCard/CategoriaCard";
 
 import styles from "./PersonalizarCamada.module.css";
+import { SelecionarTipoTela } from "./FluxoCamadaUm";
 
 export default function PersonalizarCamada() {
+  const { camada } = useParams<{ camada: string }>();
+  if (camada === "1") return <SelecionarTipoTela />;
+  return <PersonalizarCategorias key={camada} />;
+}
+
+function PersonalizarCategorias() {
   const navigate = useNavigate();
   const { camada } = useParams<{ camada: string }>();
 
@@ -34,7 +41,9 @@ export default function PersonalizarCamada() {
 
   const info = camadaInfo[camadaNum as 1 | 2 | 3];
 
-  const [selecionadas, setSelecionadas] = useState<string[]>([]);
+  const [selecionadas, setSelecionadas] = useState<string[]>(() =>
+    camadaNum === 3 ? ["requisitos-tecnicos"] : [],
+  );
 
   const toggleCategoria = (id: string) => {
     if (selecionadas.includes(id)) {
@@ -85,6 +94,12 @@ export default function PersonalizarCamada() {
           <div className={styles.titleSection}>
             <h1 className={styles.title}>{info.titulo}</h1>
             <p className={styles.subtitle}>{info.descricao}</p>
+            {camadaNum === 3 && (
+              <p className={styles.subtitle}>
+                Requisitos Técnicos é incluído por padrão como item obrigatório.
+                Você pode desmarcá-lo se não quiser incluí-lo no checklist.
+              </p>
+            )}
           </div>
 
           {/* Cards */}

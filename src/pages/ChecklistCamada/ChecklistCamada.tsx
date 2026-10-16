@@ -28,6 +28,7 @@ import {
 import ChecklistCategorySection from "./Components/ChecklistCategorySection/ChecklistCategorySection";
 import ChecklistVariacoesModal from "./Components/ChecklistVariacoesModal/ChecklistVariacoesModal";
 import styles from "./ChecklistCamada.module.css";
+import { tiposTela } from "../PersonalizarCamada/tiposTela.config";
 
 export default function ChecklistCamada() {
   const navigate = useNavigate();
@@ -43,6 +44,13 @@ export default function ChecklistCamada() {
       : 1;
 
   const currentConfig = checklistConfig[currentLayer];
+  const tipoTela = currentLayer === 1
+    ? tiposTela.find((tela) => tela.id === location.state?.tipoTela)
+    : undefined;
+  const voltarParaPersonalizacao = () => navigate(
+    tipoTela ? `/personalizar/1/${tipoTela.id}` : currentConfig.backRoute,
+    { state: { categoriasSelecionadas: location.state?.categoriasSelecionadas } },
+  );
 
   const [categoriasPreservadas, setCategoriasPreservadas] =
     useState<ChecklistCategory[] | undefined>(undefined);
@@ -230,7 +238,7 @@ export default function ChecklistCamada() {
             </button>
             <span className={styles.breadcrumbSeparator}>›</span>
             <button
-              onClick={() => navigate(currentConfig.backRoute)}
+              onClick={voltarParaPersonalizacao}
               className={styles.breadcrumbButton}
             >
               {currentConfig.label}
@@ -242,7 +250,7 @@ export default function ChecklistCamada() {
           </div>
 
           <button
-            onClick={() => navigate(currentConfig.backRoute)}
+            onClick={voltarParaPersonalizacao}
             className={styles.backButton}
           >
             <ArrowLeft className={styles.backIcon} />

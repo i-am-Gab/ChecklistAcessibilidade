@@ -1,7 +1,19 @@
-
 # Checklist de Acessibilidade
 
 Aplicação web em português para apoiar a revisão de acessibilidade de interfaces. Permite selecionar categorias, montar checklists personalizados e acompanhar o progresso dos itens atendidos.
+
+O projeto reúne orientações para quem desenvolve, projeta ou revisa interfaces, organizando a avaliação em etapas que abrangem conteúdo, componentes e navegação.
+
+## Funcionalidades
+
+- Seleção entre três camadas de avaliação.
+- Personalização do checklist por categorias.
+- Escolha do tipo de tela na camada 01: Busca, Cadastro, Edição, Visualização ou Outras Telas.
+- Personalização por grupos de itens obrigatórios, comuns e demais itens, com resumo da seleção e opção de resetar.
+- Marcação de itens, subitens e categorias completas.
+- Acompanhamento do progresso dos itens exibidos.
+- Consulta a referências e imagens de apoio, quando disponíveis.
+- Seleção de variações para telas de busca e visualização na camada de navegação.
 
 ## Organização dos checklists
 
@@ -16,6 +28,8 @@ As orientações estão divididas em três camadas:
 Em cada camada, é possível escolher as categorias que serão avaliadas, marcar itens e subitens e visualizar o percentual de conclusão. Os checklists também oferecem referências complementares e, quando disponíveis, imagens de apoio e variações de telas de busca e visualização.
 
 Os dados são definidos localmente em `src/mocks/`. O progresso é mantido em memória durante o uso da tela e não é salvo entre sessões ou recarregamentos.
+
+Na camada 01, o fluxo é **selecionar tipo de tela → personalizar elementos → gerar checklist**. A classificação por tela fica em `src/pages/PersonalizarCamada/tiposTela.config.ts`: apenas os obrigatórios são pré-selecionados, e os demais começam desmarcados. Cadastro, Edição e Visualização compartilham as mesmas regras. Categorias não classificadas como obrigatórias ou comuns aparecem em “Demais Itens”. A opção de resetar restaura a seleção inicial do tipo de tela.
 
 ## Tecnologias
 
@@ -60,15 +74,7 @@ npm run build
 
 Os arquivos gerados ficam em `build/`.
 
-A aplicação está configurada para o caminho base `/ChecklistAcessibilidade/`, no Vite (`vite.config.ts`). O roteador utiliza automaticamente esse mesmo caminho. Para publicar em outro caminho, ajuste o `base` no Vite. A hospedagem deve servir o `index.html` da aplicação ao acessar diretamente suas rotas.
-
-## Publicar no GitHub Pages
-
-Em **Settings → Pages → Build and deployment**, selecione **GitHub Actions** como origem. Depois de enviar as alterações para `main`, o workflow `.github/workflows/deploy-pages.yml` instala as dependências, gera o build e publica a pasta `build/`.
-
-O endereço esperado é [https://i-am-gab.github.io/ChecklistAcessibilidade/](https://i-am-gab.github.io/ChecklistAcessibilidade/).
-
-O workflow também gera `404.html` a partir da entrada da aplicação para permitir abrir e recarregar rotas internas no Pages. Nessas visitas diretas, o servidor responde com status HTTP 404, mas o React carrega a tela correspondente.
+A aplicação utiliza o caminho base `/ChecklistAcessibilidade/`, definido em `vite.config.ts` e compartilhado automaticamente com o roteador.
 
 ## Estrutura do projeto
 
