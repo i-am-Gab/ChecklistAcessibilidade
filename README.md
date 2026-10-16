@@ -78,6 +78,8 @@ A aplicação utiliza o caminho base `/ChecklistAcessibilidade/`, definido em `v
 
 ## Estrutura do projeto
 
+As verificações de responsividade e acessibilidade e as instruções para repetir a auditoria local estão em [docs/validacao-responsividade.md](docs/validacao-responsividade.md).
+
 ```text
 src/
 ├── components/

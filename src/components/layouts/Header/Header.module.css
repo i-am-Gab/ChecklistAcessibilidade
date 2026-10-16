@@ -8,7 +8,7 @@
 }
 
 .wrapper {
-  max-width: 1400px;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -28,7 +28,7 @@
   border: none;
   cursor: pointer;
   transition: opacity 0.3s ease;
-  flex-shrink: 0;
+  min-width: 0;
   padding: 0;
 }
 
@@ -39,7 +39,7 @@
 .logoBadge {
   width: 2rem;
   height: 2rem;
-  background-color: #00b894;
+  background-color: var(--color-primary);
   border-radius: 0.25rem;
   display: flex;
   align-items: center;
@@ -83,9 +83,9 @@
 }
 
 .navButton.active {
-  color: #00b894;
+  color: var(--color-primary);
   font-weight: 500;
-  border-bottom: 2px solid #00b894;
+  border-bottom: 2px solid var(--color-primary);
   padding-bottom: 0.25rem;
 }
 
@@ -139,7 +139,7 @@
   display: flex;
 }
 
-.mobileMenuButton {
+.mobileNavLink {
   display: block;
   width: 100%;
   text-align: left;
@@ -152,18 +152,18 @@
   font-size: 1rem;
 }
 
-.mobileMenuButton.inactive {
+.mobileNavLink.inactive {
   color: #666;
   background-color: transparent;
 }
 
-.mobileMenuButton.inactive:hover {
+.mobileNavLink.inactive:hover {
   background-color: #f9fafb;
 }
 
-.mobileMenuButton.active {
+.mobileNavLink.active {
   background-color: #e8f8f5;
-  color: #00b894;
+  color: var(--color-primary);
   font-weight: 500;
 }
 
@@ -189,7 +189,7 @@
 /* Responsividade - MD (768px) */
 @media (min-width: 768px) {
   .headerContent {
-    padding: 1rem 1.5rem;
+    padding: 1rem 0;
   }
 
   .wrapper {
@@ -212,7 +212,7 @@
 /* Responsividade - LG (1024px) */
 @media (min-width: 1024px) {
   .headerContent {
-    padding: 1rem 2rem;
+    padding: 1rem 0;
   }
 
   .wrapper {
@@ -222,4 +222,14 @@
   .desktopNav {
     gap: 2rem;
   }
+}
+
+.wrapper { padding-inline: var(--page-gutter); }
+.headerInner { gap: 1rem; }
+.logoBadge { flex-shrink: 0; }
+.mobileMenuButton { flex-shrink: 0; min-width: 44px; min-height: 44px; }
+.navButton, .navLink { display: inline-flex; align-items: center; min-height: 44px; }
+.mobileNavLink, .mobileMenuLink { min-height: 44px; }
+@media (min-width: 768px) {
+  .mobileMenu.open { display: none; }
 }

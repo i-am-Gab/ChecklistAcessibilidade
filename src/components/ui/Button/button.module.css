@@ -1,5 +1,9 @@
 .button {
   display: inline-flex;
+  justify-content: center;
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
   align-items: center;
   gap: 10px;
   padding: 13px 24px;
@@ -9,7 +13,6 @@
   font-size: 16px;
   font-weight: 500;
   transition: all 0.3s ease;
-  outline: none;
 }
 
 .button:active:not(:disabled) {
@@ -22,7 +25,7 @@
 }
 
 .primary {
-  background-color: #00b894;
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -32,13 +35,13 @@
 }
 
 .primary:hover:not(:disabled) {
-  background-color: #008669;
+  background-color: var(--color-primary-hover);
 }
 
 .secondary {
   background-color: #ffffff;
-  color: #00b894;
-  border: 2px solid #00b894;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .secondary:hover:not(:disabled) {
@@ -52,6 +55,8 @@
   justify-content: center;
   transition: transform 0.3s ease;
 }
+
+.iconLeft, .iconRight { flex-shrink: 0; }
 
 .iconLeft {
   margin-right: -4px;

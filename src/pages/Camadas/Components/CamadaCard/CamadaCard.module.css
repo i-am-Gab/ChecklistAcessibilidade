@@ -27,11 +27,11 @@
 .icon {
   width: 1.5rem;
   height: 1.5rem;
-  color: #00b894;
+  color: var(--color-primary);
 }
 
 .nivel {
-  color: #00b894;
+  color: var(--color-primary);
   font-size: 0.75rem;
   font-weight: bold;
   letter-spacing: 0.05em;
@@ -59,7 +59,7 @@
 }
 
 .button {
-  color: #00b894;
+  color: var(--color-primary);
   font-weight: 500;
   display: flex;
   align-items: center;

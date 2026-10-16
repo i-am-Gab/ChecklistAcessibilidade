@@ -1,4 +1,5 @@
 import { ChevronDown, Image, Settings } from "lucide-react";
+import { useId, useState } from "react";
 import type {
   ChecklistCategory,
   ChecklistItem,
@@ -36,6 +37,8 @@ export default function ChecklistCategorySection({
   normalizeCategoryKey,
   renderTextWithColorIndicator,
 }: ChecklistCategorySectionProps) {
+  const [expanded, setExpanded] = useState(true);
+  const sectionId = useId();
   const categoryCompleted = categoryItems.filter(
     (item) => item.checked,
   ).length;
@@ -47,22 +50,25 @@ export default function ChecklistCategorySection({
   )}`;
 
   return (
-    <details open className={styles.categoryCard}>
-      <summary className={styles.categorySummary}>
+    <section className={styles.categoryCard}>
+      <div className={styles.categorySummary}>
         <div className={styles.categorySummaryContent}>
           <input
             type="checkbox"
             checked={categoryCompleted === categoryTotal}
+            ref={(input) => { if (input) input.indeterminate = categoryCompleted > 0 && categoryCompleted < categoryTotal; }}
+            aria-label={`Marcar todos os itens de ${category}`}
             onChange={() => onToggleCategory(category)}
             onClick={(e) => e.stopPropagation()}
             className={styles.checkbox}
           />
 
-          <h3 className={styles.categoryTitle}>{category}</h3>
-
-          <span className={styles.categoryCounter}>
-            ({categoryCompleted}/{categoryTotal})
-          </span>
+          <h2 className={styles.categoryTitle}>
+            <button type="button" className={styles.categoryToggle} aria-expanded={expanded} aria-controls={`${sectionId}-items`} onClick={() => setExpanded((value) => !value)}>
+              {category} <span className={styles.categoryCounter}>({categoryCompleted}/{categoryTotal})</span>
+              <ChevronDown className={`${styles.chevron} ${expanded ? styles.chevronExpanded : ""}`} aria-hidden="true" />
+            </button>
+          </h2>
 
           {layerId === 3 && imageUrls[categoryImageKey] && (
             <a
@@ -71,6 +77,7 @@ export default function ChecklistCategorySection({
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               className={styles.categoryPrintButton}
+              aria-label={`Ver imagem de ${category} (abre em nova aba)`}
             >
               <Image className={styles.categoryPrintIcon} />
               <span className={styles.desktopOnly}>Ver Print</span>
@@ -80,6 +87,8 @@ export default function ChecklistCategorySection({
           {layerId === 3 &&
             category === "Tela de Visualização" && (
               <button
+                type="button"
+                aria-label="Configurar variação da Tela de Visualização"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -97,6 +106,8 @@ export default function ChecklistCategorySection({
           {layerId === 3 &&
             category === "Tela de Busca/Listagem" && (
               <button
+                type="button"
+                aria-label="Configurar variação da Tela de Busca/Listagem"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -112,10 +123,9 @@ export default function ChecklistCategorySection({
             )}
         </div>
 
-        <ChevronDown className={styles.chevron} />
-      </summary>
+      </div>
 
-      <div className={styles.itemsWrapper}>
+      <div id={`${sectionId}-items`} hidden={!expanded} className={styles.itemsWrapper}>
         {categoryItems.map((item) => (
           <div
             key={item.id}
@@ -125,17 +135,19 @@ export default function ChecklistCategorySection({
                 : styles.itemCardUnchecked
             }`}
           >
-            <label className={styles.itemLabel}>
+            <div className={styles.itemLabel}>
               <input
                 type="checkbox"
                 checked={item.checked}
                 onChange={() => onToggleItem(item.id)}
                 className={styles.checkbox}
+                id={`${sectionId}-item-${item.id}`}
+                aria-describedby={item.description ? `${sectionId}-description-${item.id}` : undefined}
               />
 
               <div className={styles.itemContent}>
                 <div className={styles.itemHeader}>
-                  <div
+                  <label htmlFor={`${sectionId}-item-${item.id}`}
                     className={`${styles.itemTitle} ${
                       item.checked ? styles.itemTitleChecked : ""
                     }`}
@@ -146,7 +158,7 @@ export default function ChecklistCategorySection({
                           item.colorIndicator,
                         )
                       : item.text}
-                  </div>
+                  </label>
 
                   {layerId === 3 && imageUrls[item.id] && (
                     <a
@@ -155,6 +167,7 @@ export default function ChecklistCategorySection({
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
                       className={styles.itemPrintButton}
+                      aria-label={`Ver imagem de ${item.text} (abre em nova aba)`}
                     >
                       <Image className={styles.itemPrintIcon} />
                       <span className={styles.desktopOnly}>
@@ -165,7 +178,7 @@ export default function ChecklistCategorySection({
                 </div>
 
                 {item.description && (
-                  <div className={styles.itemDescription}>
+                  <div id={`${sectionId}-description-${item.id}`} className={styles.itemDescription}>
                     {item.description}
                   </div>
                 )}
@@ -217,10 +230,10 @@ export default function ChecklistCategorySection({
                   </div>
                 )}
               </div>
-            </label>
+            </div>
           </div>
         ))}
       </div>
-    </details>
+    </section>
   );
 }

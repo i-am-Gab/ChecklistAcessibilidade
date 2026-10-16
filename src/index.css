@@ -1,5 +1,15 @@
+:root {
+  --color-primary: #006c49;
+  --color-primary-hover: #005236;
+  --page-gutter: clamp(1rem, 3vw, 2rem);
+  --page-block: clamp(2rem, 4vw, 4rem);
+  --content-width: 80rem;
+  --inner-width: calc(var(--content-width) - 2 * var(--page-gutter));
+}
+
 html {
-  margin-left: calc(100vw - 100%);
+  scrollbar-gutter: stable;
+  scroll-padding-block: 1rem 8rem;
   font-size: 16px;
 }
 
@@ -17,6 +27,8 @@ body,
 
 body {
   margin: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
   font-family: ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji",
     "Segoe UI Emoji",
@@ -63,4 +75,37 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+h1, h2, h3, h4 { line-height: 1.3; margin-top: 0; }
+button, input, select, textarea { max-width: 100%; }
+button { color: inherit; }
+button, a, input, select, textarea, summary { touch-action: manipulation; }
+svg { max-width: 100%; }
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 3px;
+}
+/* Destino de navegação programática; os controles mantêm o foco visível. */
+main[tabindex="-1"]:focus { outline: none; }
+[hidden] { display: none !important; }
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  padding: .75rem 1rem;
+  background: #fff;
+  color: #005236;
+  border: 2px solid currentColor;
+  border-radius: .5rem;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

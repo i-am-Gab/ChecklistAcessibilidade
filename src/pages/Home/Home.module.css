@@ -1,6 +1,7 @@
 .container {
   background-color: white;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +18,7 @@
 .logoContainer {
   width: 4rem;
   height: 4rem;
-  background-color: #00b894;
+  background-color: var(--color-primary);
   border-radius: 1rem;
   display: flex;
   align-items: center;

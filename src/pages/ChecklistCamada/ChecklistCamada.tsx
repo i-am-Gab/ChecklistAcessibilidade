@@ -4,7 +4,8 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
-import { ArrowLeft, BookOpen, Image } from "lucide-react";
+import { BookOpen, Image } from "lucide-react";
+import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
 import type {
   ChecklistCategory,
   VariacaoTelaBusca,
@@ -52,8 +53,8 @@ export default function ChecklistCamada() {
     { state: { categoriasSelecionadas: location.state?.categoriasSelecionadas } },
   );
 
-  const [categoriasPreservadas, setCategoriasPreservadas] =
-    useState<ChecklistCategory[] | undefined>(undefined);
+  const categoriasPreservadas = location.state?.categoriasSelecionadas as
+    ChecklistCategory[] | undefined;
 
   const [
     variacaoTelaVisualizacao,
@@ -79,16 +80,6 @@ export default function ChecklistCamada() {
       variacaoTelaVisualizacao,
     ),
   );
-
-  useEffect(() => {
-    const categorias = location.state?.categoriasSelecionadas as
-      | ChecklistCategory[]
-      | undefined;
-
-    if (categorias && categorias.length > 0) {
-      setCategoriasPreservadas(categorias);
-    }
-  }, [location.state?.categoriasSelecionadas]);
 
   useEffect(() => {
     setItems(
@@ -173,7 +164,7 @@ export default function ChecklistCamada() {
             <span
               className={styles.colorDot}
               style={{ backgroundColor: colorIndicator }}
-              aria-label={colorName}
+              aria-hidden="true"
             />
             <span>{colorName})</span>
           </span>
@@ -228,35 +219,16 @@ export default function ChecklistCamada() {
     <div className={styles.page}>
 
       <div className={styles.container}>
-        <div className={styles.topBar}>
-          <div className={styles.breadcrumb}>
-            <button
-              onClick={() => navigate("/camadas")}
-              className={styles.breadcrumbButton}
-            >
-              Home
-            </button>
-            <span className={styles.breadcrumbSeparator}>›</span>
-            <button
-              onClick={voltarParaPersonalizacao}
-              className={styles.breadcrumbButton}
-            >
-              {currentConfig.label}
-            </button>
-            <span className={styles.breadcrumbSeparator}>›</span>
-            <span className={styles.breadcrumbCurrent}>
-              Checklist
-            </span>
-          </div>
+        <Breadcrumb
+          items={[
+            { label: "Home", onClick: () => navigate("/camadas") },
+            { label: currentConfig.label, onClick: voltarParaPersonalizacao },
+            { label: "Checklist" },
+          ]}
+          onBack={voltarParaPersonalizacao}
+        />
 
-          <button
-            onClick={voltarParaPersonalizacao}
-            className={styles.backButton}
-          >
-            <ArrowLeft className={styles.backIcon} />
-            <span className={styles.backButtonText}>Voltar</span>
-          </button>
-        </div>
+        <h1 className={styles.pageTitle}>Checklist — {currentConfig.label}</h1>
 
         <a
           href={currentConfig.infoUrl}
@@ -281,7 +253,7 @@ export default function ChecklistCamada() {
             </div>
           </div>
 
-          <div className={styles.progressBarBackground}>
+          <div className={styles.progressBarBackground} role="progressbar" aria-label="Progresso do checklist" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-valuetext={`${completedItems} de ${totalItems} itens concluídos`}>
             <div
               className={styles.progressBarFill}
               style={{ width: `${progress}%` }}
@@ -298,7 +270,7 @@ export default function ChecklistCamada() {
         {currentConfig.showInfoBox && (
           <div className={styles.infoBox}>
             <div className={styles.infoBoxContent}>
-              <div className={styles.infoBoxIcon}>i</div>
+              <div className={styles.infoBoxIcon} aria-hidden="true">i</div>
               <div className={styles.infoBoxTextWrapper}>
                 <p className={styles.infoBoxText}>
                   As cores indicam a área de aplicação de cada

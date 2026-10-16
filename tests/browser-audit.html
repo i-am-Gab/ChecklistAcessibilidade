@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditoria local de acessibilidade e responsividade</title>
+<style>body{font:16px/1.5 system-ui;margin:24px}button{padding:12px}iframe{display:block;height:850px;border:1px solid #aaa;max-width:none}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>
+<h1>Auditoria local</h1>
+<p>Executar com o servidor Vite. Testa as rotas em seis larguras, reflow com texto ampliado e WCAG A/AA com axe-core. Não envia dados para serviços externos.</p>
+<button id="run">Executar auditoria</button>
+<button id="contrast">Conferir contraste da página em teste</button>
+<p id="status" role="status">Aguardando execução.</p>
+<pre id="report"></pre>
+<pre id="contrast-report"></pre>
+<iframe id="site" title="Página em teste"></iframe>
+<script type="module">
+import axe from "axe-core";
+const frame = document.querySelector('#site');
+const status = document.querySelector('#status');
+const output = document.querySelector('#report');
+const routes = ['', 'sobre', 'camadas', 'personalizar/1', 'personalizar/1/busca', 'personalizar/1/cadastro', 'personalizar/1/edicao', 'personalizar/1/visualizacao', 'personalizar/1/outras', 'personalizar/2', 'personalizar/3', 'checklists/1', 'checklists/2', 'checklists/3'];
+const widths = [320, 375, 390, 768, 1024, 1440];
+const settle = () => new Promise(resolve => setTimeout(resolve, 180));
+document.querySelector('#contrast').onclick = async () => {
+  if (!frame.contentWindow.axe) {
+    await new Promise(resolve => { frame.onload = resolve; frame.src = `${import.meta.env.BASE_URL}checklists/3`; });
+    await settle();
+    const script = frame.contentDocument.createElement('script');
+    script.textContent = axe.source;
+    frame.contentDocument.head.append(script);
+  }
+  const result = await frame.contentWindow.axe.run(frame.contentDocument, {runOnly:{type:'rule',values:['color-contrast']}});
+  document.querySelector('#contrast-report').textContent = JSON.stringify({violations:result.violations,incomplete:result.incomplete.map(item=>({id:item.id,nodes:item.nodes.map(node=>({target:node.target,summary:node.failureSummary,checks:node.any.map(check=>({message:check.message,data:check.data}))}))}))},null,2);
+};
+document.querySelector('#run').onclick = async () => {
+  document.querySelector('#run').disabled = true;
+  const report = { layouts: [], accessibility: [], enlargedText: [], dialogs: [], errors: [] };
+  try {
+    for (const route of routes) {
+      status.textContent = `Testando /${route}`;
+      await new Promise(resolve => { frame.onload = resolve; frame.src = `${import.meta.env.BASE_URL}${route}`; });
+      await settle();
+      const doc = frame.contentDocument;
+      const script = doc.createElement('script');
+      script.textContent = axe.source;
+      doc.head.append(script);
+      for (const width of widths) {
+        frame.style.width = `${width}px`;
+        await settle();
+        const viewport = doc.documentElement.clientWidth;
+        const overflow = doc.documentElement.scrollWidth > viewport + 1;
+        report.layouts.push({route, width, overflow, offenders: overflow ? [...doc.querySelectorAll('body *')].filter(el => {const r = el.getBoundingClientRect();return r.width && (r.right > viewport + 1 || r.left < -1) && getComputedStyle(el).position !== 'fixed';}).slice(0,8).map(el => ({tag:el.tagName, class:el.className?.baseVal ?? el.className, text:el.textContent.slice(0,70)})) : []});
+        if (width === 320 || width === 1440) {
+          const results = await frame.contentWindow.axe.run(doc, {runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});
+          report.accessibility.push({route,width,violations:results.violations.map(v => ({id:v.id,impact:v.impact,description:v.description,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary})).slice(0,8)})),incomplete:results.incomplete.map(v=>v.id)});
+        }
+      }
+      frame.style.width = '640px';
+      doc.documentElement.style.fontSize = '32px';
+      await settle();
+      report.enlargedText.push({route, overflow:doc.documentElement.scrollWidth > doc.documentElement.clientWidth + 1});
+      doc.documentElement.style.fontSize = '';
+      if (route === 'sobre' || route === 'checklists/3') {
+        frame.style.width = '320px';
+        frame.style.height = '480px';
+        const selector = route === 'sobre' ? '[aria-label="Abrir diagrama das camadas em tela cheia"]' : '[aria-label="Configurar variação da Tela de Busca/Listagem"]';
+        doc.querySelector(selector).click();
+        await settle();
+        const dialog = doc.querySelector('dialog[open]');
+        const result = await frame.contentWindow.axe.run(doc,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});
+        report.dialogs.push({route,open:!!dialog, focusInside:dialog?.contains(doc.activeElement), fitsViewport:dialog?.getBoundingClientRect().bottom <= 481, violations:result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))});
+        [...dialog.querySelectorAll('button')].find(button => button.textContent.trim() === 'Fechar').click();
+        frame.style.height = '850px';
+      }
+    }
+    status.textContent = 'Auditoria concluída.';
+  } catch(error) {report.errors.push(String(error));status.textContent = 'Auditoria interrompida por erro.';}
+  output.textContent = JSON.stringify(report, null, 2);
+  document.querySelector('#run').disabled = false;
+};
+</script>
+</html>

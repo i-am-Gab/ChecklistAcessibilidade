@@ -1,21 +1,28 @@
 import { NavLink } from "react-router";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const documentationUrl = "https://docs.google.com/document/d/1VdlJtriZKQ5HoATTMbj4lq2AdkP0FQzLm3HczXgvxvk/edit?usp=sharing";
 
   const getLinkClass = ({ isActive }: { isActive: boolean }) => {
     return `${styles.navButton} ${isActive ? styles.active : styles.inactive}`;
   };
 
   const getMobileLinkClass = ({ isActive }: { isActive: boolean }) => {
-    return `${styles.mobileMenuButton} ${isActive ? styles.active : styles.inactive}`;
+    return `${styles.mobileNavLink} ${isActive ? styles.active : styles.inactive}`;
   };
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} onKeyDown={(event) => {
+      if (event.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false);
+        menuButton.current?.focus();
+      }
+    }}>
       <div className={styles.headerContent}>
         <div className={styles.wrapper}>
           <div className={styles.headerInner}>
@@ -30,7 +37,7 @@ export default function Header() {
             </NavLink>
 
             {/* Desktop Navigation */}
-            <nav className={styles.desktopNav}>
+            <nav className={styles.desktopNav} aria-label="Navegação principal">
               <NavLink to="/camadas" className={getLinkClass}>
                 Checklists
               </NavLink>
@@ -38,7 +45,8 @@ export default function Header() {
                 Sobre
               </NavLink>
               <a
-                href="https://docs.google.com/document/d/1VdlJtriZKQ5HoATTMbj4lq2AdkP0FQzLm3HczXgvxvk/edit?usp=sharing"
+                href={documentationUrl}
+                aria-label="Documentação (abre em nova aba)"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.navLink}
@@ -49,9 +57,13 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
+              type="button"
+              ref={menuButton}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={styles.mobileMenuButton}
-              aria-label="Menu"
+              aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={isMenuOpen}
+              aria-controls="menu-mobile"
             >
               {isMenuOpen ? (
                 <X className={styles.menuIcon} />
@@ -62,7 +74,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Dropdown */}
-          <nav className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ""}`}>
+          <nav id="menu-mobile" aria-label="Navegação mobile" hidden={!isMenuOpen} className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ""}`}>
             <NavLink
               to="/camadas"
               className={getMobileLinkClass}
@@ -78,7 +90,8 @@ export default function Header() {
               Sobre
             </NavLink>
             <a
-              href="https://docs.google.com/document/d/1kPfQyfptKh27_7PSyYxCl2j-122Bk0fgAX2dKliQZ00/edit?usp=sharing"
+              href={documentationUrl}
+              aria-label="Documentação (abre em nova aba)"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.mobileMenuLink}

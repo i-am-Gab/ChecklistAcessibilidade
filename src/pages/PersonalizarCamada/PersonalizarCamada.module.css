@@ -8,11 +8,13 @@
 .mainContent {
   background-color: #f8f9fa;
   flex: 1;
-  padding: 2rem 1rem;
+  padding: var(--page-block) var(--page-gutter);
 }
 
 .container {
-  max-width: 80rem;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--inner-width);
   margin: 0 auto;
 }
 
@@ -65,12 +67,12 @@
 
 .infoFooterCount {
   font-weight: bold;
-  color: #00b894;
+  color: var(--color-primary);
 }
 
 @media (min-width: 640px) {
   .mainContent {
-    padding: 3rem 1.5rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .cardsGrid {
@@ -78,6 +80,7 @@
   }
 
   .actionsSection {
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
   }
@@ -93,7 +96,7 @@
 
 @media (min-width: 1024px) {
   .mainContent {
-    padding: 4rem 2rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .title {

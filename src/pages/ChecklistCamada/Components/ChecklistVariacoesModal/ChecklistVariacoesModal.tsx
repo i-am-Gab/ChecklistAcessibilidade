@@ -1,4 +1,6 @@
 import styles from "./ChecklistVariacoesModal.module.css";
+import { useId } from "react";
+import { useModalDialog } from "../../../../hooks/useModalDialog";
 
 type Option = {
   label: string;
@@ -24,14 +26,15 @@ export default function ChecklistVariacoesModal({
   onSelect,
   onClose,
 }: ChecklistVariacoesModalProps) {
-  if (!isOpen) return null;
+  const dialogRef = useModalDialog(isOpen);
+  const titleId = useId();
+  const descriptionId = useId();
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <h2 className={styles.title}>{title}</h2>
+    <dialog ref={dialogRef} className={styles.modal} aria-labelledby={titleId} aria-describedby={descriptionId} onCancel={(event) => { event.preventDefault(); onClose(); }}>
+        <h2 id={titleId} className={styles.title}>{title}</h2>
 
-        <p className={styles.description}>{description}</p>
+        <p id={descriptionId} className={styles.description}>{description}</p>
 
         <div className={styles.optionsList}>
           {options.map((option) => {
@@ -39,6 +42,8 @@ export default function ChecklistVariacoesModal({
 
             return (
               <button
+                type="button"
+                aria-pressed={isSelected}
                 key={option.label}
                 onClick={() => {
                   onSelect(option.label);
@@ -78,12 +83,12 @@ export default function ChecklistVariacoesModal({
         </div>
 
         <button
+          type="button"
           onClick={onClose}
           className={styles.closeButton}
         >
           Fechar
         </button>
-      </div>
-    </div>
+    </dialog>
   );
 }

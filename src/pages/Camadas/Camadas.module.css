@@ -8,11 +8,11 @@
 .content {
   background-color: #f8f9fa;
   flex: 1;
-  padding: 2rem 1rem;
+  padding: var(--page-block) var(--page-gutter);
 }
 
 .wrapper {
-  max-width: 80rem;
+  max-width: var(--inner-width);
   margin: 0 auto;
   width: 100%;
 }
@@ -30,13 +30,13 @@
 }
 
 .subtitle {
-  color: #00b894;
+  color: var(--color-primary);
   font-size: 1rem;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
 }
 
@@ -44,8 +44,9 @@
 
 /* Responsividade - SM (640px) */
 @media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .content {
-    padding: 3rem 1.5rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .titleSection {
@@ -82,7 +83,7 @@
 /* Responsividade - LG (1024px) */
 @media (min-width: 1024px) {
   .content {
-    padding: 4rem 2rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .title {
@@ -90,6 +91,6 @@
   }
 
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

@@ -15,7 +15,7 @@
 }
 
 .card.selected {
-  border-color: #00b894;
+  border-color: var(--color-primary);
   background-color: #e8f8f5;
 }
 
@@ -25,7 +25,7 @@
   right: 0.75rem;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: #00b894;
+  background-color: var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@
 }
 
 .cardIconContainer.selected {
-  background-color: #00b894;
+  background-color: var(--color-primary);
 }
 
 .cardIconContainer:not(.selected) {
@@ -66,7 +66,7 @@
 }
 
 .cardIcon:not(.selected) {
-  color: #00b894;
+  color: var(--color-primary);
 }
 
 .cardTitle {

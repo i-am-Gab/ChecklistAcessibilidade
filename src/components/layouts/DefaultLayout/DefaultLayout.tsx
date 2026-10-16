@@ -6,10 +6,10 @@ import styles from "./DefaultLayout.module.css";
 export function DefaultLayout() {
   return (
     <div className={styles.layoutContainer}>
-      
+      <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
       <Header />
 
-      <main className={styles.mainContent}>
+      <main id="conteudo-principal" tabIndex={-1} className={styles.mainContent}>
         <Outlet />
       </main>
 

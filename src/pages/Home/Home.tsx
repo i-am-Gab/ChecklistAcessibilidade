@@ -7,7 +7,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.container}>
+    <main id="conteudo-principal" tabIndex={-1} className={styles.container}>
       <div className={styles.wrapper}>
         {/* Logo/Icon */}
         <div className={styles.logoContainer}>
@@ -30,12 +30,11 @@ export default function Home() {
           text="Acessar Checklists"
           onClick={() => navigate("/camadas")}
           variant="primary"
-          customColor="#00b894"
           icon={<ArrowRight />}
           iconPosition="right"
           iconAnimation="slideRight"
         />
       </div>
-    </div>
+    </main>
   );
 }

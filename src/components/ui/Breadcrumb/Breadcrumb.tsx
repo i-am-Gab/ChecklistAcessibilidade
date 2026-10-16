@@ -18,25 +18,26 @@ export function Breadcrumb({
   backLabel = "Voltar",
 }: BreadcrumbProps) {
   return (
-    <div className={styles.wrapper}>
+    <nav className={styles.wrapper} aria-label="Caminho de navegação">
       <div className={styles.breadcrumb}>
         {items.map((item, index) => (
           <span key={index} className={styles.itemWrapper}>
             {item.onClick ? (
               <button
+                type="button"
                 onClick={item.onClick}
                 className={styles.link}
               >
                 {item.label}
               </button>
             ) : (
-              <span className={styles.current}>
+              <span className={styles.current} aria-current={index === items.length - 1 ? "page" : undefined}>
                 {item.label}
               </span>
             )}
 
             {index < items.length - 1 && (
-              <span className={styles.separator}>›</span>
+              <span className={styles.separator} aria-hidden="true">›</span>
             )}
           </span>
         ))}
@@ -44,6 +45,7 @@ export function Breadcrumb({
 
       {onBack && (
         <button
+          type="button"
           onClick={onBack}
           className={styles.backButton}
         >
@@ -51,6 +53,6 @@ export function Breadcrumb({
           {backLabel}
         </button>
       )}
-    </div>
+    </nav>
   );
 }

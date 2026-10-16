@@ -4,86 +4,31 @@
   display: flex;
   flex-direction: column;
 }
+.pageTitle { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 1.5rem; }
 
 .container {
-  max-width: 72rem;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--page-block) var(--page-gutter);
 }
 
-.topBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
 
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  font-size: 0.875rem;
-  color: #4b5563;
-}
 
-.breadcrumbButton {
-  background: transparent;
-  border: none;
-  padding: 0;
-  color: inherit;
-  cursor: pointer;
-  transition: color 0.2s;
-}
 
-.breadcrumbButton:hover {
-  color: #00b894;
-}
 
-.breadcrumbSeparator {
-  display: none;
-}
 
-.breadcrumbCurrent {
-  color: #111827;
-}
 
-.backButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background-color: #00b894;
-  color: #ffffff;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
-  flex-shrink: 0;
-}
 
-.backButton:hover {
-  background-color: #00a380;
-}
 
-.backIcon {
-  width: 1rem;
-  height: 1rem;
-}
 
-.backButtonText {
-  display: none;
-}
 
 .infoButton {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #00b894;
+  background-color: var(--color-primary);
   color: #ffffff;
   padding: 0.75rem 1.25rem;
   border-radius: 0.5rem;
@@ -94,7 +39,7 @@
 }
 
 .infoButton:hover {
-  background-color: #00a380;
+  background-color: var(--color-primary-hover);
 }
 
 .infoButtonIcon {
@@ -127,7 +72,7 @@
 .progressValue {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #00b894;
+  color: var(--color-primary);
 }
 
 .progressBarBackground {
@@ -140,7 +85,7 @@
 }
 
 .progressBarFill {
-  background-color: #00b894;
+  background-color: var(--color-primary);
   height: 100%;
   transition: width 0.3s ease-out;
 }
@@ -170,7 +115,7 @@
   flex-shrink: 0;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: #3b82f6;
+  background-color: #2563eb;
   color: #ffffff;
   border-radius: 9999px;
   display: flex;
@@ -204,7 +149,7 @@
   align-items: center;
   gap: 0.375rem;
   padding: 0.25rem 0.625rem;
-  background-color: #00b894;
+  background-color: var(--color-primary);
   color: #ffffff;
   font-size: 0.75rem;
   border: none;
@@ -213,7 +158,7 @@
 }
 
 .infoPrintButton:hover {
-  background-color: #00a380;
+  background-color: var(--color-primary-hover);
 }
 
 .infoPrintIcon {
@@ -266,7 +211,7 @@
 }
 
 .primaryActionButton {
-  background-color: #00b894;
+  background-color: var(--color-primary);
   color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -278,7 +223,7 @@
 }
 
 .primaryActionButton:hover {
-  background-color: #00a380;
+  background-color: var(--color-primary-hover);
 }
 
 .secondaryActionButton {
@@ -319,33 +264,11 @@
   border: 1px solid #d1d5db;
 }
 
-@media (min-width: 640px) {
-  .topBar {
-    flex-wrap: nowrap;
-  }
 
-  .breadcrumbSeparator {
-    display: inline;
-  }
-
-  .backButton {
-    background-color: transparent;
-    color: #4b5563;
-  }
-
-  .backButton:hover {
-    color: #00b894;
-    background-color: #ffffff;
-  }
-
-  .backButtonText {
-    display: inline;
-  }
-}
 
 @media (max-width: 640px) {
   .container {
-    padding: 2rem 1rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .progressHeader {
@@ -357,4 +280,11 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.infoButton, .primaryActionButton, .secondaryActionButton { min-height: 44px; }
+.completionActions > * { display: inline-flex; align-items: center; justify-content: center; }
+@media (max-width: 639px) {
+  .completionActions { flex-direction: column; }
+  .completionActions > * { width: 100%; }
 }

@@ -3,9 +3,9 @@
   min-width: 0;
   background: #f8f9fa;
   color: #151c27;
-  padding: 32px 24px 64px;
+  padding: var(--page-block) var(--page-gutter);
 }
-.container { max-width: 1104px; margin: 0 auto; }
+.container { width: 100%; min-width: 0; max-width: var(--inner-width); margin: 0 auto; }
 .breadcrumb { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; font-size: 12px; color: #3c4a42; }
 .breadcrumb ol { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0; }
 .breadcrumb [aria-current] { color: #151c27; font-weight: 600; }
@@ -30,11 +30,12 @@
 .secondaryButton { border: 1px solid #006c49; background: transparent; color: #006c49; }
 .secondaryButton:hover { background: #e6f7f1; }
 .page button:focus-visible, .page a:focus-visible, .item:has(input:focus-visible) { outline: 3px solid #006c49; outline-offset: 4px; }
-.customization { padding-bottom: 150px; }
+.customization { display: flex; flex-direction: column; gap: 3rem; padding: var(--page-block) 0 0; }
+.customization > .container { padding-inline: var(--page-gutter); max-width: var(--content-width); }
 .groups { display: grid; gap: 22px; }
-.group { border: 1px solid #cbd6cf; border-radius: 11px; overflow: hidden; }
+.group { border: 1px solid #cbd6cf; border-radius: 11px; }
 .groupHeading { margin: 0; font-size: 16px; }
-.groupToggle { display: flex; width: 100%; align-items: center; gap: 16px; text-align: left; padding: 22px 24px; background: #f0f3ff; color: #151c27; border: 0; cursor: pointer; font: inherit; }
+.groupToggle { display: flex; width: 100%; align-items: center; gap: 16px; text-align: left; padding: 22px 24px; background: #f0f3ff; color: #151c27; border: 0; border-radius: 10px; cursor: pointer; font: inherit; }
 .groupToggle:hover { background: #e7eefe; }
 .groupIcon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 40px; height: 40px; background: #dce2f3; color: #006c49; border-radius: 7px; }
 .requiredIcon { background: #10b981; color: #00422b; }
@@ -50,7 +51,7 @@
 .itemName { display: block; font-size: 14px; font-weight: 600; line-height: 1.5; }
 .itemDescription { display: block; font-size: 12px; line-height: 1.5; color: #3c4a42; }
 .empty { border-top: 1px solid #cbd6cf; margin: 0; padding: 24px; font-size: 14px; line-height: 1.6; color: #3c4a42; }
-.summaryBar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: #f8f9fa; border-top: 1px solid #bbcabf; padding: 18px 24px calc(18px + env(safe-area-inset-bottom)); }
+.summaryBar { position: sticky; bottom: 0; z-index: 40; background: #f8f9fa; border-top: 1px solid #bbcabf; padding: 18px var(--page-gutter) calc(18px + env(safe-area-inset-bottom)); }
 .summaryInner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .summary { display: flex; gap: 24px; font-size: 14px; }
 .summary > span { display: flex; align-items: center; gap: 8px; }
@@ -62,7 +63,7 @@
 @media (max-width: 900px) {
   .screenGrid, .itemGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .summaryInner { flex-direction: column; gap: 14px; }
-  .customization { padding-bottom: 190px; }
+  .summaryBar { position: static; }
 }
 @media (max-width: 560px) {
   .page { padding: 24px 16px 48px; }
@@ -73,13 +74,14 @@
   .screenActions { flex-direction: column-reverse; margin-top: 32px; }
   .groupToggle { padding: 18px 16px; gap: 12px; }
   .itemGrid { padding: 16px; }
-  .customization { padding-bottom: 200px; }
+  .customization { padding: var(--page-block) 0 0; }
   .summaryBar { padding-left: 16px; padding-right: 16px; }
   .summary { gap: 12px; font-size: 12px; flex-wrap: wrap; justify-content: center; }
   .summary > span + span { padding-left: 12px; }
   .summaryActions { width: 100%; gap: 10px; }
   .summaryActions button { flex: 1; padding: 12px; font-size: 13px; }
 }
+@media (max-height: 40rem) { .summaryBar { position: static; } }
 @media (prefers-reduced-motion: reduce) {
   .screenCard, .groupToggle > svg { transition: none; }
 }

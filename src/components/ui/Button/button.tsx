@@ -31,6 +31,7 @@ export function Button({
 
   return (
     <button 
+      type="button"
       className={buttonClass}
       onClick={onClick}
       disabled={disabled}

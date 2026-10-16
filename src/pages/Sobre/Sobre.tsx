@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
+import { useState } from "react";
+import { useModalDialog } from "../../hooks/useModalDialog";
 import CamadasSVG from "./Components/camadas";
 import { ImageWithFallback } from "../../components/ui/ImageWithFallback/ImageWithFallback";
 import styles from "./Sobre.module.css";
@@ -10,6 +12,8 @@ const fundeccLogo = "https://fundecc.org.br/wp-content/uploads/2024/10/Logo_fund
 
 export default function Sobre() {
   const navigate = useNavigate();
+  const [imageOpen, setImageOpen] = useState(false);
+  const imageDialog = useModalDialog(imageOpen);
 
   return (
     <div className={styles.container}>
@@ -75,7 +79,9 @@ export default function Sobre() {
               </div>
             </div>
             <div className={styles.imageCamadas}>
-              <CamadasSVG className={styles.imageCamadasImg} />
+              <button type="button" className={styles.imageTrigger} aria-label="Abrir diagrama das camadas em tela cheia" onClick={() => setImageOpen(true)}>
+                <CamadasSVG className={styles.imageCamadasImg} />
+              </button>
             </div>
           </section>
 
@@ -122,6 +128,14 @@ export default function Sobre() {
           </div>
         </div>
       </div>
+      <dialog ref={imageDialog} className={styles.imageDialog} aria-label="Diagrama das camadas em tela cheia" onCancel={(event) => { event.preventDefault(); setImageOpen(false); }}>
+        <div className={styles.imageToolbar}>
+          <button type="button" onClick={() => setImageOpen(false)}><X size={20} aria-hidden="true" />Fechar</button>
+        </div>
+        <div className={styles.fullscreenCanvas}>
+          {imageOpen && <CamadasSVG className={styles.fullscreenImage} />}
+        </div>
+      </dialog>
     </div>
   );
 }

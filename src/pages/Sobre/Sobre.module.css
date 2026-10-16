@@ -8,13 +8,13 @@
 .content {
   background-color: #f8f9fa;
   flex: 1;
-  padding: 2rem 1rem;
+  padding: var(--page-block) var(--page-gutter);
 }
 
 .wrapper {
-  max-width: 80rem;
+  max-width: var(--inner-width);
   margin-inline: auto;
-  padding-inline: 1rem;
+  min-width: 0;
   width: 100%;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .breadcrumbButton:hover {
-  color: #00b894;
+  color: var(--color-primary);
 }
 
 .backButton {
@@ -61,7 +61,7 @@
 }
 
 .backButton:hover {
-  color: #00b894;
+  color: var(--color-primary);
   background-color: #f3f4f6;
 }
 
@@ -86,7 +86,7 @@
 .titleUnderline {
   width: 5rem;
   height: 0.25rem;
-  background-color: #00b894;
+  background-color: var(--color-primary);
   border-radius: 9999px;
 }
 
@@ -114,7 +114,7 @@
   color: #444;
   line-height: 1.5;
   font-size: 1rem;
-  text-align: justify;
+  text-align: left;
 }
 
 .sectionContent p {
@@ -157,7 +157,7 @@
   color: #444;
   font-size: 0.875rem;
   line-height: 1.5;
-  text-align: justify;
+  text-align: left;
 }
 
 .imageCamadas {
@@ -172,6 +172,42 @@
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
+
+.imageDialog button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .65rem 1rem;
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: .5rem;
+  font: inherit;
+  cursor: pointer;
+}
+.imageTrigger { display: block; width: min(100%, 780px); padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.imageTrigger svg { display: block; width: 100%; }
+.imageDialog {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  color: #151c27;
+  background: white;
+  overflow-y: auto;
+}
+.imageDialog[open] { display: flex; flex-direction: column; gap: 1rem; }
+.imageDialog::backdrop { background: rgba(0, 0, 0, .65); }
+.imageToolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem; }
+.imageToolbar button { margin-left: auto; }
+.fullscreenCanvas { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.fullscreenImage { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 /* Institutions Grid */
 .institutionsGrid {
@@ -193,6 +229,7 @@
 }
 
 .institutionLogoContainer {
+  max-width: 100%;
   width: 10rem;
   height: 10rem;
   background-color: white;
@@ -244,7 +281,8 @@
 }
 
 .ctaButton {
-  background-color: #00b894;
+  min-height: 44px;
+  background-color: var(--color-primary);
   color: white;
   padding: 0.625rem 1.5rem;
   border-radius: 0.5rem;
@@ -256,13 +294,13 @@
 }
 
 .ctaButton:hover {
-  background-color: #00a380;
+  background-color: var(--color-primary-hover);
 }
 
 /* Responsividade - SM (640px) */
 @media (min-width: 640px) {
   .content {
-    padding: 3rem 1.5rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .breadcrumbSection {
@@ -303,7 +341,7 @@
   }
 
   .institutionsGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
     gap: 2rem;
   }
 
@@ -342,7 +380,7 @@
 /* Responsividade - LG (1024px) */
 @media (min-width: 1024px) {
   .content {
-    padding: 4rem 2rem;
+    padding: var(--page-block) var(--page-gutter);
   }
 
   .title {
@@ -354,7 +392,7 @@
   }
 
   .institutionsGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   }
 
   .institutionLogoContainer {

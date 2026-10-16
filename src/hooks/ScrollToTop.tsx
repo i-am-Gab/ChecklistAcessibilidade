@@ -6,6 +6,9 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.getElementById("conteudo-principal")?.focus({ preventScroll: true });
+    const titulo = document.querySelector("h1")?.textContent?.trim();
+    document.title = titulo ? `${titulo} | Checklists Acessibilidade` : "Checklists Acessibilidade";
   }, [pathname]);
 
   return null;

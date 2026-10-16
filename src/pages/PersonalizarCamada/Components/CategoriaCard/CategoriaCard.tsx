@@ -25,7 +25,7 @@ export function CategoriaCard({
     >
       {selecionada && (
         <div className={styles.cardCheckmark}>
-          <CircleCheck size={24} fill="#00b894" color="white" />
+          <CircleCheck size={24} fill="#006c49" color="white" aria-hidden="true" />
         </div>
       )}
 
