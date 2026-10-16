@@ -2,11 +2,8 @@ import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { ArrowRight, CheckSquare } from "lucide-react";
 
-import {
-  categoriasCAMADA01,
-  categoriasCAMADA02,
-  categoriasCAMADA03,
-} from "../../mocks/itensCamadaMock";
+import { getCategoriesForLayer, type CategoryId, type LayerId } from "../../data/categories";
+import { getChecklistUrl, readChecklistSelection } from "../../features/checklist/checklistUrl";
 
 import { iconMap, camadaInfo } from "../../mocks/categoriasComIcons";
 
@@ -22,38 +19,24 @@ import { useAnnouncement } from "../../hooks/useAnnouncement";
 
 export default function PersonalizarCamada() {
   const { camada } = useParams<{ camada: string }>();
+  const location = useLocation();
   if (camada === "1") return <SelecionarTipoTela />;
   if (camada !== "2" && camada !== "3") return <NaoEncontrada message="Essa camada não existe. Escolha uma das três camadas disponíveis." />;
-  return <PersonalizarCategorias key={camada} />;
+  return <PersonalizarCategorias key={`${camada}:${location.search}`} camadaNum={Number(camada) as LayerId} />;
 }
 
-function PersonalizarCategorias() {
+function PersonalizarCategorias({ camadaNum }: { camadaNum: LayerId }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { message, announce } = useAnnouncement();
-  const { camada } = useParams<{ camada: string }>();
-
-  const camadaNum = parseInt(camada || "1");
-
-  const categoriasMap = {
-    1: categoriasCAMADA01,
-    2: categoriasCAMADA02,
-    3: categoriasCAMADA03,
-  };
-
-  const categorias =
-    categoriasMap[camadaNum as 1 | 2 | 3] || categoriasCAMADA01;
+  const categorias = getCategoriesForLayer(camadaNum);
 
   const info = camadaInfo[camadaNum as 1 | 2 | 3];
 
-  const [selecionadas, setSelecionadas] = useState<string[]>(() => {
-    const anteriores: unknown = location.state?.categoriasSelecionadas;
-    return Array.isArray(anteriores)
-      ? categorias.filter((item) => anteriores.includes(item.categoria)).map((item) => item.id)
-      : camadaNum === 3 ? ["requisitos-tecnicos"] : [];
-  });
+  const selection = readChecklistSelection(camadaNum, location.search, location.state);
+  const [selecionadas, setSelecionadas] = useState<CategoryId[]>(() => selection.categories ?? (camadaNum === 3 ? ["requisitos-tecnicos"] : []));
 
-  const toggleCategoria = (id: string) => {
+  const toggleCategoria = (id: CategoryId) => {
     if (selecionadas.includes(id)) {
       setSelecionadas(selecionadas.filter((cat) => cat !== id));
     } else {
@@ -77,13 +60,7 @@ function PersonalizarCategorias() {
       return;
     }
 
-    const categoriasNomes = categorias
-      .filter((cat) => selecionadas.includes(cat.id))
-      .map((cat) => cat.categoria);
-
-    navigate(info.href, {
-      state: { categoriasSelecionadas: categoriasNomes },
-    });
+    navigate(getChecklistUrl({ ...selection, categories: selecionadas }));
   };
 
   return (

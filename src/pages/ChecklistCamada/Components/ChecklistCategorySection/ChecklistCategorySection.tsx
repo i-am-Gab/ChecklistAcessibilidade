@@ -7,6 +7,7 @@ import type {
 import type { CamadaId } from "../../checklist.config";
 import styles from "./ChecklistCategorySection.module.css";
 import { calculateProgress } from "../../checklist.utils";
+import { getCategory } from "../../../../data/categories";
 
 type ChecklistCategorySectionProps = {
   category: ChecklistCategory;
@@ -19,7 +20,6 @@ type ChecklistCategorySectionProps = {
   onOpenVariations?: (
     type: "Visualização" | "Busca",
   ) => void;
-  normalizeCategoryKey: (category: string) => string;
   renderTextWithColorIndicator: (
     text: string,
     colorIndicator?: string,
@@ -35,7 +35,6 @@ export default function ChecklistCategorySection({
   onToggleItem,
   onToggleSubItem,
   onOpenVariations,
-  normalizeCategoryKey,
   renderTextWithColorIndicator,
 }: ChecklistCategorySectionProps) {
   const [expanded, setExpanded] = useState(true);
@@ -47,9 +46,8 @@ export default function ChecklistCategorySection({
   const categoryTotal = categoryItems.length;
   const leafProgress = calculateProgress(categoryItems);
 
-  const categoryImageKey = `categoria-${normalizeCategoryKey(
-    category,
-  )}`;
+  const categoryName = getCategory(category).nome;
+  const categoryImageKey = `categoria-${category}`;
 
   return (
     <section className={styles.categoryCard}>
@@ -59,7 +57,7 @@ export default function ChecklistCategorySection({
             type="checkbox"
             checked={leafProgress.totalItems > 0 && leafProgress.completedItems === leafProgress.totalItems}
             ref={(input) => { if (input) input.indeterminate = leafProgress.completedItems > 0 && leafProgress.completedItems < leafProgress.totalItems; }}
-            aria-label={`Marcar todos os itens de ${category}`}
+            aria-label={`Marcar todos os itens de ${categoryName}`}
             onChange={() => onToggleCategory(category)}
             onClick={(e) => e.stopPropagation()}
             className={styles.checkbox}
@@ -67,7 +65,7 @@ export default function ChecklistCategorySection({
 
           <h2 className={styles.categoryTitle}>
             <button type="button" className={styles.categoryToggle} aria-expanded={expanded} aria-controls={`${sectionId}-items`} onClick={() => setExpanded((value) => !value)}>
-              {category} <span className={styles.categoryCounter}>({categoryCompleted}/{categoryTotal})</span>
+              {categoryName} <span className={styles.categoryCounter}>({categoryCompleted}/{categoryTotal})</span>
               <ChevronDown className={`${styles.chevron} ${expanded ? styles.chevronExpanded : ""}`} aria-hidden="true" />
             </button>
           </h2>
@@ -79,7 +77,7 @@ export default function ChecklistCategorySection({
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               className={styles.categoryPrintButton}
-              aria-label={`Ver imagem de ${category} (abre em nova aba)`}
+              aria-label={`Ver imagem de ${categoryName} (abre em nova aba)`}
             >
               <Image className={styles.categoryPrintIcon} />
               <span className={styles.desktopOnly}>Ver Print</span>
@@ -87,7 +85,7 @@ export default function ChecklistCategorySection({
           )}
 
           {layerId === 3 &&
-            category === "Tela de Visualização" && (
+            category === "tela-visualizacao" && (
               <button
                 type="button"
                 aria-label="Configurar variação da Tela de Visualização"
@@ -106,7 +104,7 @@ export default function ChecklistCategorySection({
             )}
 
           {layerId === 3 &&
-            category === "Tela de Busca/Listagem" && (
+            category === "tela-busca" && (
               <button
                 type="button"
                 aria-label="Configurar variação da Tela de Busca/Listagem"

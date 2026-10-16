@@ -1,4 +1,6 @@
-export type CamadaId = 1 | 2 | 3;
+import type { LayerId } from "../../data/categories";
+
+export type CamadaId = LayerId;
 
 type ActionConfig = {
   label: string;

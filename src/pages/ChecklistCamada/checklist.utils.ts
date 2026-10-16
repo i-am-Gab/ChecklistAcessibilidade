@@ -164,15 +164,6 @@ export function toggleChecklistCategory(
   });
 }
 
-export function normalizeCategoryKey(category: string) {
-  return category
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/\//g, "");
-}
-
 // IDs podem ser reutilizados entre variações. Só preservamos o estado quando
 // a categoria e o conteúdo também identificam o mesmo requisito.
 export function reconcileChecklistItems(previous: ChecklistItem[], next: ChecklistItem[]): ChecklistItem[] {

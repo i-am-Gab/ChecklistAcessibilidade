@@ -12,6 +12,8 @@ O projeto reúne orientações para quem desenvolve, projeta ou revisa interface
 - Personalização por grupos de itens obrigatórios, comuns e demais itens, com resumo da seleção e opção de resetar.
 - Marcação de itens, subitens e categorias completas.
 - Acompanhamento do progresso dos itens exibidos.
+- Salvamento automático do progresso neste navegador, separado por camada e cenário, com confirmação para reiniciar.
+- Links que preservam o cenário, as categorias e as variações do checklist.
 - Consulta a referências e imagens de apoio, quando disponíveis.
 - Seleção de variações para telas de busca e visualização na camada de navegação.
 
@@ -27,7 +29,11 @@ As orientações estão divididas em três camadas:
 
 Em cada camada, é possível escolher as categorias que serão avaliadas, marcar itens e subitens e visualizar o percentual de conclusão. Os checklists também oferecem referências complementares e, quando disponíveis, imagens de apoio e variações de telas de busca e visualização.
 
-Os dados são definidos localmente em `src/mocks/`. O progresso é mantido em memória durante o uso da tela e não é salvo entre sessões ou recarregamentos.
+As categorias são definidas em um catálogo único em `src/data/categories.ts`, com identificadores fixos independentes dos títulos. O conteúdo dos requisitos permanece em `src/mocks/checklists.mock.ts`.
+
+O progresso é salvo no armazenamento local do navegador por camada e cenário. As marcações continuam disponíveis ao recarregar ou voltar à personalização. O botão **Reiniciar progresso** solicita confirmação e limpa as marcações daquele contexto, incluindo categorias ocultas, preservando os filtros e as variações. Caso o armazenamento esteja indisponível, a interface informa essa condição e mantém o progresso em memória durante a navegação.
+
+O botão **Copiar link** compartilha o cenário, os filtros e as variações pela URL. As marcações pessoais ficam no navegador e não fazem parte do link.
 
 Na camada 01, o fluxo é **selecionar tipo de tela → personalizar elementos → gerar checklist**. A classificação por tela fica em `src/pages/PersonalizarCamada/tiposTela.config.ts`: apenas os obrigatórios são pré-selecionados, e os demais começam desmarcados. Cadastro, Edição e Visualização compartilham as mesmas regras. Categorias não classificadas como obrigatórias ou comuns aparecem em “Demais Itens”. A opção de resetar restaura a seleção inicial do tipo de tela.
 
@@ -74,6 +80,8 @@ npm run build
 
 Os arquivos gerados ficam em `build/`.
 
+O build verifica os tipos do TypeScript antes de compilar. Para executar somente essa verificação, use `npm run typecheck`.
+
 A aplicação utiliza o caminho base `/ChecklistAcessibilidade/`, definido em `vite.config.ts` e compartilhado automaticamente com o roteador.
 
 ## Estrutura do projeto
@@ -85,15 +93,17 @@ src/
 ├── components/
 │   ├── layouts/            # Estrutura compartilhada, cabeçalho e rodapé
 │   └── ui/                 # Componentes reutilizáveis
+├── data/                   # Catálogo único e tipado das categorias
+├── features/checklist/     # Configuração por URL e armazenamento do progresso
 ├── hooks/                 # Comportamentos compartilhados de navegação
-├── mocks/                 # Camadas, categorias e conteúdo dos checklists
+├── mocks/                 # Conteúdo dos checklists, camadas e ícones
 ├── pages/
 │   ├── Home/               # Página inicial
 │   ├── Camadas/            # Seleção da camada
 │   ├── PersonalizarCamada/ # Seleção das categorias
 │   ├── ChecklistCamada/    # Checklist, variações e cálculo de progresso
 │   └── Sobre/              # Apresentação da proposta
-├── styles/                # Estilos globais
+├── index.css              # Estilos globais
 ├── App.tsx                # Definição das rotas
 └── main.tsx               # Entrada da aplicação
 ```

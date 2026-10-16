@@ -1,6 +1,6 @@
-import { categoriasCAMADA01 } from "../../mocks/itensCamadaMock";
+import type { CategoryId } from "../../data/categories";
 
-export type CategoriaId = (typeof categoriasCAMADA01)[number]["id"];
+export type CategoriaId = CategoryId;
 
 export interface TipoTela {
   id: string;
@@ -22,7 +22,7 @@ const comunsFormulario: CategoriaId[] = [
   "uso-mobile", "percepcao-visual", "booleano", "arquivos",
 ];
 
-// Os IDs correspondem às categorias de src/mocks/itensCamadaMock.ts.
+// Os IDs correspondem ao catálogo de src/data/categories.ts.
 // Categorias não listadas entram em "Demais Itens".
 // Apenas os obrigatórios são pré-selecionados; resetar restaura essa seleção.
 export const tiposTela: TipoTela[] = [

@@ -31,9 +31,10 @@ import {
   BookOpen,
   LucideIcon,
 } from "lucide-react";
+import type { CategoryId } from "../data/categories";
 
 // Mapa de ícones por ID de categoria
-export const iconMap: Record<string, LucideIcon> = {
+export const iconMap: Record<CategoryId, LucideIcon> = {
   // CAMADA 01
   linguagem: Languages,
   "qualidade-textual": FileText,

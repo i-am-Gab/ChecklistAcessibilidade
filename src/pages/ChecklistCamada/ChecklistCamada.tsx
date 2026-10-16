@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   useLocation,
   useNavigate,
@@ -9,8 +9,6 @@ import { BookOpen, Image } from "lucide-react";
 import { Breadcrumb } from "../../components/ui/Breadcrumb/Breadcrumb";
 import type {
   ChecklistCategory,
-  VariacaoTelaBusca,
-  VariacaoTelaVisualizacao,
 } from "../../mocks/checklists.mock";
 import {
   checklistConfig,
@@ -22,7 +20,6 @@ import {
   getChecklistImageUrlsByLayer,
   getChecklistItemsByLayer,
   groupItemsByCategory,
-  normalizeCategoryKey,
   reconcileChecklistItems,
   toggleChecklistCategory,
   toggleChecklistItem,
@@ -34,41 +31,46 @@ import styles from "./ChecklistCamada.module.css";
 import { tiposTela } from "../PersonalizarCamada/tiposTela.config";
 import NaoEncontrada from "../NaoEncontrada/NaoEncontrada";
 import { useAnnouncement } from "../../hooks/useAnnouncement";
+import { useModalDialog } from "../../hooks/useModalDialog";
+import { readChecklistDraft, saveChecklistDraft } from "../../features/checklist/checklistProgress";
+import { getChecklistUrl, getPersonalizationUrl, readChecklistSelection, type ChecklistSelection } from "../../features/checklist/checklistUrl";
+import modalStyles from "./Components/ChecklistVariacoesModal/ChecklistVariacoesModal.module.css";
+import { getCategoriesForLayer } from "../../data/categories";
 
 export default function ChecklistCamada() {
   const { camadaId } = useParams<{ camadaId: string }>();
+  const location = useLocation();
   if (camadaId !== "1" && camadaId !== "2" && camadaId !== "3") {
     return <NaoEncontrada message="Esse checklist não existe. Escolha uma das três camadas disponíveis." />;
   }
-  return <ChecklistConteudo key={camadaId} currentLayer={Number(camadaId) as CamadaId} />;
+  const selection = readChecklistSelection(Number(camadaId) as CamadaId, location.search, location.state);
+  return <ChecklistConteudo key={`${selection.layer}:${selection.screen ?? "geral"}`} selection={selection} />;
 }
 
-function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
+function ChecklistConteudo({ selection }: { selection: ChecklistSelection }) {
+  const currentLayer = selection.layer;
   const navigate = useNavigate();
   const location = useLocation();
   const { message, announce } = useAnnouncement();
 
   const currentConfig = checklistConfig[currentLayer];
   const tipoTela = currentLayer === 1
-    ? tiposTela.find((tela) => tela.id === location.state?.tipoTela)
+    ? tiposTela.find((tela) => tela.id === selection.screen)
     : undefined;
-  const voltarParaPersonalizacao = () => navigate(
-    tipoTela ? `/personalizar/1/${tipoTela.id}` : currentConfig.backRoute,
-    { state: { categoriasSelecionadas: location.state?.categoriasSelecionadas } },
-  );
-
-  const categoriasPreservadas = Array.isArray(location.state?.categoriasSelecionadas)
-    ? location.state.categoriasSelecionadas as ChecklistCategory[] : undefined;
-
-  const [
-    variacaoTelaVisualizacao,
-    setVariacaoTelaVisualizacao,
-  ] = useState<VariacaoTelaVisualizacao>(
-    "Com Abas, Formulário e Cards",
-  );
-
-  const [variacaoTelaBusca, setVariacaoTelaBusca] =
-    useState<VariacaoTelaBusca>("Com Tabela de Dados");
+  const personalizationUrl = getPersonalizationUrl({
+    ...selection,
+    categories: selection.categories ?? getCategoriesForLayer(currentLayer).map(category => category.id),
+  });
+  const voltarParaPersonalizacao = () => navigate(personalizationUrl);
+  const categoriasPreservadas = selection.categories;
+  const variacaoTelaVisualizacao = selection.viewVariation;
+  const variacaoTelaBusca = selection.searchVariation;
+  const checklistUrl = getChecklistUrl(selection);
+  useEffect(() => {
+    if (`${location.pathname}${location.search}` !== checklistUrl) {
+      navigate(checklistUrl, { replace: true, state: null });
+    }
+  }, [checklistUrl, location.pathname, location.search, navigate]);
 
   const [showModalVariacoes, setShowModalVariacoes] =
     useState(false);
@@ -77,13 +79,57 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
     "Visualização" | "Busca" | null
   >(null);
 
-  const [items, setItems] = useState(() =>
-    getChecklistItemsByLayer(
+  const [initialDraft] = useState(() => readChecklistDraft(selection));
+  const [storageAvailable, setStorageAvailable] = useState(initialDraft.available);
+  const [showReset, setShowReset] = useState(false);
+  const resetDialog = useModalDialog(showReset);
+  const copyLinkButton = useRef<HTMLButtonElement>(null);
+  const didReset = useRef(false);
+  const [items, setItems] = useState(() => {
+    const fresh = getChecklistItemsByLayer(
       currentLayer,
       variacaoTelaBusca,
       variacaoTelaVisualizacao,
-    ),
-  );
+    );
+    return initialDraft.items ? reconcileChecklistItems(initialDraft.items, fresh) : fresh;
+  });
+  useEffect(() => {
+    setItems(previous => reconcileChecklistItems(previous,
+      getChecklistItemsByLayer(currentLayer, variacaoTelaBusca, variacaoTelaVisualizacao),
+    ));
+  }, [currentLayer, variacaoTelaBusca, variacaoTelaVisualizacao]);
+  useEffect(() => {
+    if (!showReset && didReset.current) {
+      copyLinkButton.current?.focus();
+      didReset.current = false;
+    }
+  }, [showReset]);
+
+  const persistItems = (next: typeof items) => {
+    setItems(next);
+    const saved = saveChecklistDraft(selection, next);
+    setStorageAvailable(saved);
+    return saved;
+  };
+
+  const resetProgress = () => {
+    const fresh = getChecklistItemsByLayer(currentLayer, variacaoTelaBusca, variacaoTelaVisualizacao);
+    const saved = persistItems(fresh);
+    didReset.current = true;
+    setShowReset(false);
+    announce(`Progresso reiniciado. ${saved ? "Rascunho atualizado neste navegador." : "Não foi possível salvar o rascunho neste navegador."}`);
+  };
+
+  const copyChecklistLink = async () => {
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+    const url = new URL(`${base}${checklistUrl}`, window.location.origin).href;
+    try {
+      await navigator.clipboard.writeText(url);
+      announce("Link copiado. Ele inclui a personalização e as variações, sem suas marcações.");
+    } catch {
+      announce("Não foi possível copiar automaticamente. Você pode copiar o endereço da página na barra do navegador.");
+    }
+  };
 
   const groupedItems = useMemo(
     () => groupItemsByCategory(items),
@@ -104,17 +150,17 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
   const imageUrls = getChecklistImageUrlsByLayer(currentLayer);
 
   const updateProgress = (next: typeof items) => {
-    setItems(next);
+    const saved = persistItems(next);
     const visible = Object.values(filterCategories(groupItemsByCategory(next), categoriasPreservadas)).flat();
     const result = calculateProgress(visible);
-    announce(`${result.completedItems} de ${result.totalItems} itens concluídos. ${result.progress === 100 ? "Checklist concluído." : `${result.progress}% concluído.`}`);
+    announce(`${result.completedItems} de ${result.totalItems} itens concluídos. ${result.progress === 100 ? "Checklist concluído." : `${result.progress}% concluído.`}${saved ? "" : " Não foi possível salvar o rascunho neste navegador."}`);
   };
 
   const previewVariation = (type: "Busca" | "Visualização", value: string) => {
     const next = reconcileChecklistItems(items, getChecklistItemsByLayer(
       currentLayer,
-      type === "Busca" ? value as VariacaoTelaBusca : variacaoTelaBusca,
-      type === "Visualização" ? value as VariacaoTelaVisualizacao : variacaoTelaVisualizacao,
+      type === "Busca" ? value as ChecklistSelection["searchVariation"] : variacaoTelaBusca,
+      type === "Visualização" ? value as ChecklistSelection["viewVariation"] : variacaoTelaVisualizacao,
     ));
     const lost = calculateProgress(items).completedItems - calculateProgress(next).completedItems;
     return { next, lost };
@@ -127,10 +173,13 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
   };
   const applyVariation = (type: "Busca" | "Visualização", value: string) => {
     const { next, lost } = previewVariation(type, value);
-    if (type === "Busca") setVariacaoTelaBusca(value as VariacaoTelaBusca);
-    else setVariacaoTelaVisualizacao(value as VariacaoTelaVisualizacao);
-    setItems(next);
-    announce(`Variação aplicada: ${value}. ${lost > 0 ? `${lost} marcações removidas de requisitos que saíram do checklist.` : "Marcações preservadas."}`);
+    const saved = persistItems(next);
+    navigate(getChecklistUrl({
+      ...selection,
+      searchVariation: type === "Busca" ? value as ChecklistSelection["searchVariation"] : variacaoTelaBusca,
+      viewVariation: type === "Visualização" ? value as ChecklistSelection["viewVariation"] : variacaoTelaVisualizacao,
+    }), { replace: true });
+    announce(`Variação aplicada: ${value}. ${lost > 0 ? `${lost} marcações removidas de requisitos que saíram do checklist.` : "Marcações preservadas."}${saved ? "" : " O rascunho está disponível apenas enquanto o site permanecer aberto."}`);
   };
 
   const handleToggleItem = (itemId: number) => {
@@ -237,13 +286,14 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
         <Breadcrumb
           items={[
             { label: "Home", to: "/" },
-            { label: currentConfig.label, to: tipoTela ? `/personalizar/1/${tipoTela.id}` : currentConfig.backRoute, state: { categoriasSelecionadas: location.state?.categoriasSelecionadas } },
+            { label: currentConfig.label, to: personalizationUrl },
             { label: "Checklist" },
           ]}
           onBack={voltarParaPersonalizacao}
         />
 
         <h1 className={styles.pageTitle}>Checklist — {currentConfig.label}</h1>
+        {tipoTela && <p className={styles.scenarioLabel}>Cenário: {tipoTela.cenario}</p>}
 
         <a
           href={currentConfig.infoUrl}
@@ -280,7 +330,16 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
             <span>
               {completedItems} DE {totalItems} ITENS CONCLUÍDOS
             </span>
+            <div className={styles.draftActions}>
+              <button type="button" ref={copyLinkButton} onClick={copyChecklistLink}>Copiar link</button>
+              <button type="button" onClick={() => setShowReset(true)} disabled={!calculateProgress(items).completedItems}>Reiniciar progresso</button>
+            </div>
           </div>
+          <p className={styles.draftHelp}>
+            {storageAvailable
+              ? "Seu progresso fica salvo neste navegador para esta camada e cenário. O link compartilha a personalização e as variações, sem suas marcações."
+              : "Não foi possível acessar o armazenamento do navegador. Suas marcações serão mantidas apenas enquanto esta página estiver aberta."}
+          </p>
         </div>
 
         {currentConfig.showInfoBox && (
@@ -311,7 +370,7 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
           {!itemsExibidos.length && <section>
             <h2>Nenhuma categoria selecionada</h2>
             <p>Volte à personalização e selecione pelo menos uma categoria para montar o checklist.</p>
-            <Link to={tipoTela ? `/personalizar/1/${tipoTela.id}` : currentConfig.backRoute} className={styles.primaryActionButton}>Personalizar checklist</Link>
+            <Link to={personalizationUrl} className={styles.primaryActionButton}>Personalizar checklist</Link>
           </section>}
           {Object.entries(categoriasParaExibir).map(
             ([category, categoryItems]) => (
@@ -325,7 +384,6 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
                 onToggleItem={handleToggleItem}
                 onToggleSubItem={handleToggleSubItem}
                 onOpenVariations={handleOpenVariations}
-                normalizeCategoryKey={normalizeCategoryKey}
                 renderTextWithColorIndicator={
                   renderTextWithColorIndicator
                 }
@@ -365,6 +423,15 @@ function ChecklistConteudo({ currentLayer }: { currentLayer: CamadaId }) {
       </div>
 
       <p className="sr-only" role="status" aria-atomic="true">{message}</p>
+
+      <dialog ref={resetDialog} className={modalStyles.modal} aria-labelledby="reiniciar-titulo" aria-describedby="reiniciar-descricao" onCancel={(event) => { event.preventDefault(); setShowReset(false); }}>
+        <h2 id="reiniciar-titulo" className={modalStyles.title}>Reiniciar progresso?</h2>
+        <p id="reiniciar-descricao" className={modalStyles.description}>Todas as marcações desta camada e cenário serão removidas, incluindo as categorias que estão ocultas. A seleção de categorias e as variações serão preservadas.</p>
+        <div className={modalStyles.actions}>
+          <button type="button" className={modalStyles.closeButton} onClick={() => setShowReset(false)}>Cancelar</button>
+          <button type="button" className={modalStyles.applyButton} onClick={resetProgress}>Reiniciar progresso</button>
+        </div>
+      </dialog>
 
       <ChecklistVariacoesModal
         isOpen={

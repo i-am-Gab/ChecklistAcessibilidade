@@ -1,41 +1,6 @@
-export type ChecklistCategory =
-  | "Linguagem"
-  | "Qualidade Textual"
-  | "Tipografia"
-  | "Links"
-  | "Imagens"
-  | "Tabelas e Gráficos"
-  | "Arquivos"
-  | "Elementos Interativos"
-  | "Navegação por Teclado"
-  | "Modais"
-  | "Estrutura do Documento"
-  | "Formulários"
-  | "Percepção Visual"
-  | "Uso em Dispositivos Móveis"
-  | "Campos de Texto"
-  | "Campos Numéricos"
-  | "Campos de Seleção"
-  | "Seleção Pesquisável"
-  | "Campos de Data"
-  | "Upload de Arquivos"
-  | "Botões"
-  | "Seleção Múltipla"
-  | "Booleano"
-  | "Grupos de Campos Dinâmicos"
-  | "Card de Informações"
-  | "Estrutura em Árvore"
-  | "Caixas de Diálogo — Conteúdo"
-  | "Caixas de Diálogo — Alerta/Erro"
-  | "Requisitos Técnicos"
-  | "Tela Principal"
-  | "Tela de Notificações"
-  | "Tela de Busca/Listagem"
-  | "Tela de Cadastro Interno"
-  | "Tela de Edição"
-  | "Tela de Visualização"
-  | "Tela de Perfil de Usuário"
-  | "Tela de Consulta Externa";
+import type { CategoryId } from "../data/categories";
+
+export type ChecklistCategory = CategoryId;
 
 export interface ChecklistSubItem {
   id: string;
@@ -74,19 +39,19 @@ export type VariacaoTelaBusca =
 export const checklistCamada03ImageUrls: Record<number | string, string> = {
   "categoria-tela-principal":
     "https://drive.google.com/file/d/1M0HK2opQGBjBuq5Ww726wEio_w796RRL/view?usp=sharing",
-  "categoria-tela-de-notificacoes":
+  "categoria-tela-notificacoes":
     "https://drive.google.com/file/d/1SnAr3SnxK4R40MQJB4crHxEQWAaKQeTw/view?usp=sharing",
-  "categoria-tela-de-buscalistagem":
+  "categoria-tela-busca":
     "https://drive.google.com/file/d/1MPPmH5GkE8vXnhSxZBWs0hotTSCWQPbM/view?usp=sharing",
-  "categoria-tela-de-cadastro-interno":
+  "categoria-tela-cadastro":
     "https://drive.google.com/file/d/1icECuhVRTBwTJygQW7SRzwph6opbd08u/view?usp=sharing",
-  "categoria-tela-de-edicao":
+  "categoria-tela-edicao":
     "https://drive.google.com/file/d/1wEjVHqGBMIv2XRLKxfr4_vPd5yIciVzg/view?usp=sharing",
-  "categoria-tela-de-visualizacao":
+  "categoria-tela-visualizacao":
     "https://drive.google.com/file/d/18UgkAvdA4r0490jDA3DbaBt1bRBhDF6C/view?usp=sharing",
-  "categoria-tela-de-perfil-de-usuario":
+  "categoria-tela-perfil-usuario":
     "https://drive.google.com/file/d/1qHmusVeC72ZZe9PpJKisCCS4q9MpW-jG/view?usp=sharing",
-  "categoria-tela-de-consulta-externa":
+  "categoria-tela-consulta-externa":
     "https://drive.google.com/file/d/1iOgM1YIhqvzSeouEE1kmtKpJA_h1xmuU/view?usp=sharing",
 
   11: "https://drive.google.com/file/d/1cB1fMA2ADKHJ71LvHuNM93aBi3K_FSZO/view?usp=sharing",
@@ -114,7 +79,7 @@ export const getTelaBuscaItems = (
       colorIndicator: "#dc3545",
       description:
         "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
     {
@@ -123,7 +88,7 @@ export const getTelaBuscaItems = (
       colorIndicator: "#ff9800",
       description:
         "A ordem interna do foco deve seguir a ordem de apresentação dos elementos interativos dentro do grupo.",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
     {
@@ -132,7 +97,7 @@ export const getTelaBuscaItems = (
       colorIndicator: "#9c27b0",
       description:
         "A ordem interna do foco deve contemplar:\n Campo de entrada de texto para pesquisa;\n Botão de ação associado à busca (ex.: ícone de lupa), quando aplicável;\n Botão de abertura da seção secundária de busca.",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
     {
@@ -141,7 +106,7 @@ export const getTelaBuscaItems = (
       colorIndicator: "#2196f3",
       description:
         "A ordem interna do foco deve contemplar todos os campos internos da seção na ordem em que são apresentados.",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
     {
@@ -150,12 +115,12 @@ export const getTelaBuscaItems = (
       colorIndicator: "#e91e63",
       description:
         "A ordem interna do foco deve navegar pelos botões de remoção de filtro 'X' de cada uma das opções exibidas no momento.",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
   ];
 
-  const itensVariacao =
+  const itensVariacao: ChecklistItem[] =
     variacao === "Com Tabela de Dados"
       ? [
           {
@@ -163,7 +128,7 @@ export const getTelaBuscaItems = (
             text: "Tabela de resultados de busca (Amarelo)",
             colorIndicator: "#ffc107",
             description: "",
-            category: "Tela de Busca/Listagem",
+            category: "tela-busca",
             checked: false,
             subItems: [
               {
@@ -189,7 +154,7 @@ export const getTelaBuscaItems = (
             colorIndicator: "#00838f",
             description:
               "O foco visível deve percorrer a lista de cards de informações, respeitando a ordem visual de apresentação.",
-            category: "Tela de Busca/Listagem",
+            category: "tela-busca",
             checked: false,
           },
           {
@@ -198,7 +163,7 @@ export const getTelaBuscaItems = (
             colorIndicator: "#00bcd4",
             description:
               "O foco visível deve navegar por todos os elementos interativos dentro de cada card de informação, incluindo botões de ação e links.",
-            category: "Tela de Busca/Listagem",
+            category: "tela-busca",
             checked: false,
           },
         ];
@@ -210,7 +175,7 @@ export const getTelaBuscaItems = (
       colorIndicator: "#8b0000",
       description:
         "O foco visível deve navegar pelos botões de avançar na paginação (>) e, quando disponível, voltar na paginação (<).",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
     {
@@ -219,7 +184,7 @@ export const getTelaBuscaItems = (
       colorIndicator: "#6b7c59",
       description:
         "Nessa área, deve existir apenas um elemento interativo, correspondente ao link externo do IMA.",
-      category: "Tela de Busca/Listagem",
+      category: "tela-busca",
       checked: false,
     },
   ];
@@ -237,7 +202,7 @@ export const getTelaVisualizacaoItems = (
       colorIndicator: "#dc3545",
       description:
         "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-      category: "Tela de Visualização",
+      category: "tela-visualizacao",
       checked: false,
     },
     {
@@ -246,12 +211,12 @@ export const getTelaVisualizacaoItems = (
       colorIndicator: "#ff9800",
       description:
         "Após a conclusão da navegação pelo cabeçalho, o foco deve avançar para o elemento de navegação de retorno à página inicial (ex.: botão ou link “Inicial”) e logo após acessar o botão “Editar”.",
-      category: "Tela de Visualização",
+      category: "tela-visualizacao",
       checked: false,
     },
   ];
 
-  const itensVariacao =
+  const itensVariacao: ChecklistItem[] =
     variacao === "Sem Abas e Com Formulários"
       ? [
           {
@@ -260,7 +225,7 @@ export const getTelaVisualizacaoItems = (
             colorIndicator: "#ffc107",
             description:
               "O foco visível deve percorrer os elementos interativos da seção de formulário, respeitando a ordem lógica e visual de apresentação.",
-            category: "Tela de Visualização",
+            category: "tela-visualizacao",
             checked: false,
             subItems: [
               {
@@ -289,7 +254,7 @@ export const getTelaVisualizacaoItems = (
             colorIndicator: "#00d4b1",
             description:
               "O foco deve percorrer todas as abas de navegação disponíveis, respeitando a ordem visual de apresentação.",
-            category: "Tela de Visualização",
+            category: "tela-visualizacao",
             checked: false,
           },
           {
@@ -298,7 +263,7 @@ export const getTelaVisualizacaoItems = (
             colorIndicator: "#ffc107",
             description:
               "O foco visível deve percorrer a seção de cards de informações.",
-            category: "Tela de Visualização",
+            category: "tela-visualizacao",
             checked: false,
             subItems: [
               {
@@ -340,7 +305,7 @@ export const getTelaVisualizacaoItems = (
             text: "Elementos colapsáveis e Mini Cards",
             description:
               "Deve-se seguir ordem semelhante ao elemento acima, com exceção das navegações dos elementos:\n O restante dos elementos presentes na tela seguem os padrões mencionados no início deste tópico.",
-            category: "Tela de Visualização",
+            category: "tela-visualizacao",
             checked: false,
             subItems: [
               {
@@ -372,7 +337,7 @@ export const getTelaVisualizacaoItems = (
       colorIndicator: "#4caf50",
       description:
         "O foco visível deve alcançar, como penúltimo elemento focável da página, o botão de ação principal.",
-      category: "Tela de Visualização",
+      category: "tela-visualizacao",
       checked: false,
     },
     {
@@ -381,7 +346,7 @@ export const getTelaVisualizacaoItems = (
       colorIndicator: "#6b7c59",
       description:
         "Nessa área, deve existir apenas um elemento interativo, correspondente ao link externo do IMA.",
-      category: "Tela de Visualização",
+      category: "tela-visualizacao",
       checked: false,
     },
   ];
@@ -393,55 +358,55 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
   {
     id: 1,
     text: "Todo elemento focável exibe indicador de foco visível ao receber foco por teclado.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 2,
     text: "O indicador de foco possui espessura mínima de 2px CSS, conforme ABNT NBR 17225.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 3,
     text: "O indicador de foco envolve ou delimita claramente o perímetro do elemento focável.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 4,
     text: "O indicador de foco apresenta contraste mínimo de 3:1 em relação às cores adjacentes.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 5,
     text: "O foco não depende exclusivamente de mudança sutil de cor, sombra leve ou animação imperceptível.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 6,
     text: "O foco padrão do navegador não foi removido sem substituição equivalente ou superior.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 7,
     text: "O foco permanece totalmente visível, não sendo cortado por overflow: hidden, encoberto por animações, ocultado por sombras internas ou limitado por bordas de contêineres.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 8,
     text: "O indicador de foco é perceptível em áreas claras, áreas escuras, cabeçalhos, rodapés, menus e barras laterais.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
   {
     id: 9,
     text: "Todos os tipos de elementos interativos apresentam foco visível: links, botões, campos de formulário, controles customizados e componentes dinâmicos.",
-    category: "Requisitos Técnicos",
+    category: "requisitos-tecnicos",
     checked: false,
   },
 
@@ -451,13 +416,13 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#dc3545",
     description:
       "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-    category: "Tela Principal",
+    category: "tela-principal",
     checked: false,
   },
   {
     id: 11,
     text: "Sub-menu Cadastros (quando acionado)",
-    category: "Tela Principal",
+    category: "tela-principal",
     description:
       "Quando acionado o botão de cadastros, o foco visível deve seguir as orientações abaixo:",
     checked: false,
@@ -486,7 +451,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ff9800",
     description:
       "A navegação interna deve respeitar a ordem visual dos componentes apresentados nessa área.",
-    category: "Tela Principal",
+    category: "tela-principal",
     checked: false,
   },
   {
@@ -495,7 +460,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#4caf50",
     description:
       "A navegação deve ocorrer por seções, como no exemplo abaixo:\n 1 - Todas as opções da seção Geral;\n 2- Em seguida, todas as opções da seção Animal;\n 3- Por fim, todas as opções da seção Vegetal.",
-    category: "Tela Principal",
+    category: "tela-principal",
     checked: false,
   },
   {
@@ -504,7 +469,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#2196f3",
     description:
       "A ordem de navegação deve seguir o mesmo princípio adotado para a seção anterior, respeitando a organização por seções e a ordem visual dos elementos interativos.",
-    category: "Tela Principal",
+    category: "tela-principal",
     checked: false,
   },
   {
@@ -513,7 +478,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#6b7c59",
     description:
       "Nessa área, deve existir apenas um elemento interativo, correspondente ao link externo do IMA.",
-    category: "Tela Principal",
+    category: "tela-principal",
     checked: false,
   },
 
@@ -523,7 +488,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#dc3545",
     description:
       "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
   {
@@ -532,7 +497,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ff9800",
     description:
       "O foco deve avançar para o elemento de navegação de retorno à página inicial (ex.: botão “Inicial”).",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
   {
@@ -541,7 +506,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#4caf50",
     description:
       "A ordem interna do foco deve contemplar:\n Campo de entrada de texto para pesquisa de notificações;\n Botão de ação associado à busca (ex.: ícone de lupa), quando aplicável.",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
   {
@@ -550,7 +515,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#6c757d",
     description:
       "O foco deve avançar para os controles de ação global da lista, incluindo:\n Caixa de seleção “Selecionar todas” as notificações.",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
   {
@@ -559,7 +524,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#9c27b0",
     description:
       "O foco deve percorrer a lista de notificações, respeitando a ordem visual de apresentação, item a item. Ex:\n Caixa de seleção da notificação;\n Link ou botão de ação “Visualizar”.",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
   {
@@ -568,7 +533,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ffc107",
     description:
       "Quando acionado o botão de visualizar, o foco visível deve seguir as orientações abaixo:",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
     subItems: [
       {
@@ -605,7 +570,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#2196f3",
     description:
       "O foco deve avançar para os controles de paginação, respeitando a ordem visual dos elementos, incluindo:\n Informação de quantidade de itens por página;\n Indicador de intervalo de resultados exibidos;\n Botões de navegação entre páginas (anterior e próxima).",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
   {
@@ -614,7 +579,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#6b7c59",
     description:
       "Nessa área, deve existir apenas um elemento interativo, correspondente ao link externo do IMA.",
-    category: "Tela de Notificações",
+    category: "tela-notificacoes",
     checked: false,
   },
 
@@ -624,7 +589,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#dc3545",
     description:
       "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-    category: "Tela de Cadastro Interno",
+    category: "tela-cadastro",
     checked: false,
   },
   {
@@ -633,7 +598,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ff9800",
     description:
       "Após a conclusão da navegação pelo cabeçalho, o foco deve avançar para o elemento de navegação de retorno à página inicial (ex.: botão ou link “Inicial”).",
-    category: "Tela de Cadastro Interno",
+    category: "tela-cadastro",
     checked: false,
   },
   {
@@ -642,7 +607,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ffc107",
     description:
       "O foco visível deve percorrer os elementos interativos da seção de formulário da página, respeitando a ordem lógica e visual de apresentação.",
-    category: "Tela de Cadastro Interno",
+    category: "tela-cadastro",
     checked: false,
     subItems: [
       {
@@ -669,7 +634,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#4caf50",
     description:
       "O foco visível deve alcançar, como penúltimo elemento focável da página, o botão “Adicionar”, localizado na seção Laranja.",
-    category: "Tela de Cadastro Interno",
+    category: "tela-cadastro",
     checked: false,
   },
   {
@@ -678,7 +643,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#6b7c59",
     description:
       "Nessa área, deve existir apenas um elemento interativo, correspondente ao link externo do IMA.",
-    category: "Tela de Cadastro Interno",
+    category: "tela-cadastro",
     checked: false,
   },
 
@@ -688,7 +653,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#dc3545",
     description:
       "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-    category: "Tela de Edição",
+    category: "tela-edicao",
     checked: false,
   },
   {
@@ -697,7 +662,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ff9800",
     description:
       "Após a conclusão da navegação pelo cabeçalho, o foco deve avançar para o elemento de navegação de retorno à página inicial (ex.: botão ou link “Inicial”).",
-    category: "Tela de Edição",
+    category: "tela-edicao",
     checked: false,
   },
   {
@@ -706,7 +671,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ffc107",
     description:
       "O foco visível deve percorrer os elementos interativos da seção de formulário da página, respeitando a ordem lógica e visual de apresentação.",
-    category: "Tela de Edição",
+    category: "tela-edicao",
     checked: false,
     subItems: [
       {
@@ -733,7 +698,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#4caf50",
     description:
       "O foco visível deve alcançar, como penúltimo elemento focável da página, o botão “Salvar”, localizado na seção Laranja.",
-    category: "Tela de Edição",
+    category: "tela-edicao",
     checked: false,
   },
 
@@ -743,7 +708,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#dc3545",
     description:
       "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-    category: "Tela de Perfil de Usuário",
+    category: "tela-perfil-usuario",
     checked: false,
   },
   {
@@ -752,7 +717,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ff9800",
     description:
       "Após a conclusão da navegação pelo cabeçalho, o foco deve avançar para o elemento de navegação de retorno à página inicial (ex.: botão ou link “Inicial”).",
-    category: "Tela de Perfil de Usuário",
+    category: "tela-perfil-usuario",
     checked: false,
   },
   {
@@ -761,7 +726,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#9c27b0",
     description:
       "O foco deve percorrer todas as abas de navegação disponíveis, respeitando a ordem visual de apresentação.",
-    category: "Tela de Perfil de Usuário",
+    category: "tela-perfil-usuario",
     checked: false,
   },
   {
@@ -770,7 +735,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ffc107",
     description:
       "O foco visível deve percorrer os elementos interativos da seção de formulário, respeitando a ordem lógica e visual de apresentação.",
-    category: "Tela de Perfil de Usuário",
+    category: "tela-perfil-usuario",
     checked: false,
     subItems: [
       {
@@ -806,7 +771,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#dc3545",
     description:
       "A ordem interna do foco deve seguir rigorosamente a ordem de apresentação dos elementos interativos dentro do grupo.",
-    category: "Tela de Consulta Externa",
+    category: "tela-consulta-externa",
     checked: false,
   },
   {
@@ -815,7 +780,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#ff9800",
     description:
       "Após a conclusão da navegação pelo cabeçalho, o foco deve avançar para o elemento de navegação de retorno à página inicial (ex.: botão ou link “Inicial”).",
-    category: "Tela de Consulta Externa",
+    category: "tela-consulta-externa",
     checked: false,
   },
   {
@@ -824,7 +789,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#9c27b0",
     description:
       "A ordem interna do foco deve contemplar:\n Campo de entrada de texto para pesquisa;\n Botão de ação associado à busca (ex.: ícone de lupa), quando aplicável.",
-    category: "Tela de Consulta Externa",
+    category: "tela-consulta-externa",
     checked: false,
   },
   {
@@ -833,7 +798,7 @@ export const getChecklistCamada03BaseItems = (): ChecklistItem[] => [
     colorIndicator: "#2196f3",
     description:
       "O foco visível deve percorrer o card de informações, caso haja elementos interativos, respeitando a ordem visual de apresentação.\n *Caso não haja elementos interativos, o foco deve seguir o fluxo natural, passando pelos elementos do navegador e depois manter o fluxo de navegação interna definido anteriormente.",
-    category: "Tela de Consulta Externa",
+    category: "tela-consulta-externa",
     checked: false,
   },
 ];
@@ -852,20 +817,20 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
   // Acessível", seções 1.1 a 1.23 (PDF fornecido, páginas 1 a 31).
   1: {
     categoryIcons: {
-      Linguagem: "🧩",
-      "Qualidade Textual": "✍️",
-      Tipografia: "🔤",
-      Links: "🔗",
-      Imagens: "🖼️",
-      "Tabelas e Gráficos": "📊",
-      Arquivos: "📁",
-      "Elementos Interativos": "🎯",
-      "Navegação por Teclado": "⌨️",
-      Modais: "🪟",
-      "Estrutura do Documento": "📄",
-      Formulários: "📋",
-      "Percepção Visual": "👁️",
-      "Uso em Dispositivos Móveis": "📱",
+      "linguagem": "🧩",
+      "qualidade-textual": "✍️",
+      "tipografia": "🔤",
+      "links": "🔗",
+      "imagens": "🖼️",
+      "tabelas-graficos": "📊",
+      "arquivos": "📁",
+      "elementos-interativos": "🎯",
+      "navegacao-teclado": "⌨️",
+      "modais": "🪟",
+      "estrutura-documento": "📄",
+      "formularios": "📋",
+      "percepcao-visual": "👁️",
+      "uso-mobile": "📱",
     },
     items: [
       {
@@ -873,7 +838,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar linguagem clara, objetiva e sem ambiguidades nos textos",
         description:
           "Garanta que todo conteúdo seja compreensível para diversos públicos",
-        category: "Linguagem",
+        category: "linguagem",
         checked: false,
       },
       {
@@ -881,7 +846,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar uso excessivo de jargões técnicos ou termos pouco conhecidos",
         description:
           "Evite também expressões regionais e termos excessivamente especializados. Prefira vocabulário comum, adequado ao público-alvo, ou ofereça explicações.",
-        category: "Linguagem",
+        category: "linguagem",
         checked: false,
       },
       {
@@ -889,7 +854,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Explicar siglas e abreviações na primeira ocorrência",
         description:
           "Exemplo: WCAG (Web Content Accessibility Guidelines)",
-        category: "Linguagem",
+        category: "linguagem",
         checked: false,
       },
       {
@@ -897,7 +862,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar metáforas ou linguagem figurativa confusa",
         description:
           "Expressões idiomáticas podem não ser traduzidas corretamente ou compreendidas por todos",
-        category: "Linguagem",
+        category: "linguagem",
         checked: false,
       },
       {
@@ -905,7 +870,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Dividir textos longos em parágrafos curtos, listas e subtítulos",
         description:
           "Melhora a escaneabilidade e reduz a carga cognitiva da leitura",
-        category: "Linguagem",
+        category: "linguagem",
         checked: false,
       },
 
@@ -914,7 +879,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que o conteúdo esteja livre de erros ortográficos e gramaticais",
         description:
           "Revise também digitação e pontuação: erros podem tornar o conteúdo incompreensível quando lido por tecnologias assistivas.",
-        category: "Qualidade Textual",
+        category: "qualidade-textual",
         checked: false,
       },
       {
@@ -922,7 +887,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que cada parágrafo trate apenas de um tópico principal",
         description:
           "Facilita a compreensão e o foco do leitor no assunto abordado",
-        category: "Qualidade Textual",
+        category: "qualidade-textual",
         checked: false,
       },
       {
@@ -930,7 +895,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar listas em vez de longos blocos de texto sempre que possível",
         description:
           "Listas são mais fáceis de escanear visualmente e navegar via tecnologia assistiva",
-        category: "Qualidade Textual",
+        category: "qualidade-textual",
         checked: false,
       },
 
@@ -939,7 +904,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar tamanho de texto adequado (≥ 16px)",
         description:
           "A cartilha recomenda preferencialmente fontes a partir de 16px para textos corridos, favorecendo pessoas com baixa visão.",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
       {
@@ -947,7 +912,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir espaçamento adequado entre linhas e parágrafos",
         description:
           "Use entrelinhas de pelo menos 1,5 vez o tamanho da fonte e espaçamento entre parágrafos de pelo menos 2 vezes o tamanho da fonte.",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
       {
@@ -955,7 +920,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar o uso de texto justificado",
         description:
           "Texto justificado cria 'rios de espaço' que dificultam a leitura para disléxicos",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
       {
@@ -963,7 +928,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir legibilidade mesmo com fontes estilizadas",
         description:
           "Evite fontes cursivas ou muito ornamentadas em blocos de texto longos",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
       {
@@ -971,7 +936,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Permitir redimensionamento do texto em até 200%",
         description:
           "Teste manualmente o zoom em 200% e diferentes larguras: nenhum texto essencial deve desaparecer, ficar cortado ou se sobrepor. Preserve rótulos, campos, botões, mensagens, hierarquia e ordem de leitura, sem rolagem horizontal para textos corridos.",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
 
@@ -980,7 +945,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que links possuam textos descritivos",
         description:
           "O texto do link deve indicar claramente seu destino ou função",
-        category: "Links",
+        category: "links",
         checked: false,
       },
       {
@@ -988,7 +953,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que o texto do link faça sentido fora de contexto",
         description:
           "Usuários de leitores de tela podem navegar listando apenas os links da página",
-        category: "Links",
+        category: "links",
         checked: false,
       },
       {
@@ -996,7 +961,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: 'Evitar textos genéricos como "Clique aqui"',
         description:
           "Use descrições específicas do conteúdo vinculado para melhor usabilidade",
-        category: "Links",
+        category: "links",
         checked: false,
       },
       {
@@ -1004,14 +969,14 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Manter descrições iguais para links com o mesmo destino",
         description:
           "Use a mesma descrição para o mesmo destino e descrições distintas para destinos diferentes, permitindo antecipar o resultado da navegação.",
-        category: "Links",
+        category: "links",
         checked: false,
       },
       {
         id: 18,
         text: "Informar formato e tamanho de arquivos nos links",
         description: 'Ex: "Baixar relatório (PDF, 2.5MB)"',
-        category: "Links",
+        category: "links",
         checked: false,
       },
 
@@ -1020,7 +985,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Fornecer texto alternativo para imagens informativas",
         description:
           "Use o atributo alt para descrever imagens que transmitem informação",
-        category: "Imagens",
+        category: "imagens",
         checked: false,
       },
       {
@@ -1028,7 +993,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar alt vazio em imagens decorativas",
         description:
           'Imagens puramente decorativas devem ter alt="" para serem ignoradas por leitores',
-        category: "Imagens",
+        category: "imagens",
         checked: false,
       },
       {
@@ -1036,7 +1001,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que o texto alternativo seja objetivo e contextual",
         description:
           "Descreva a informação transmitida conforme o contexto e o propósito. Evite juízos de valor, metáforas, interpretações subjetivas, redundâncias e descrições excessivamente longas.",
-        category: "Imagens",
+        category: "imagens",
         checked: false,
       },
 
@@ -1045,7 +1010,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar tabelas apenas para dados tabulares",
         description:
           "Não use tabelas para controlar o layout visual da página",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
@@ -1053,7 +1018,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Associar corretamente cabeçalhos em tabelas",
         description:
           "Marque cabeçalhos com <th> e use scope='col' ou scope='row'. Prefira cabeçalhos visíveis; quando não forem visíveis, mantenha a associação disponível programaticamente.",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
@@ -1061,7 +1026,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que gráficos não dependam apenas de cores",
         description:
           "Use padrões, texturas ou rótulos para diferenciar dados e verifique se o gráfico continua compreensível em escala de cinza.",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
@@ -1069,7 +1034,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Fornecer descrição textual para gráficos",
         description:
           "Disponibilize um resumo dos dados ou uma tabela alternativa acessível",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
@@ -1077,7 +1042,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que tabelas possuam cabeçalhos que expliquem os dados",
         description:
           "O título da tabela (caption) ou cabeçalhos claros devem contextualizar a informação",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
 
@@ -1086,7 +1051,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Informar formato e tamanho de arquivos para download",
         description:
           "Permite ao usuário decidir se tem dados/banda suficientes para baixar",
-        category: "Arquivos",
+        category: "arquivos",
         checked: false,
       },
       {
@@ -1094,7 +1059,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que arquivos sejam acessíveis ou possuam alternativa",
         description:
           "Verifique a acessibilidade conforme as especificações de cada formato, incluindo a estrutura de PDFs. Quando possível, ofereça versões alternativas de visualização, como HTML.",
-        category: "Arquivos",
+        category: "arquivos",
         checked: false,
       },
 
@@ -1103,7 +1068,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir área mínima de acionamento de 24×24 px",
         description:
           "Verifique altura e largura mínimas de 24 pixels CSS em botões, ícones, links isolados e ações em listas, tabelas e cards.",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
       {
@@ -1111,7 +1076,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar elementos interativos muito próximos",
         description:
           "Confira tamanho e espaçamento para atingir pelo menos 24 pixels CSS em todas as direções em relação a alvos adjacentes. A cartilha recomenda espaçamento inicial de 8px.",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
       {
@@ -1119,7 +1084,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar <button> para ações e <a> apenas para navegação",
         description:
           "Botões executam scripts/ações na página; Links mudam a URL",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
       {
@@ -1127,7 +1092,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que links sejam visualmente reconhecíveis",
         description:
           "Links devem possuir diferenciação (ex: sublinhado) além da cor",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
       {
@@ -1135,7 +1100,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Informar quando um link abre em nova aba ou janela",
         description:
           "Avise o usuário para evitar quebra inesperada no fluxo de navegação",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
       {
@@ -1143,7 +1108,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Disponibilizar link 'Pular para o conteúdo principal'",
         description:
           "O link deve ficar visível ao receber foco e levar ao conteúdo principal, permitindo pular menus e blocos repetitivos.",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
 
@@ -1152,7 +1117,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir navegação completa por teclado",
         description:
           "Teste sem mouse: Tab para avançar, Shift + Tab para voltar e Enter e/ou Espaço para acionar controles.",
-        category: "Navegação por Teclado",
+        category: "navegacao-teclado",
         checked: false,
       },
       {
@@ -1160,7 +1125,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar funcionalidades dependentes apenas de mouseover",
         description:
           "Disponibilize alternativa equivalente por foco, clique ou tecla para todo conteúdo e ação apresentados por mouseover.",
-        category: "Navegação por Teclado",
+        category: "navegacao-teclado",
         checked: false,
       },
       {
@@ -1168,7 +1133,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir foco visível e previsível",
         description:
           "O indicador deve permanecer visível, seguindo uma ordem lógica e consistente durante toda a navegação.",
-        category: "Navegação por Teclado",
+        category: "navegacao-teclado",
         checked: false,
       },
       {
@@ -1176,7 +1141,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar armadilhas de teclado",
         description:
           "Usuário deve conseguir entrar e sair de qualquer elemento usando apenas o teclado",
-        category: "Navegação por Teclado",
+        category: "navegacao-teclado",
         checked: false,
       },
 
@@ -1185,7 +1150,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir um único h1 por página",
         description:
           "O <h1> deve descrever claramente o assunto principal da página",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1193,7 +1158,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar corretamente a hierarquia de cabeçalhos",
         description:
           "Use h2 para seções principais e níveis subsequentes para subseções, sem saltos como h2 seguido de h4.",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1201,7 +1166,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que a página possua um <title> único e descritivo",
         description:
           "O título da aba deve representar claramente o conteúdo ou funcionalidade",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1209,7 +1174,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Definir corretamente o atributo lang no elemento <html>",
         description:
           "O idioma deve refletir a língua principal da página, ex.: lang='pt-BR'",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1217,7 +1182,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utilizar landmarks semânticos (header, nav, main, footer)",
         description:
           "Use regiões funcionais para facilitar a navegação por leitores de tela",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1225,7 +1190,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar o uso do atributo autofocus",
         description:
           "Autofocus pode causar desorientação e mudança brusca de contexto",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1233,7 +1198,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir a página siga uma estrutura semântica correta",
         description:
           "Utilizar corretamente tags HTML5 para dar significado ao conteúdo",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1241,7 +1206,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Validar o HTML para evitar erros semânticos estruturais",
         description:
           "Erros de marcação podem comprometer a interpretação por leitores de tela",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1249,7 +1214,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir fluxo linear lógico do conteúdo",
         description:
           "O conteúdo deve manter sentido quando navegado por teclado ou sem CSS",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1257,7 +1222,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Não utilizar o atributo title como único meio de informação",
         description:
           "Tooltips nativos não são acessíveis via teclado ou em dispositivos móveis",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1265,7 +1230,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Permitir extensão de tempo quando houver limite de sessão",
         description:
           "Evita encerramento inesperado que prejudica usuários com deficiência",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1273,7 +1238,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir a existência de apenas um elemento <main> por página",
         description:
           "O elemento main deve conter exclusivamente o conteúdo principal",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
       {
@@ -1281,7 +1246,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Não utilizar cabeçalhos apenas para fins visuais",
         description:
           "Cabeçalhos devem representar estrutura e não apenas estilo (use CSS para isso)",
-        category: "Estrutura do Documento",
+        category: "estrutura-documento",
         checked: false,
       },
 
@@ -1290,7 +1255,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mover foco para dentro do modal ao abrir",
         description:
           "O foco deve ir automaticamente para o modal quando ele é ativado",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
@@ -1298,7 +1263,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Manter foco contido no modal enquanto ativo",
         description:
           "Implemente 'focus trap' para impedir navegação fora do modal aberto",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
@@ -1306,7 +1271,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Retornar foco ao elemento acionador ao fechar",
         description:
           "Ao fechar o modal, retorne o foco ao botão que o abriu para manter o fluxo",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
 
@@ -1315,7 +1280,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que todos os campos de formulário possuam label associado",
         description:
           "Todo input, select ou textarea deve ter um <label> explícito ou nome acessível (aria-label ou aria-labelledby)",
-        category: "Formulários",
+        category: "formularios",
         checked: false,
       },
       {
@@ -1323,7 +1288,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Exibir mensagens de erro em lista no topo do formulário",
         description:
           "Facilita a localização e correção de problemas antes de reenvio",
-        category: "Formulários",
+        category: "formularios",
         checked: false,
       },
       {
@@ -1331,7 +1296,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Associar semanticamente mensagens de erro aos campos",
         description:
           "Utilize aria-describedby para vincular o erro ao input correspondente",
-        category: "Formulários",
+        category: "formularios",
         checked: false,
       },
       {
@@ -1339,7 +1304,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Não comunicar erros ou estados apenas por cor",
         description:
           "Comunique erros, sucesso e alertas com texto e informação programática, sem depender exclusivamente de cores, posição visual ou ícones sem alternativa textual.",
-        category: "Formulários",
+        category: "formularios",
         checked: false,
       },
       {
@@ -1347,7 +1312,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir feedback claro e acionável após submissão",
         description:
           "Informe textualmente e de forma programática o sucesso ou a falha no envio. Em caso de erro, explique como corrigir e prosseguir.",
-        category: "Formulários",
+        category: "formularios",
         checked: false,
       },
 
@@ -1356,7 +1321,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir contraste adequado para textos e textos grandes",
         description:
           "Relação mínima de 4.5:1 para texto normal e 3:1 para texto grande",
-        category: "Percepção Visual",
+        category: "percepcao-visual",
         checked: false,
       },
       {
@@ -1364,7 +1329,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir contraste suficiente para ícones e gráficos",
         description:
           "Componentes de interface devem ter contraste mínimo de 3:1",
-        category: "Percepção Visual",
+        category: "percepcao-visual",
         checked: false,
       },
       {
@@ -1372,7 +1337,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir que bordas de campos de formulário sejam perceptíveis",
         description:
           "Os campos devem ser claramente delimitados contra o fundo da página",
-        category: "Percepção Visual",
+        category: "percepcao-visual",
         checked: false,
       },
       {
@@ -1380,7 +1345,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Manter legibilidade de texto sobre imagens ou vídeos",
         description:
           "Use overlays escuros ou sombras no texto para garantir contraste",
-        category: "Percepção Visual",
+        category: "percepcao-visual",
         checked: false,
       },
 
@@ -1389,7 +1354,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Permitir rotação da tela sem perda de conteúdo",
         description:
           "O layout deve se adaptar fluidamente entre modo retrato e paisagem",
-        category: "Uso em Dispositivos Móveis",
+        category: "uso-mobile",
         checked: false,
       },
       {
@@ -1397,7 +1362,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Evitar rolagem horizontal indevida em dispositivos móveis",
         description:
           "Conteúdo deve fluir verticalmente em larguras menores (Design Responsivo)",
-        category: "Uso em Dispositivos Móveis",
+        category: "uso-mobile",
         checked: false,
       },
       {
@@ -1405,34 +1370,34 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Garantir espaçamento adequado entre elementos interativos",
         description:
           "Botões e ícones devem ser facilmente acionáveis, com espaço suficiente para rolar a página sem ativar controles por acidente.",
-        category: "Uso em Dispositivos Móveis",
+        category: "uso-mobile",
         checked: false,
       },
 
       {
         id: 67,
         text: 'Devem conter <input type="text"> ou <textarea>',
-        category: "Campos de Texto",
+        category: "campos-texto",
         checked: false,
       },
       {
         id: 68,
         text: "Informar limites de caracteres no rótulo ou texto de ajuda",
         description: 'Ex.: "Máx. 255 caracteres". A instrução deve estar disponível antes do preenchimento.',
-        category: "Campos de Texto",
+        category: "campos-texto",
         checked: false,
       },
       {
         id: 69,
         text: "Campos somente leitura usam readonly, não disabled",
         description: "Para manter leitura por tecnologias assistivas.",
-        category: "Campos de Texto",
+        category: "campos-texto",
         checked: false,
       },
       {
         id: 70,
         text: "Identificar campos somente leitura como informativos no rótulo ou ajuda",
-        category: "Campos de Texto",
+        category: "campos-texto",
         checked: false,
       },
 
@@ -1440,7 +1405,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 71,
         text: 'Implementados preferencialmente como <input type="text">',
         description: "Associe validação controlada ao campo de texto, conforme a orientação da cartilha, para evitar conflitos com leitores de tela.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
@@ -1448,46 +1413,46 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Formato esperado informado claramente",
         description:
           "Explique a formatação, por exemplo: 'Use vírgula para casas decimais'.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
         id: 73,
         text: "Máscaras não bloqueiam navegação por teclado nem alteram valor sem aviso",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
         id: 74,
         text: "Identificar campos numéricos somente leitura como informativos no rótulo ou ajuda",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
 
       {
         id: 75,
         text: "Utiliza <select> nativo sempre que possível",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 76,
         text: 'Opção padrão informativa ("Selecione uma opção")',
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 77,
         text: "Campo expõe nome do campo, opção selecionada e quantidade de opções",
         description: "Ex.: Fazenda Rio Preto, opção 1 de 5",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
 
       {
         id: 78,
         text: 'Utiliza o padrão WAI-ARIA (role="combobox")',
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
@@ -1495,46 +1460,46 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Usa corretamente aria-expanded, aria-controls e aria-activedescendant",
         description:
           "aria-expanded reflete a abertura da lista, aria-controls aponta para os resultados e aria-activedescendant referencia o ID da opção ativa enquanto o foco permanece no campo.",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
         id: 80,
         text: "Lista de opções é anunciada ao abrir",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
         id: 81,
         text: "Campo expõe nome do campo, opção selecionada e quantidade de opções",
         description: "Fazenda Rio Preto, opção 1 de 5",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
         id: 82,
         text: "Rótulo informa que o campo é pesquisável",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
 
       {
         id: 83,
         text: "Permite digitação manual",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
 
       {
         id: 84,
         text: 'Implementar upload com <input type="file"> e rótulo claro e descritivo',
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
       {
         id: 85,
         text: "Informa previamente tipos aceitos, tamanho máximo e quantidade permitida",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
       {
@@ -1542,7 +1507,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mudanças de estado são anunciadas",
         description:
           "Ex.: upload concluído, erro no envio ou arquivo removido",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
 
@@ -1550,7 +1515,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 87,
         text: "Utiliza o elemento nativo <button> para ações",
         description: "Evite divs ou spans clicáveis",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
@@ -1558,7 +1523,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Estado desabilitado é implementado corretamente",
         description:
           "Apresente indicação visual clara e exponha o estado com disabled ou aria-disabled='true'. Ao usar aria-disabled, impeça também a execução da ação.",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
@@ -1566,7 +1531,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Botões são ativáveis por teclado",
         description:
           "O botão deve responder às teclas Enter e Espaço sem implementação manual extra",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
 
@@ -1575,7 +1540,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utiliza componentes nativos adequados para seleção múltipla",
         description:
           'Prefira <input type="checkbox"> ou <select multiple> em vez de componentes customizados',
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
       {
@@ -1583,7 +1548,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Comunica obrigatoriedade e erros de validação",
         description:
           "Use required, aria-required e mensagens de erro associadas ao grupo quando aplicável",
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
 
@@ -1592,7 +1557,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utiliza componente apropriado para escolha binária",
         description:
           "Implemente escolhas booleanas usando radio buttons (Sim/Não) ou switch acessível",
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
       {
@@ -1600,245 +1565,245 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Estado selecionado é gerenciado corretamente",
         description:
           "Apenas uma opção pode estar selecionada por vez e o estado deve refletir o valor real",
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
       {
         id: 94,
         text: "Preferir frases curtas, ordem direta e linguagem inclusiva",
         description: "Organize as frases em sujeito, verbo e complemento, com palavras comuns e adequadas ao público-alvo.",
-        category: "Linguagem",
+        category: "linguagem",
         checked: false,
       },
       {
         id: 95,
         text: "Oferecer apoio para conteúdos que exigem conhecimento avançado",
         description: "Inclua informações complementares, exemplos explicativos ou uma versão simplificada quando a complexidade do assunto exigir.",
-        category: "Qualidade Textual",
+        category: "qualidade-textual",
         checked: false,
       },
       {
         id: 96,
         text: "Limitar a largura das linhas para favorecer a leitura",
         description: "A cartilha recomenda aproximadamente 60 caracteres ou 11 a 13 palavras por linha em textos corridos.",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
       {
         id: 97,
         text: "Garantir espaçamento entre palavras de pelo menos 0,16 vez o tamanho da fonte",
         description: "Verifique a separação entre palavras para facilitar o acompanhamento do texto.",
-        category: "Tipografia",
+        category: "tipografia",
         checked: false,
       },
       {
         id: 98,
         text: "Informar quando o link leva a um site externo",
         description: "Quando aplicável, indique o destino externo de forma compreensível e acessível antes do acionamento.",
-        category: "Links",
+        category: "links",
         checked: false,
       },
       {
         id: 99,
         text: "Considerar a estrutura FSPA na descrição de imagens",
         description: "Quando apropriado, descreva Formato, Sujeito, Contexto/Paisagem e Ação. Prefira verbos no presente e evite gerundismo, sem incluir detalhes irrelevantes ao propósito da imagem.",
-        category: "Imagens",
+        category: "imagens",
         checked: false,
       },
       {
         id: 100,
         text: "Simplificar tabelas complexas sempre que possível",
         description: "Considere dividir informações extensas em tabelas menores, preservando a relação e a compreensão dos dados.",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
         id: 101,
         text: "Associar explicitamente células e cabeçalhos em tabelas complexas",
         description: "Utilize headers referenciando os IDs dos cabeçalhos para que o leitor de tela identifique as relações entre linha, coluna e célula.",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
         id: 102,
         text: "Verificar a leitura do valor, da linha e da coluna em cada célula",
         description: "Teste com leitor de tela se o usuário compreende o dado e seus cabeçalhos correspondentes ao navegar pela tabela.",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
         id: 103,
         text: "Contextualizar o nome acessível das ações com o registro da linha",
         description: "Botões, links, checkboxes, seleções e menus de ações devem identificar sobre qual registro atuam. Ex.: 'Visualizar Ana Paula', em vez de apenas 'Visualizar'.",
-        category: "Tabelas e Gráficos",
+        category: "tabelas-graficos",
         checked: false,
       },
       {
         id: 104,
         text: "Garantir foco visível em todos os controles interativos",
         description: "Verifique botões, links, ícones acionáveis e controles personalizados durante a navegação por teclado.",
-        category: "Elementos Interativos",
+        category: "elementos-interativos",
         checked: false,
       },
       {
         id: 105,
         text: "Permitir abrir, percorrer e fechar menus e componentes expansíveis por teclado",
         description: "Garanta navegação interna sem mouse e gestão de foco ao ativar componentes ou exibir elementos dinamicamente.",
-        category: "Navegação por Teclado",
+        category: "navegacao-teclado",
         checked: false,
       },
       {
         id: 106,
         text: "Avaliar alternativas antes de utilizar um modal",
         description: "Prefira, quando possível, conteúdo na própria página, acordeons, seções expansíveis ou navegação para outra tela.",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
         id: 107,
         text: "Disponibilizar botão de fechamento visível e acessível no modal",
         description: "Use um controle fácil de localizar, com nome claro como 'Fechar' ou 'Cancelar', operável por teclado e reconhecido por leitores de tela.",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
         id: 108,
         text: "Permitir fechar o modal com a tecla Escape",
         description: "O usuário deve conseguir encerrar o diálogo sem depender do mouse.",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
         id: 109,
         text: "Impedir acesso ao conteúdo em segundo plano enquanto o modal estiver aberto",
         description: "O fundo deve ficar inacessível ao teclado e, quando aplicável, oculto programaticamente das tecnologias assistivas.",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
         id: 110,
         text: "Identificar semanticamente o modal e fornecer um rótulo acessível",
         description: "Use role='dialog' ou role='alertdialog', conforme o propósito, com um nome que identifique o conteúdo do diálogo.",
-        category: "Modais",
+        category: "modais",
         checked: false,
       },
       {
         id: 111,
         text: "Informar a unidade de medida dos campos numéricos",
         description: "Apresente a unidade associada ao valor, como hectares, metros ou quilogramas, para evitar interpretações ambíguas.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
         id: 112,
         text: "Usar readonly em campos numéricos somente leitura, em vez de disabled",
         description: "Preserve a leitura por tecnologias assistivas quando o valor for apenas informativo.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
         id: 113,
         text: "Identificar seleções personalizadas com papel e nome acessível",
         description: "Quando houver um listbox personalizado, use role='listbox' e aria-label ou aria-labelledby. Prefira o select nativo sem substituir sua semântica por ARIA desnecessária.",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 114,
         text: "Atualizar a opção ativa ao navegar por um listbox personalizado",
         description: "Ao usar aria-activedescendant, mantenha o foco no listbox e atualize o ID da opção ativa durante a navegação por setas, permitindo seu anúncio pelo leitor de tela.",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 115,
         text: "Relacionar opções externas ao listbox quando necessário",
         description: "Use aria-owns quando as opções não forem filhas do listbox no DOM e a relação programática precisar ser estabelecida.",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 116,
         text: "Expor seleção múltipla e estado das opções no listbox personalizado",
         description: "Quando aplicável, defina aria-multiselectable='true' e informe aria-selected='true' ou 'false' em cada opção selecionável.",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 117,
         text: "Comunicar obrigatoriedade e somente leitura nas seleções",
         description: "Em listboxes personalizados, use aria-required e aria-readonly quando aplicáveis. No estado somente leitura, permita navegar sem alterar a seleção.",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
         id: 118,
         text: "Permitir acessar e percorrer todas as opções do combobox por teclado",
         description: "As opções devem ser alcançáveis sem mouse e a opção ativa deve ser anunciada durante a navegação por setas.",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
         id: 119,
         text: "Confirmar a opção do combobox com Enter sem perder o foco do campo",
         description: "Selecione o item ativo, feche a lista atualizando aria-expanded para false e anuncie o valor escolhido, mantendo o foco na entrada.",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
         id: 120,
         text: "Explicar o motivo quando a data for somente leitura",
         description: "Se uma regra de negócio impedir a edição, informe a razão no texto de ajuda do campo.",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
         id: 121,
         text: "Informar previamente se o envio de arquivos é obrigatório ou opcional",
         description: "Apresente essa condição junto às instruções antes de o usuário interagir com o upload.",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
       {
         id: 122,
         text: "Não depender apenas de ícones ou placeholders nas instruções de upload",
         description: "Use rótulos e textos de ajuda claros para comunicar as regras de envio.",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
       {
         id: 123,
         text: "Dar aos botões nomes que descrevam claramente a ação",
         description: "Use rótulos como 'Salvar', 'Cancelar' ou 'Adicionar', evitando nomes genéricos como 'botão'.",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
         id: 124,
         text: "Usar type='submit' nos botões que enviam formulários",
         description: "Preserve o comportamento esperado de envio, inclusive ao pressionar Enter nos campos do formulário.",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
         id: 125,
         text: "Usar type='button' nas ações que não devem enviar o formulário",
         description: "Abrir modais, adicionar itens ou limpar campos não deve provocar submissões acidentais.",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
         id: 126,
         text: "Verificar seleção múltipla por teclado e leitor de tela",
         description: "Confirme que todas as opções de checkbox ou select multiple são operáveis por teclado e corretamente anunciadas.",
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
       {
         id: 127,
         text: "Identificar semanticamente o conjunto da escolha booleana",
         description: "Agrupe radio buttons em fieldset e legend ou use um switch com semântica acessível equivalente. O leitor de tela deve compreender a decisão de sim/não ou verdadeiro/falso e o estado atual.",
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
     ],
@@ -1852,7 +1817,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Rótulo do campo descreve claramente o conteúdo esperado",
         description:
           "Associar rótulo (ex: <label>) explícito via aria-labelledby descrevendo claramente o conteúdo esperado.",
-        category: "Campos de Texto",
+        category: "campos-texto",
         checked: false,
       },
       {
@@ -1860,7 +1825,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Campo, estado (obrigatório/somente leitura) e conteúdo preenchido",
         description:
           "O input deve ter label associado e expor corretamente estados como required e readonly",
-        category: "Campos de Texto",
+        category: "campos-texto",
         checked: false,
       },
 
@@ -1869,7 +1834,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Unidade de medida associada semanticamente ao campo",
         description:
           "A unidade deve estar vinculada ao campo por texto visível ou aria-describedby",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
@@ -1877,7 +1842,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Erros de validação explicam claramente o problema",
         description:
           "Ex.: valor fora do intervalo, formato inválido ou campo obrigatório",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
@@ -1885,7 +1850,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Rótulo do campo descreve claramente o conteúdo esperado",
         description:
           "Associar rótulo (ex: <label>) explícito via aria-labelledby descrevendo claramente o conteúdo esperado.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
 
@@ -1893,7 +1858,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 6,
         text: "Navegação completa por teclado",
         description: "Utilizando as teclas Tab, Setas, Enter e Esc",
-        category: "Campos de Seleção",
+        category: "campos-selecao",
         checked: false,
       },
       {
@@ -1901,14 +1866,14 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Rótulo do campo descreve claramente o conteúdo esperado",
         description:
           "Associar rótulo (ex: <label>) explícito via aria-labelledby descrevendo claramente o conteúdo esperado.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
 
       {
         id: 8,
         text: "Navegação por setas anuncia item em foco",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
@@ -1916,14 +1881,14 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Rótulo do campo descreve claramente o conteúdo esperado",
         description:
           "Associar rótulo (ex: <label>) explícito via aria-labelledby descrevendo claramente o conteúdo esperado.",
-        category: "Campos Numéricos",
+        category: "campos-numericos",
         checked: false,
       },
       {
         id: 10,
         text: "Navegação completa por teclado",
         description: "Utilizando as teclas Tab, Setas, Enter e Esc",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
 
@@ -1932,7 +1897,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Informa qual o formato de data esperado",
         description:
           "No texto de ajuda visível ou Programaticamente associado ao campo (ex: aria-describedby).",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
@@ -1940,13 +1905,13 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Regras adicionais informadas previamente",
         description:
           "Ex.: datas mínimas/máximas, datas indisponíveis ou restrições de período",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
         id: 13,
         text: "Placeholder não é a única instrução",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
@@ -1954,19 +1919,19 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Calendário visual implementado como diálogo acessível",
         description:
           "Deve utilizar papel semântico adequado (ex.: role='dialog')",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
         id: 15,
         text: "Foco vai para o calendário ao abrir e retorna ao campo ao fechar",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
         id: 16,
         text: "Totalmente navegável por teclado",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
       {
@@ -1974,7 +1939,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Campo anuncia rótulos, datas e estados",
         description:
           "Datas selecionadas, foco atual e estados devem estar disponíveis programaticamente",
-        category: "Campos de Data",
+        category: "campos-data",
         checked: false,
       },
 
@@ -1982,19 +1947,19 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         id: 18,
         text: "Navegação completa por teclado",
         description: "Utilizando as teclas Tab, Setas, Enter e Esc",
-        category: "Seleção Pesquisável",
+        category: "selecao-pesquisavel",
         checked: false,
       },
       {
         id: 19,
         text: "Exibe nome do arquivo após upload",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
       {
         id: 20,
         text: "Possui botões de baixar e remover",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
       {
@@ -2002,44 +1967,44 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Foco se mantêm após upload ou remoção",
         description:
           "Evita perda de contexto ou retorno inesperado ao topo da página",
-        category: "Upload de Arquivos",
+        category: "upload-arquivos",
         checked: false,
       },
 
       {
         id: 22,
         text: "Utilizar <fieldset> e <legend> para agrupar elementos",
-        category: "Grupos de Campos Dinâmicos",
+        category: "campos-dinamicos",
         checked: false,
       },
       {
         id: 23,
         text: "Cada instância adicionada possui seu próprio grupo/faz parte de um grupo",
-        category: "Grupos de Campos Dinâmicos",
+        category: "campos-dinamicos",
         checked: false,
       },
       {
         id: 24,
         text: "Botões de adicionar/remover usam <button>",
-        category: "Grupos de Campos Dinâmicos",
+        category: "campos-dinamicos",
         checked: false,
       },
       {
         id: 25,
         text: "Rótulos dos botões são claros",
-        category: "Grupos de Campos Dinâmicos",
+        category: "campos-dinamicos",
         checked: false,
       },
       {
         id: 26,
         text: "Alterações dinâmicas anunciadas (aria-live)",
-        category: "Grupos de Campos Dinâmicos",
+        category: "campos-dinamicos",
         checked: false,
       },
       {
         id: 27,
         text: "Foco é movido de forma previsível",
-        category: "Grupos de Campos Dinâmicos",
+        category: "campos-dinamicos",
         checked: false,
       },
 
@@ -2048,7 +2013,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Possui nome acessível por texto visível ou ARIA",
         description:
           "O botão deve ter texto visível ou, quando usar apenas ícone, aria-label ou aria-labelledby",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
@@ -2056,7 +2021,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Rótulo descreve claramente a ação executada",
         description:
           'Evite rótulos genéricos como "OK" ou "Clique aqui"; descreva o resultado da ação',
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
@@ -2064,7 +2029,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Ações destrutivas solicitam confirmação explícita",
         description:
           "Exclusões ou ações irreversíveis devem exigir confirmação antes da execução",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
       {
@@ -2072,7 +2037,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Resultado da ação é comunicado ao usuário",
         description:
           "Feedback de sucesso ou erro deve ser exibido visualmente e anunciado ao leitor de tela",
-        category: "Botões",
+        category: "botoes",
         checked: false,
       },
 
@@ -2081,7 +2046,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Agrupa opções relacionadas com <fieldset> e <legend>",
         description:
           "Use <fieldset> para agrupar opções e <legend> para fornecer um rótulo comum ao grupo",
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
       {
@@ -2089,7 +2054,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Legend descreve claramente o propósito e o tipo de seleção",
         description:
           'Indique explicitamente quando a seleção permitir múltiplas opções (ex: "Classificação – seleção múltipla")',
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
       {
@@ -2097,7 +2062,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Permite operação completa apenas com teclado",
         description:
           "Todas as opções devem ser selecionáveis e desmarcáveis via teclado, sem dependência do mouse",
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
       {
@@ -2105,7 +2070,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mantém associação correta entre rótulos e controles",
         description:
           "Cada opção deve possuir <label> associado corretamente ao respectivo controle",
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
       {
@@ -2113,7 +2078,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Atualizações dinâmicas são tratadas corretamente",
         description:
           "Alterações que afetam outros campos devem atualizar estados e mensagens de forma consistente",
-        category: "Seleção Múltipla",
+        category: "selecao-multipla",
         checked: false,
       },
 
@@ -2122,7 +2087,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Grupo é identificado semanticamente",
         description:
           "Use <fieldset> e <legend> ou aria-labelledby para identificar o grupo de opções",
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
       {
@@ -2130,7 +2095,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Rótulos descrevem claramente cada opção",
         description:
           'Use pares claros como "Sim / Não" ou "Ativar / Desativar"',
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
       {
@@ -2138,7 +2103,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Navegação por teclado segue o padrão esperado",
         description:
           "Quando usar radio buttons, a navegação entre opções deve ocorrer pelas setas",
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
       {
@@ -2146,7 +2111,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mudanças que impactam outros campos são tratadas corretamente",
         description:
           "Alterações de valor devem atualizar campos dependentes sem perda de foco ou contexto",
-        category: "Booleano",
+        category: "booleano",
         checked: false,
       },
 
@@ -2155,7 +2120,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utiliza elemento semântico apropriado para o card",
         description:
           "Implemente o card como <article> para conteúdo independente ou <section> quando fizer parte de um agrupamento maior",
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2163,7 +2128,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mantém ordem de leitura lógica no DOM",
         description:
           "A estrutura do HTML deve refletir a ordem visual e semântica do conteúdo do card",
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2171,7 +2136,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Estado do card não depende apenas de cor",
         description:
           "Estados como ativo, inativo ou selecionado devem ter indicação visual adicional",
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2179,7 +2144,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Estado do card é representado de forma semântica",
         description:
           "Use texto, ícones com rótulo ou atributos ARIA para indicar estados do card",
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2187,7 +2152,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Ícones decorativos são corretamente ocultados",
         description:
           'Use aria-hidden="true" ou CSS para ocultar ícones que não transmitem informação',
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2195,7 +2160,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Ações do card utilizam controles acessíveis",
         description:
           'Botões como "Ver mais" ou "Visualizar" devem ser elementos <button> ou links com nome acessível',
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2203,7 +2168,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Possui título semântico para identificação do card",
         description:
           "O card deve ter um título usando heading apropriado (ex: <h3>) para identificar seu conteúdo",
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
       {
@@ -2211,7 +2176,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Todo conteúdo interativo do card é acessível por teclado",
         description:
           "Links, botões e controles internos devem ser navegáveis via TAB",
-        category: "Card de Informações",
+        category: "card-informacoes",
         checked: false,
       },
 
@@ -2220,7 +2185,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: 'Define corretamente role="tree" e role="treeitem"',
         description:
           'O contêiner da árvore deve usar role="tree" e cada nó interativo role="treeitem"',
-        category: "Estrutura em Árvore",
+        category: "estrutura-arvore",
         checked: false,
       },
       {
@@ -2228,7 +2193,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Utiliza atributos ARIA para hierarquia e estado",
         description:
           "Use aria-expanded, aria-level, aria-selected e aria-setsize/aria-posinset quando aplicável",
-        category: "Estrutura em Árvore",
+        category: "estrutura-arvore",
         checked: false,
       },
       {
@@ -2236,7 +2201,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mantém apenas um ponto de entrada no foco por TAB",
         description:
           "A navegação interna deve ocorrer por setas, mantendo um único item acessível via TAB",
-        category: "Estrutura em Árvore",
+        category: "estrutura-arvore",
         checked: false,
       },
       {
@@ -2244,7 +2209,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Implementa navegação por teclado",
         description:
           "Setas para navegação, Enter/Espaço para seleção e expansão/retração dos nós",
-        category: "Estrutura em Árvore",
+        category: "estrutura-arvore",
         checked: false,
       },
       {
@@ -2252,7 +2217,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mantém a relação correta entre nós pais e filhos",
         description:
           "Itens filhos devem estar corretamente aninhados no DOM",
-        category: "Estrutura em Árvore",
+        category: "estrutura-arvore",
         checked: false,
       },
       {
@@ -2260,7 +2225,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mudanças de estado são anunciadas corretamente",
         description:
           "Expansão, colapso e seleção devem ser comunicados ao leitor de tela em tempo real",
-        category: "Estrutura em Árvore",
+        category: "estrutura-arvore",
         checked: false,
       },
 
@@ -2269,7 +2234,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: 'Usa role="dialog" (não alertdialog)',
         description:
           'Utilize role="dialog" para modais de conteúdo, formulários ou informações não críticas',
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
@@ -2277,7 +2242,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: 'Usa aria-modal="true" para bloquear o fundo',
         description:
           "Use aria-modal apenas quando o foco e a interação com o fundo forem bloqueados",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
@@ -2285,7 +2250,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Possui título e descrição claros",
         description:
           "Título via aria-labelledby e descrição via aria-describedby",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
@@ -2293,7 +2258,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Foco move para o diálogo ao abrir",
         description:
           "O foco inicial deve ir para o título ou primeiro elemento interativo",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
@@ -2301,14 +2266,14 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Focus trap ativo",
         description:
           "O foco deve permanecer dentro do diálogo enquanto estiver aberto",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
         id: 60,
         text: "Pode ser fechado por ação explícita do usuário",
         description: "Fechar via botão, Esc ou ação clara",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
@@ -2316,7 +2281,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Foco retorna ao elemento acionador",
         description:
           "Ao fechar, o foco deve retornar ao botão ou link que abriu o diálogo",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
       {
@@ -2324,7 +2289,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Conteúdo e ações são anunciados corretamente",
         description:
           "Leitor de tela deve anunciar título, texto e botões disponíveis",
-        category: "Caixas de Diálogo — Conteúdo",
+        category: "caixas-dialogo-conteudo",
         checked: false,
       },
 
@@ -2333,7 +2298,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: 'Usa role="alertdialog" apenas quando necessário',
         description:
           "Utilize alertdialog somente para mensagens críticas que exigem atenção imediata",
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
       {
@@ -2341,7 +2306,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Mensagem principal anunciada imediatamente",
         description:
           "O leitor de tela deve anunciar o alerta assim que o diálogo for aberto",
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
       {
@@ -2349,7 +2314,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Foco inicial no texto do alerta ou ação principal",
         description:
           "O foco deve ir diretamente para a mensagem ou botão primário",
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
       {
@@ -2357,7 +2322,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Ações claramente rotuladas",
         description:
           'Botões como "Confirmar", "Cancelar" ou "Excluir" devem ser explícitos',
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
       {
@@ -2365,7 +2330,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Não depende apenas de cor ou ícone para indicar erro",
         description:
           "Mensagens de erro devem ser textuais e compreensíveis",
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
       {
@@ -2373,7 +2338,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Fechamento não ocorre automaticamente",
         description:
           "Alertas não devem desaparecer sem ação do usuário",
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
       {
@@ -2381,7 +2346,7 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
         text: "Retorno de foco após resolução do alerta",
         description:
           "Após fechar o alerta, o foco deve retornar ao contexto anterior",
-        category: "Caixas de Diálogo — Alerta/Erro",
+        category: "caixas-dialogo-alerta",
         checked: false,
       },
     ],
@@ -2389,11 +2354,11 @@ export const checklistsMock: Record<1 | 2 | 3, ChecklistCamada> = {
 
     3: {
     categoryIcons: {
-      "Requisitos Técnicos": "🎯",
-      "Tela Principal": "🏠",
-      "Tela de Notificações": "🔔",
-      "Tela de Busca/Listagem": "🔍",
-      "Tela de Cadastro Interno": "📝",
+      "requisitos-tecnicos": "🎯",
+      "tela-principal": "🏠",
+      "tela-notificacoes": "🔔",
+      "tela-busca": "🔍",
+      "tela-cadastro": "📝",
     },
     imageUrls: checklistCamada03ImageUrls,
     items: getChecklistCamada03Items(

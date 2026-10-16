@@ -5,14 +5,13 @@ WORKDIR /app
 # Copia manifests primeiro (cache de deps)
 COPY package*.json ./
 
-RUN npm ci || npm install
+RUN npm ci --include=dev
 
 # Copia o resto
 COPY . .
 
-# Vite usa 5173; CRA usa 3000
-# Vou deixar 5173 por padrão; ajuste se precisar.
-EXPOSE 5173
+# Porta de desenvolvimento usada também pelo Docker Compose
+EXPOSE 3005
 
 # Para Vite: precisa host 0.0.0.0 dentro do container
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3005"]

@@ -6,6 +6,8 @@ import { tiposTela, type TipoTela } from "./tiposTela.config";
 import styles from "./FluxoCamadaUm.module.css";
 import { useAnnouncement } from "../../hooks/useAnnouncement";
 import NaoEncontrada from "../NaoEncontrada/NaoEncontrada";
+import type { CategoryId } from "../../data/categories";
+import { getChecklistUrl, getPersonalizationUrl, readChecklistSelection } from "../../features/checklist/checklistUrl";
 
 const iconesTela = { busca: Search, cadastro: SquarePlus, edicao: ListFilter, visualizacao: Eye, outras: Layers };
 
@@ -28,6 +30,8 @@ function Caminho({ tela }: { tela?: TipoTela }) {
 
 export function SelecionarTipoTela() {
   const [selecionada, setSelecionada] = useState("");
+  const location = useLocation();
+  const selection = readChecklistSelection(1, location.search, location.state);
 
   return (
     <div className={styles.page}>
@@ -54,7 +58,7 @@ export function SelecionarTipoTela() {
         <p id="ajuda-tipo-tela">Selecione um tipo de tela para habilitar a continuação.</p>
         <div className={styles.screenActions}>
           <Link className={styles.secondaryButton} to="/camadas"><ArrowLeft size={18} aria-hidden="true" />Voltar</Link>
-          <Link className={styles.primaryButton} to={selecionada ? `/personalizar/1/${selecionada}` : "#"} aria-disabled={!selecionada} aria-describedby="ajuda-tipo-tela" onClick={(event) => { if (!selecionada) event.preventDefault(); }}>
+          <Link className={styles.primaryButton} to={selecionada ? getPersonalizationUrl({ ...selection, screen: selecionada }) : "#"} aria-disabled={!selecionada} aria-describedby="ajuda-tipo-tela" onClick={(event) => { if (!selecionada) event.preventDefault(); }}>
             Continuar para Personalização<ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
@@ -65,9 +69,10 @@ export function SelecionarTipoTela() {
 
 export function PersonalizarTipoTela() {
   const { tipoTela } = useParams();
+  const location = useLocation();
   const tela = tiposTela.find((item) => item.id === tipoTela);
   if (!tela) return <NaoEncontrada message="Esse tipo de tela não existe. Escolha uma camada para continuar." />;
-  return <Personalizacao key={tela.id} tela={tela} />;
+  return <Personalizacao key={`${tela.id}:${location.search}`} tela={tela} />;
 }
 
 function Personalizacao({ tela }: { tela: TipoTela }) {
@@ -75,12 +80,8 @@ function Personalizacao({ tela }: { tela: TipoTela }) {
   const location = useLocation();
   const { message, announce } = useAnnouncement();
   const categorias = categoriasCAMADA01;
-  const [selecionadas, setSelecionadas] = useState<string[]>(() => {
-    const anteriores: unknown = location.state?.categoriasSelecionadas;
-    return Array.isArray(anteriores)
-      ? categorias.filter((item) => anteriores.includes(item.categoria)).map((item) => item.id)
-      : [...tela.obrigatorios];
-  });
+  const selection = readChecklistSelection(1, location.search, location.state, tela.id);
+  const [selecionadas, setSelecionadas] = useState<CategoryId[]>(() => selection.categories ?? [...tela.obrigatorios]);
   const [abertos, setAbertos] = useState<string[]>(["obrigatorios"]);
   const grupos = [
     { id: "obrigatorios", titulo: "Itens Obrigatórios", Icon: BadgeCheck, itens: categorias.filter((item) => tela.obrigatorios.includes(item.id)) },
@@ -88,16 +89,11 @@ function Personalizacao({ tela }: { tela: TipoTela }) {
     { id: "demais", titulo: "Demais Itens", Icon: MoreHorizontal, itens: categorias.filter((item) => !tela.obrigatorios.includes(item.id) && !tela.comuns.includes(item.id)) },
   ];
 
-  const toggleItem = (id: string) => setSelecionadas((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
+  const toggleItem = (id: CategoryId) => setSelecionadas((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
   const toggleGrupo = (id: string) => setAbertos((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
   const gerarChecklist = () => {
     if (!selecionadas.length) return;
-    navigate("/checklists/1", {
-      state: {
-        tipoTela: tela.id,
-        categoriasSelecionadas: categorias.filter((item) => selecionadas.includes(item.id)).map((item) => item.categoria),
-      },
-    });
+    navigate(getChecklistUrl({ ...selection, screen: tela.id, categories: selecionadas }));
   };
 
   return (
