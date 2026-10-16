@@ -15,7 +15,7 @@ function Caminho({ tela }: { tela?: TipoTela }) {
   return (
     <nav className={styles.breadcrumb} aria-label="Caminho de navegação">
       <ol>
-        <li><Link to="/camadas">Home</Link></li>
+        <li><Link to="/">Home</Link></li>
         <li aria-hidden="true">›</li>
         {tela ? <>
           <li><Link to="/personalizar/1">Personalizar</Link></li>
@@ -29,6 +29,7 @@ function Caminho({ tela }: { tela?: TipoTela }) {
 }
 
 export function SelecionarTipoTela() {
+  const navigate = useNavigate();
   const [selecionada, setSelecionada] = useState("");
   const location = useLocation();
   const selection = readChecklistSelection(1, location.search, location.state);
@@ -41,27 +42,32 @@ export function SelecionarTipoTela() {
           <h1>Selecione o Tipo de Tela</h1>
           <p>Escolha o cenário de desenvolvimento para iniciarmos a personalização do seu checklist de acessibilidade. Cada tipo de tela possui requisitos específicos de conformidade.</p>
         </header>
-        <fieldset className={styles.screenGrid} aria-describedby="ajuda-tipo-tela">
-          <legend className={styles.srOnly}>Tipo de tela</legend>
-          {tiposTela.map((tela) => {
-            const Icon = iconesTela[tela.id as keyof typeof iconesTela];
-            return (
-              <label key={tela.id} className={`${styles.screenCard} ${selecionada === tela.id ? styles.selected : ""}`}>
-                <input type="radio" name="tipo-tela" value={tela.id} checked={selecionada === tela.id} onChange={() => setSelecionada(tela.id)} aria-labelledby={`nome-${tela.id}`} aria-describedby={`descricao-${tela.id}`} />
-                <span className={styles.screenIcon}><Icon size={23} aria-hidden="true" /></span>
-                <span id={`nome-${tela.id}`} className={styles.screenName}>{tela.nome}</span>
-                <span id={`descricao-${tela.id}`} className={styles.screenDescription}>{tela.descricao}</span>
-              </label>
-            );
-          })}
-        </fieldset>
-        <p id="ajuda-tipo-tela">Selecione um tipo de tela para habilitar a continuação.</p>
-        <div className={styles.screenActions}>
-          <Link className={styles.secondaryButton} to="/camadas"><ArrowLeft size={18} aria-hidden="true" />Voltar</Link>
-          <Link className={styles.primaryButton} to={selecionada ? getPersonalizationUrl({ ...selection, screen: selecionada }) : "#"} aria-disabled={!selecionada} aria-describedby="ajuda-tipo-tela" onClick={(event) => { if (!selecionada) event.preventDefault(); }}>
-            Continuar para Personalização<ArrowRight size={18} aria-hidden="true" />
-          </Link>
-        </div>
+        <form aria-label="Selecionar tipo de tela" onSubmit={(event) => {
+          event.preventDefault();
+          if (selecionada) navigate(getPersonalizationUrl({ ...selection, screen: selecionada }));
+        }}>
+          <fieldset className={styles.screenGrid} aria-describedby="ajuda-tipo-tela">
+            <legend className={styles.srOnly}>Tipo de tela</legend>
+            {tiposTela.map((tela) => {
+              const Icon = iconesTela[tela.id as keyof typeof iconesTela];
+              return (
+                <label key={tela.id} className={`${styles.screenCard} ${selecionada === tela.id ? styles.selected : ""}`}>
+                  <input type="radio" name="tipo-tela" value={tela.id} checked={selecionada === tela.id} onChange={() => setSelecionada(tela.id)} aria-labelledby={`nome-${tela.id}`} aria-describedby={`descricao-${tela.id}`} />
+                  <span className={styles.screenIcon}><Icon size={23} aria-hidden="true" /></span>
+                  <span id={`nome-${tela.id}`} className={styles.screenName}>{tela.nome}</span>
+                  <span id={`descricao-${tela.id}`} className={styles.screenDescription}>{tela.descricao}</span>
+                </label>
+              );
+            })}
+          </fieldset>
+          <p id="ajuda-tipo-tela">Selecione um tipo de tela para habilitar a continuação.</p>
+          <div className={styles.screenActions}>
+            <Link className={styles.secondaryButton} to="/camadas"><ArrowLeft size={18} aria-hidden="true" />Voltar</Link>
+            <button type="submit" className={styles.primaryButton} disabled={!selecionada} aria-describedby="ajuda-tipo-tela">
+              Continuar para Personalização<ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

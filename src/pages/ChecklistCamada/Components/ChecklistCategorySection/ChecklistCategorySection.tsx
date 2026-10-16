@@ -77,7 +77,7 @@ export default function ChecklistCategorySection({
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               className={styles.categoryPrintButton}
-              aria-label={`Ver imagem de ${categoryName} (abre em nova aba)`}
+              aria-label={`Ver Print de ${categoryName} (abre em nova aba)`}
             >
               <Image className={styles.categoryPrintIcon} aria-hidden="true" />
               <span className={styles.desktopOnly}>Ver Print</span>
@@ -167,7 +167,7 @@ export default function ChecklistCategorySection({
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
                       className={styles.itemPrintButton}
-                      aria-label={`Ver imagem de ${item.text} (abre em nova aba)`}
+                      aria-label={`Ver Print de ${item.text} (abre em nova aba)`}
                     >
                       <Image className={styles.itemPrintIcon} aria-hidden="true" />
                       <span className={styles.desktopOnly}>

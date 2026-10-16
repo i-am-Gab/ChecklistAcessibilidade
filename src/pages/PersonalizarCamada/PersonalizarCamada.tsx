@@ -89,52 +89,54 @@ function PersonalizarCategorias({ camadaNum }: { camadaNum: LayerId }) {
             )}
           </div>
 
-          {/* Cards */}
-          <fieldset className={styles.cardsGrid} aria-describedby="ajuda-categorias">
-            <legend className="sr-only">Categorias do checklist da camada {camadaNum}</legend>
-            {categorias.map((categoria) => {
-              const IconComponent = iconMap[categoria.id];
-              const isSelecionada = selecionadas.includes(categoria.id);
+          <form aria-label={`Personalizar checklist da camada ${camadaNum}`} onSubmit={(event) => { event.preventDefault(); gerarChecklist(); }}>
+            {/* Cards */}
+            <fieldset className={styles.cardsGrid} aria-describedby="ajuda-categorias">
+              <legend className="sr-only">Categorias do checklist da camada {camadaNum}</legend>
+              {categorias.map((categoria) => {
+                const IconComponent = iconMap[categoria.id];
+                const isSelecionada = selecionadas.includes(categoria.id);
 
-              return (
-                <CategoriaCard
-                  key={categoria.id}
-                  nome={categoria.nome}
-                  descricao={categoria.descricao}
-                  selecionada={isSelecionada}
-                  onChange={() => toggleCategoria(categoria.id)}
-                  IconComponent={IconComponent}
-                />
-              );
-            })}
-          </fieldset>
-          <p id="ajuda-categorias">Selecione pelo menos uma categoria para habilitar a geração do checklist.</p>
+                return (
+                  <CategoriaCard
+                    key={categoria.id}
+                    nome={categoria.nome}
+                    descricao={categoria.descricao}
+                    selecionada={isSelecionada}
+                    onChange={() => toggleCategoria(categoria.id)}
+                    IconComponent={IconComponent}
+                  />
+                );
+              })}
+            </fieldset>
+            <p id="ajuda-categorias">Selecione pelo menos uma categoria para habilitar a geração do checklist.</p>
 
-          {/* Actions */}
-          <div className={styles.actionsSection}>
-            <Button
-              text={
-                selecionadas.length === categorias.length
-                  ? "Desmarcar Todos"
-                  : "Selecionar Todos"
-              }
-              onClick={selecionarTodas}
-              variant="secondary"
-              icon={<CheckSquare size={18} />}
-              iconPosition="left"
-            />
+            {/* Actions */}
+            <div className={styles.actionsSection}>
+              <Button
+                text={
+                  selecionadas.length === categorias.length
+                    ? "Desmarcar Todos"
+                    : "Selecionar Todos"
+                }
+                onClick={selecionarTodas}
+                variant="secondary"
+                icon={<CheckSquare size={18} />}
+                iconPosition="left"
+              />
 
-            <Button
-              text="Gerar Checklist Personalizado"
-              onClick={gerarChecklist}
-              disabled={selecionadas.length === 0}
-              describedBy="ajuda-categorias"
-              variant="primary"
-              icon={<ArrowRight size={18} />}
-              iconPosition="right"
-              iconAnimation="slideRight"
-            />
-          </div>
+              <Button
+                text="Gerar Checklist Personalizado"
+                type="submit"
+                disabled={selecionadas.length === 0}
+                describedBy="ajuda-categorias"
+                variant="primary"
+                icon={<ArrowRight size={18} />}
+                iconPosition="right"
+                iconAnimation="slideRight"
+              />
+            </div>
+          </form>
 
           {/* Footer info */}
           <p className="sr-only" role="status" aria-atomic="true">{message}</p>

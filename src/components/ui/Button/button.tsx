@@ -6,7 +6,8 @@ export type IconAnimation = 'slideRight' | 'slideLeft' | 'bounce' | 'rotate' | '
 
 export interface ButtonProps {
   text: string
-  onClick: () => void
+  onClick?: () => void
+  type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
   variant?: ButtonVariant
   icon?: React.ReactNode
@@ -19,6 +20,7 @@ export interface ButtonProps {
 export function Button({
   text,
   onClick,
+  type = 'button',
   disabled = false,
   variant = 'primary',
   icon,
@@ -33,7 +35,7 @@ export function Button({
 
   return (
     <button 
-      type="button"
+      type={type}
       className={buttonClass}
       onClick={onClick}
       disabled={disabled}

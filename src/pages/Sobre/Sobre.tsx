@@ -66,9 +66,12 @@ export default function Sobre() {
               </div>
             </div>
             <div className={styles.imageCamadas}>
-              <button type="button" className={styles.imageTrigger} aria-label="Abrir diagrama das camadas em tela cheia" onClick={() => setImageOpen(true)}>
+              <div className={styles.imageFrame}>
                 <CamadasSVG className={styles.imageCamadasImg} />
-              </button>
+                <button type="button" className={styles.imageTrigger} onClick={() => setImageOpen(true)}>
+                  Ampliar diagrama das camadas
+                </button>
+              </div>
             </div>
           </section>
 

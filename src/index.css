@@ -1,6 +1,8 @@
 :root {
   --color-primary: #006c49;
   --color-primary-hover: #005236;
+  --color-text: #151c27;
+  --color-surface: #fff;
   --page-gutter: clamp(1rem, 3vw, 2rem);
   --page-block: clamp(2rem, 4vw, 4rem);
   --content-width: 80rem;
@@ -27,6 +29,8 @@ body,
 
 body {
   margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-surface);
   line-height: 1.6;
   overflow-wrap: anywhere;
   font-family: ui-sans-serif, system-ui, sans-serif,
@@ -105,7 +109,7 @@ fieldset { min-inline-size: 0; }
 }
 .skip-link:focus { transform: translateY(0); }
 @media (forced-colors: active) {
-  :root { --color-primary: LinkText; --color-primary-hover: LinkText; }
+  :root { --color-primary: LinkText; --color-primary-hover: LinkText; --color-text: CanvasText; --color-surface: Canvas; }
   :is(a, button, input, select, textarea, [tabindex]):focus-visible { outline-color: Highlight !important; }
   input { accent-color: auto; }
   button, a[class] { border-color: ButtonText; }
