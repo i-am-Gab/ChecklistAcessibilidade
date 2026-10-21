@@ -3,6 +3,8 @@
 /build/
 /node_modules/
 /.local-a11y/
+/docs/
+/src/tests/
 
 
 #IDEA IDE
