@@ -139,6 +139,12 @@ export default function ChecklistCategorySection({
               <input
                 type="checkbox"
                 checked={item.checked}
+                ref={(input) => {
+                  if (input) {
+                    input.indeterminate = !!item.subItems?.some((subItem) => subItem.checked)
+                      && !item.subItems.every((subItem) => subItem.checked);
+                  }
+                }}
                 onChange={() => onToggleItem(item.id)}
                 className={styles.checkbox}
                 id={`${sectionId}-item-${item.id}`}
