@@ -60,7 +60,7 @@ export function SelecionarTipoTela() {
               );
             })}
           </fieldset>
-          <p id="ajuda-tipo-tela">Selecione um tipo de tela para habilitar a continuação.</p>
+          <p id="ajuda-tipo-tela">Selecione um tipo de tela para habilitar a continuação. Use Tab para entrar e sair das opções. As setas mudam a opção selecionada; Espaço seleciona a opção em foco.</p>
           <div className={styles.screenActions}>
             <Link className={styles.secondaryButton} to="/camadas"><ArrowLeft size={18} aria-hidden="true" />Voltar</Link>
             <button type="submit" className={styles.primaryButton} disabled={!selecionada} aria-describedby="ajuda-tipo-tela">
@@ -127,8 +127,8 @@ function Personalizacao({ tela }: { tela: TipoTela }) {
                 <div id={`grupo-${id}`} role="region" aria-labelledby={`titulo-${id}`} hidden={!aberto}>
                   {itens.length > 0 ? <div className={styles.itemGrid}>
                     {itens.map((item) => (
-                      <label key={item.id} className={`${styles.item} ${selecionadas.includes(item.id) ? styles.checked : ""}`}>
-                        <input type="checkbox" checked={selecionadas.includes(item.id)} onChange={() => toggleItem(item.id)} aria-labelledby={`nome-${item.id}`} aria-describedby={`descricao-${item.id}`} />
+                      <label key={item.id} htmlFor={`elemento-${tela.id}-${item.id}`} className={`${styles.item} ${selecionadas.includes(item.id) ? styles.checked : ""}`}>
+                        <input id={`elemento-${tela.id}-${item.id}`} type="checkbox" checked={selecionadas.includes(item.id)} onChange={() => toggleItem(item.id)} aria-labelledby={`nome-${item.id}`} aria-describedby={`descricao-${item.id}`} />
                         <span><span id={`nome-${item.id}`} className={styles.itemName}>{item.nome}</span><span id={`descricao-${item.id}`} className={styles.itemDescription}>{item.descricao}</span></span>
                       </label>
                     ))}
